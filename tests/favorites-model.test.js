@@ -1,0 +1,27 @@
+/* Testes do menu Meus Setups 5.5.7 — executáveis via node. */
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const path=require('node:path');
+const sandbox={window:{},crypto:{randomUUID:()=> 'uuid-1'}};
+vm.runInNewContext(fs.readFileSync(path.join(__dirname,'..','favorites-model.js'),'utf8'),sandbox);
+const m=sandbox.window.GBRFavoriteModel;
+const c=m.CATEGORIES;
+const garage={parts:c.map((category,i)=>({id:`p${i}`,name:`Peça ${i}`,category,owned:true,series:i===0?1:12,rarity:'Epic',level:3,speed:5,corner:10,power:15,qualifying:20,pit:.5})),drivers:[{id:'d0',name:'Piloto Série 1',owned:true,series:1,rarity:'Common',level:1,overtaking:3},{id:'d1',name:'Piloto Série 12',owned:true,series:12,rarity:'Legendary',level:2,overtaking:60},{id:'d2',name:'Outro',owned:false,series:12}],favoriteSetups:[],saved:[{name:'Antigo setup',ids:['p1']}]};
+const form={name:' Meu setup campeão ',notes:'Veio bem na largada',trackId:'monza',partIds:Object.fromEntries(c.map((cat,i)=>[cat,`p${i}`])),driverIds:['d0','d1']};
+let count=0;const test=(label,fn)=>{fn();count++;console.log('OK',label)};
+test('mistura peça e pilotos de qualquer série',()=>{const s=m.make(garage,form,null,()=> 'a',()=> '2026-10-16T20:00:00Z');assert.equal(s.name,'Meu setup campeão');assert.equal(s.parts.length,7);assert.equal(s.parts[0].series,1);assert.equal(s.parts[6].series,12);assert.equal(s.drivers[0].series,1);assert.equal(s.drivers[1].series,12);garage.favoriteSetups.push(s);});
+test('snapshot não muda quando a carta muda de nível',()=>{garage.parts[0].level=10;garage.drivers[0].level=9;assert.equal(garage.favoriteSetups[0].parts[0].level,3);assert.equal(garage.favoriteSetups[0].drivers[0].level,1);});
+test('reabre favorito quando carta saiu da garagem',()=>{garage.parts[0].owned=false;garage.drivers[0].owned=false;const s=m.make(garage,form,garage.favoriteSetups[0],()=> 'b',()=> '2026-10-16T20:05:00Z');assert.equal(s.id,'a');assert.equal(s.parts[0].level,3);assert.equal(s.drivers[0].level,1);});
+test('novo favorito não aceita carta não possuída',()=>{assert.throws(()=>m.make(garage,form),/não está disponível/);});
+test('novo favorito não aceita piloto não possuído',()=>{const g={...garage,parts:garage.parts.map(p=>({...p,owned:true}))};assert.throws(()=>m.make(g,{...form,driverIds:['d1','d2']}),/não está disponível/);});
+garage.parts[0].owned=true;garage.drivers[0].owned=true;
+test('pilotos duplicados são rejeitados',()=>{const g={...garage,parts:garage.parts.map(p=>({...p,owned:true}))};assert.throws(()=>m.make(g,{...form,driverIds:['d1','d1']}),/diferentes/);});
+test('slots obrigatórios são validados',()=>{assert.throws(()=>m.make(garage,{...form,partIds:{...form.partIds,Motor:''}}),/Motor/);});
+test('bateria é opcional',()=>{const g={...garage,parts:garage.parts.map(p=>({...p,owned:true})),drivers:garage.drivers.map(p=>({...p,owned:true}))};const s=m.make(g,{...form,partIds:{...form.partIds,Bateria:''}},null,()=> 'b');assert.equal(s.parts.length,6);});
+test('limite de oito setups, não remove histórico antigo',()=>{const g={...garage,favoriteSetups:Array.from({length:8},(_,i)=>({id:`f${i}`}))};assert.throws(()=>m.make(g,form),/8 favoritos/);assert.equal(g.saved.length,1);});
+test('nome de setup não pode estar vazio',()=>{assert.throws(()=>m.make(garage,{...form,name:' '}),/nome entre/);});
+test('limite de observações aplicado',()=>{assert.throws(()=>m.make(garage,{...form,notes:'a'.repeat(301)}),/300/);});
+test('totais não dependem do estado atual da garagem',()=>{const t=m.totals(garage.favoriteSetups[0]);assert.equal(t.speed,35);assert.equal(t.pit,3.5);});
+test('edição de registro já excluído falha',()=>{assert.throws(()=>m.make(garage,form,{id:'removed'}),/não existe mais/);});
+console.log(`${count} testes de domínio aprovados.`);

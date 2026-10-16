@@ -1,0 +1,31 @@
+{
+  "version": "5.5.7",
+  "baseline": "5.5.6",
+  "old_asset_count": 56,
+  "new_asset_count": 62,
+  "changed_prior_assets": [
+    "/app.js",
+    "/index.html",
+    "/mobile-premium.js"
+  ],
+  "added_assets": [
+    "/MANIFEST_SHA256_5_5_7.json",
+    "/NOTAS_VERSAO_5_5_7.md",
+    "/RELATORIO_FAVORITOS_5_5_7.md",
+    "/favorites-model.js",
+    "/favorites.css",
+    "/favorites.js"
+  ],
+  "worker_bytes": 5439268,
+  "zip_bytes": 8103639,
+  "zip_sha256": "f980c10824a6ed3147980aab89cc674cb4ff29ed32beb9cc1de39da6fb8e0eed",
+  "javascript_syntax": "OK",
+  "worker_assets_integrity": "OK",
+  "archive_integrity": "OK",
+  "backend_change": false,
+  "production_deployment": false,
+  "unit_tests": "13/13 OK",
+  "isolated_ui_tests": "14/14 OK",
+  "browser_full_authenticated": "NOT VERIFIED",
+  "physical_iphone": "NOT VERIFIED"
+}

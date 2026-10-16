@@ -1,0 +1,28 @@
+/* GBR Racing Lab 5.5 — análise e calendário não invasivos */
+.gbr-intel-card{margin-top:18px;min-width:0}
+.gbr-intel-card .kicker{letter-spacing:.12em}
+.gbr-intel-card a{color:#79ebd9;text-decoration:underline;text-underline-offset:3px}
+.gbr-intel-status{display:grid;gap:3px;padding:12px;border:1px solid rgba(120,235,218,.21);border-radius:12px;background:rgba(120,235,218,.055)}
+.gbr-intel-status strong{font-size:.89rem}
+.gbr-intel-status small{opacity:.76;font-size:.75rem}
+.gbr-intel-rotation{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}
+/* Atalhos de rotação — Série 10/11/12, teclado e toque no iPhone */
+.gbr-intel-track-link{appearance:none;width:100%;min-width:0;min-height:45px;padding:10px 13px;border:1px solid rgba(120,235,218,.10);border-radius:10px;background:rgba(255,255,255,.055);color:inherit;text-align:center;font-size:.79rem;font-weight:700;line-height:1.35;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;touch-action:manipulation;transition:border-color .15s,background-color .15s,transform .15s}
+.gbr-intel-track-link:hover{background:rgba(22,206,184,.14);border-color:rgba(120,235,218,.56)}
+.gbr-intel-track-link:active{transform:scale(.985)}
+.gbr-intel-track-link:focus-visible{outline:2px solid #55edda;outline-offset:3px}
+.gbr-intel-track-arrow{font-size:1rem;color:#58dfce;font-weight:900;white-space:nowrap}
+#trackAnalysis{scroll-margin-top:90px}
+@media(max-width:700px){#trackAnalysis{scroll-margin-top:75px}}
+.gbr-intel-table-wrap{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+.gbr-intel-table{width:100%;border-collapse:collapse;min-width:560px;font-size:.81rem}
+.gbr-intel-table th,.gbr-intel-table td{border-bottom:1px solid rgba(255,255,255,.10);padding:9px 7px;vertical-align:middle;text-align:left}
+.gbr-intel-table td:nth-child(3){white-space:nowrap}
+.gbr-intel-table small{display:block;opacity:.68;font-size:.71rem;margin-top:2px}
+.gbr-intel-table .gbr-card-thumb{display:inline-flex;vertical-align:middle;max-width:36px;width:36px;height:36px;margin-right:5px}
+.gp-stages{display:flex;gap:7px;margin:10px 0 15px;flex-wrap:wrap}
+.gp-stages button{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:inherit;padding:9px 12px;border-radius:10px;cursor:pointer;font-weight:700;font-size:.82rem}
+.gp-stages button.selected{border-color:#78ebd6;background:rgba(120,235,214,.15)}
+.gp-race-plan{padding:12px;border-radius:12px;background:rgba(68,172,186,.08);border:1px solid rgba(68,172,186,.19);margin:12px 0}
+.gp-race-plan b{font-size:.91rem}.gp-race-plan p{margin:6px 0;font-size:.82rem}.gp-race-plan small{opacity:.75;font-size:.73rem}
+@media(max-width:700px){.gbr-intel-rotation{grid-template-columns:repeat(2,minmax(0,1fr))}.gbr-intel-card{padding:14px}.gbr-intel-table{font-size:.77rem}}

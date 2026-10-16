@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b151b"><title>GBR • Biblioteca Visual compartilhada 5.4</title>
+<link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+<style>
+:root{color-scheme:dark;--bg:#0b151b;--panel:#15242c;--edge:#30515b;--aqua:#55e5d0;--text:#e7f4f3;--muted:#a8bec5}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#19303a,#0b151b 65%);color:var(--text);font:15px/1.5 system-ui,-apple-system,sans-serif}
+main{max-width:980px;margin:auto;padding:20px 16px 55px}a{color:var(--aqua)}.overline{color:var(--aqua);font-size:11px;font-weight:700;letter-spacing:.17em}
+h1{font-size:clamp(26px,5vw,38px);line-height:1.12;margin:8px 0}.lead{color:var(--muted);max-width:760px}.status{background:#15252e;border:1px solid var(--edge);padding:13px 14px;border-radius:12px;white-space:pre-line;margin:14px 0}
+.status.ok{border-color:#257b6b;color:#a3f7da}.status.warn{border-color:#a47e30;color:#f8e0ab}.status.error{border-color:#9e444a;color:#ffc5b9}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:20px 0}.stat{padding:12px;border:1px solid var(--edge);background:var(--panel);border-radius:12px}.stat strong{font-size:25px;display:block}.stat small{color:var(--muted)}
+.toolbar{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0;align-items:center}.toolbar>*{flex:1 1 140px}.toolbar .search{flex:2 1 240px}
+input,select,button{font:inherit;border:1px solid #456974;border-radius:10px;background:#1b303a;color:var(--text);padding:10px;min-height:42px}button{font-weight:650;cursor:pointer}button.primary{background:#086e66;color:white;border-color:#208e84}button:disabled,input:disabled{opacity:.45;cursor:not-allowed}button.minor{font-size:12px;padding:7px;min-height:34px}button.danger{color:#ffb0a8;border-color:#834b4e}input[type=file]{font-size:12px;width:100%}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,440px),1fr));gap:12px}.card{display:grid;grid-template-columns:64px 1fr;gap:13px;background:var(--panel);border:1px solid var(--edge);padding:14px;border-radius:14px;align-items:start;min-width:0}
+.card .art{height:66px;width:64px;display:grid;place-items:center;border-radius:10px;background:#10202a;color:var(--aqua);font-size:25px;overflow:hidden}.card .art img{width:100%;height:100%;object-fit:cover}.card h3{font-size:16px;margin:0}.card .meta{font-size:12px;color:var(--muted);margin:3px 0 8px}.card .source{font-size:12px;color:#f5d38c}.card .source.shared{color:#76e8bb}.card .source.local{color:#f4d37a}
+.card form{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.card .url{width:100%;font-size:13px;min-width:0}.card .addphoto{width:100%}.actions{display:flex;gap:7px;flex-wrap:wrap}.alert{font-size:13px;color:var(--muted);margin:14px 0}
+#notice{white-space:pre-wrap}.hide{display:none!important}.tool-actions{display:flex;gap:8px;flex-wrap:wrap}.tool-actions button{flex:1 1 180px}
+@media(max-width:600px){main{padding:17px 12px 40px}.stats{gap:5px}.stat{padding:8px}.stat strong{font-size:21px}.card{padding:11px;grid-template-columns:55px 1fr}.card .art{width:55px;height:60px}}
+</style>
+<script src="config.js"></script><script src="catalog.js"></script><script src="card-art.js?v=20261016gbr555"></script><script defer src="auditoria-imagens.js?v=20261016gbr555"></script>
+</head><body><main>
+<a href="./">← Voltar ao GBR Racing Lab</a>
+<p class="overline">GBR RACING LAB / CATÁLOGO DA ACADEMIA</p>
+<h1>Biblioteca Visual <span style="color:var(--aqua)">5.4</span></h1>
+<p class="lead">Publique a foto de uma carta uma única vez e ela será exibida nos outros aparelhos da academia. Só administradores podem alterar imagens; os demais usuários podem consultar.</p>
+<div id="status" class="status warn" role="status">Conectando ao Supabase...</div>
+<div class="stats"><div class="stat"><strong id="countAll">—</strong><small>Cartas listadas</small></div><div class="stat"><strong id="countShared">—</strong><small>Fotos compartilhadas</small></div><div class="stat"><strong id="countMissing">—</strong><small>Sem referência</small></div></div>
+<div id="adminTools" class="hide">
+<div class="tool-actions"><button id="migrate" class="primary">↑ Enviar URLs locais para a nuvem</button><button id="refresh">↻ Sincronizar agora</button><button id="export">↓ Exportar mapeamento JSON</button><label style="flex:1 1 180px;font-size:13px">Importar JSON antigo <input id="import" type="file" accept="application/json,.json"></label></div>
+<p class="alert">Para adicionar foto, escolha um arquivo da galeria do iPhone. O aplicativo reduz a imagem antes de enviar. Cadastre apenas artes que você tem direito de utilizar. A publicação é visível aos integrantes e a URL do arquivo é pública.</p>
+</div>
+<div class="toolbar"><select id="kind" aria-label="Tipo"><option value="all">Pilotos e peças</option><option value="drivers">Pilotos</option><option value="parts">Peças</option></select><select id="filter" aria-label="Estado"><option value="all">Todas as imagens</option><option value="missing">Sem referência</option><option value="shared">Publicadas na academia</option><option value="local">Somente neste iPhone</option><option value="broken">Erro no carregamento</option></select><input id="search" class="search" placeholder="Buscar piloto ou peça" aria-label="Buscar cartas"><button id="check">Verificar fotos</button></div>
+<p id="notice" class="alert" role="status"></p><div id="items" class="grid"></div>
+</main></body></html>

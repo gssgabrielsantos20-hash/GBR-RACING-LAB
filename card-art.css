@@ -1,0 +1,11 @@
+/* GBR 5.2 · Fotos compactas com fallback honesto para cartas sem arte validada */
+.gbr-card-thumb{position:relative;display:inline-flex;width:48px;height:48px;flex:0 0 48px;align-items:center;justify-content:center;vertical-align:middle;overflow:hidden;border-radius:10px;background:linear-gradient(145deg,#223744,#12232e);border:1px solid #40616a}.gbr-card-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}.gbr-thumb-placeholder{font-size:27px;color:#5adfc7;opacity:.75}.gbr-inline-art{display:inline-flex;align-items:center;gap:10px;min-width:0;vertical-align:middle}.gbr-inline-art b,.gbr-inline-art strong{overflow-wrap:anywhere}.track-part .gbr-inline-art,.gp-result-part .gbr-inline-art{display:flex}.gp-featured-item .gbr-card-thumb{width:44px;height:44px;flex-basis:44px}.gp-result-pilot .gbr-card-thumb{width:56px;height:56px;flex-basis:56px}.track-driver-card .gbr-card-thumb{width:52px;height:52px;flex-basis:52px}.setup .gbr-card-thumb{width:44px;height:44px;flex-basis:44px}.track .gbr-card-thumb{width:42px;height:42px;flex-basis:42px}@media(max-width:430px){.gbr-card-thumb{width:40px;height:40px;flex-basis:40px}.gp-result-pilot .gbr-card-thumb{width:48px;height:48px;flex-basis:48px}}
+
+/* 5.2.2 — alinhamento responsivo das cartas de pilotos */
+.track-driver-card{display:flex;flex-direction:column;align-items:stretch;gap:8px;min-width:0}
+.track-driver-card>.gbr-inline-art{display:flex;align-items:center;gap:12px;width:100%;min-width:0}
+.track-driver-card>.gbr-inline-art>b{display:block;flex:1;min-width:0;overflow-wrap:anywhere}
+.track-driver-card>.kicker{display:block}
+.track-driver-card>.gbr-inline-art .gbr-card-thumb{width:52px;height:52px;flex:0 0 52px}
+.track-driver-card>small{display:block;line-height:1.5}
+@media(max-width:430px){.track-driver-card>.gbr-inline-art .gbr-card-thumb{width:48px;height:48px;flex-basis:48px}}

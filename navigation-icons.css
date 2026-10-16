@@ -1,0 +1,10 @@
+/* GBR SVG Menu 5.0 · traço uniforme 1,8; cor derivada do estado da navegação. */
+#nav .nav-icon,#mobileNav .nav-icon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 24px;width:24px;height:24px;line-height:1}
+.gbr-nav-svg{width:20px;height:20px;display:block;flex-shrink:0;stroke:currentColor;stroke-width:1.8;fill:none}
+#mobileNav .gbr-nav-svg{width:23px;height:23px}
+#mobileMorePanel .gbr-nav-svg{width:21px;height:21px}
+#nav button:not(.active) .nav-icon{color:#9099a7}
+#nav button.active .gbr-nav-svg,#mobileNav button.active .gbr-nav-svg{color:#00e0cd}
+#mobileMorePanel button[data-go] > span{color:#9aa8b4;background:#18292c}
+#mobileMorePanel button[data-go]:focus-visible > span,#mobileMorePanel button[data-go]:hover > span{color:#00e0cd;background:#0a3633}
+@media(max-width:820px){#mobileNav .nav-icon{flex-basis:25px;width:25px;height:25px}}

@@ -1,0 +1,116 @@
+/* GBR Racing Lab 5 · Formula Racing UI / revisão desktop e iPhone
+   Não altera cálculos, dados pessoais, galeria, imagens oficiais, conta ou sincronização. */
+:root{--gbr-ink:#090f15;--gbr-panel:#151e26;--gbr-border:#2b3f46;--gbr-cyan:#06dbc9;--gbr-mid:#9cb3bd;--gbr-silver:#eaf4f5;--gbr-race:#35b9ad}
+html{scroll-behavior:smooth;scrollbar-color:#2d6261 #101720}
+body{background-color:var(--gbr-ink);background-image:radial-gradient(ellipse at 85% -15%,rgba(5,137,122,.10),transparent 48%),linear-gradient(155deg,#0a0f15,#0d141c 65%,#0b1218)}
+.app-shell{isolation:isolate}.workspace{min-width:0}
+.rail{background:linear-gradient(175deg,#101a20 0%,#0d131a 52%,#0a0f15 100%);border-right:1px solid #2a4548;box-shadow:10px 0 40px rgba(0,0,0,.18)}
+.rail:before{content:"";height:3px;background:linear-gradient(90deg,#03e5d1 0%,#03e5d1 48%,transparent 48%,transparent 58%,#41666a 58%,#41666a 72%,transparent 72%);position:absolute;top:0;left:0;right:0}
+.rail-brand strong{font-style:italic;letter-spacing:1px}.rail-label{margin-top:40px;color:#8da9ac}
+.rail nav{gap:6px}.rail nav button{border-radius:9px;min-height:46px;transition:background .18s,border-color .18s,color .18s;letter-spacing:.15px}
+.rail nav button:not(.active):hover{border-color:#305351;background:#172a2e}
+.rail nav button.active{border:1px solid #17766b;box-shadow:inset 3px 0 #08dbc8,0 4px 20px rgba(0,205,188,.10);background:linear-gradient(100deg,#10403b,#11292a 70%,#122329)}
+.rail nav button .nav-icon,.rail nav button .gbr-nav-svg{color:inherit}
+.rail nav button:not(.active){color:#b0c3c8}.rail nav button:not(.active) .nav-icon{color:#91a8af}
+.rail nav button.active .nav-icon{color:#24e9d9}
+.rail .side-feature{background:linear-gradient(155deg,#12302e,#141e26);border-color:#2f6460}
+.rail .side-feature:before{content:"";position:absolute;right:-24px;top:-27px;width:126px;height:85px;transform:rotate(-28deg);background:repeating-linear-gradient(90deg,transparent 0 11px,#2ac7b514 12px 14px);opacity:.07;pointer-events:none}
+.topbar{z-index:30;position:sticky;top:0;background:#0f171eeF;border-bottom:1px solid #2b4648;backdrop-filter:blur(12px)}
+.topbar-breadcrumb{letter-spacing:1.15px}.topbar-breadcrumb b{color:#eef9f7}.topbar-right{min-width:0}
+.account-avatar{border:1px solid #a3f4ed30;box-shadow:0 0 12px #00d2be12}
+.content{max-width:1470px;padding-top:20px}.content-topline{border-bottom:1px solid #25363d;margin-bottom:19px;padding-bottom:12px;letter-spacing:2px}
+.content-topline span:first-child{color:#43dbcd}
+.hero{border:1px solid #226b64;background:radial-gradient(ellipse at 86% 43%,#0b635841,transparent 58%),linear-gradient(125deg,#102c2e,#15202a 72%);box-shadow:0 18px 46px rgba(0,0,0,.12)}
+.hero:before{height:3px;background:linear-gradient(90deg,#14ead7 0 25%,#147568 25% 41%,transparent 41%)}
+.hero:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(120deg,transparent 0 48px,rgba(43,224,209,.018) 48px 49px);pointer-events:none}
+.hero .hero-copy,.hero .hero-circuit{z-index:1}.hero .hero-actions{position:relative;z-index:2}
+.panel{border-color:var(--gbr-border);background:linear-gradient(160deg,#18222a,#151b23 82%);box-shadow:0 8px 24px rgba(0,0,0,.065)}
+.panel h2,.page-head h1,.section-heading h2{letter-spacing:.3px}
+.panel .kicker,.page-head .eyebrow{color:#38dbc9}
+.section-heading{align-items:center}
+.stat{background:linear-gradient(150deg,#1b2931,#141e25);border:1px solid #304349}
+.stat:after{background:#11d9c6;width:35px;height:2px}
+.track{background:#17232b;border-color:#31474c}.track-map-panel,.track-controls{border-color:#2a5652}
+.track-priority{background:linear-gradient(120deg,#103630,#122928)}
+.btn{transition:background .15s,transform .15s,border-color .15s;letter-spacing:.18px}
+.btn.primary{box-shadow:0 5px 15px rgba(0,211,192,.12)}
+@media(hover:hover){.btn:not(:disabled):hover{transform:translateY(-1px)}}
+.field input,.field select{border-color:#395059;background:#0d171f;color:#eff8f8}
+.field input:focus,.field select:focus{border-color:#19e3d0;box-shadow:0 0 0 2px #13e3d018}
+.gbr-quick-bar{border:1px solid #27766f;background:linear-gradient(115deg,#12352e,#17242c 77%);position:relative;overflow:hidden}
+.gbr-quick-bar:before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:#20e9d5}
+.gbr-quick-bar .btn{white-space:normal}
+#garage>.panel>h2{margin:0 0 15px;font-size:29px}
+#garage .garage-hint{padding:10px 13px;border:1px solid #365357;background:#13252b;margin:14px 0 17px;color:#afc5c8}
+#garage .garage-hint b{color:#c5eee7}
+#garage .garage-hint p{font-size:11px;margin:3px 0 0}
+#garage>.panel>.row{margin-top:8px}
+/* Backup configuration belongs exclusively to Minha Garagem, close to import/creation. */
+.gbr-backup-panel{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 13px;padding:13px 15px;border:1px solid #355056;border-radius:12px;background:linear-gradient(100deg,#121e27 0%,#16262d 64%,#122027 100%)}
+.gbr-backup-copy{display:flex;align-items:center;gap:15px;min-width:0;flex:1}
+.gbr-box-chip{display:grid;place-items:center;text-align:center;line-height:1.25;width:60px;min-width:60px;height:52px;padding:5px;border:1px solid #275e5e;border-radius:9px;color:#35e3d2;background:#0e2e30;font-size:9px;font-weight:900;letter-spacing:.6px}
+.gbr-backup-copy h3{font-size:15px;margin:0 0 3px;line-height:1.1;color:#e7f5f4}
+.gbr-backup-copy p{font-size:11px;color:#9cb4b8;line-height:1.5;margin:0;max-width:510px}
+.gbr-backup-actions{display:flex!important;flex-shrink:0;flex-wrap:wrap;gap:8px!important;margin:0!important}
+.gbr-backup-actions .btn{min-height:41px!important;font-size:11px!important;text-transform:none;white-space:nowrap;border-color:#386464;background:#142c31;color:#d5f9f5;display:inline-flex;align-items:center;gap:8px}
+.gbr-action-icon{font-size:18px;color:#30ebd8;line-height:1}
+#garage .tablewrap{border-color:#345153;background:#101820;scrollbar-color:#336662 #101a21}
+#garage .tablewrap th{background:#12292b;color:#d9f2ed}
+#garage .tablewrap tr:hover td{background:#203039}
+#garage .gbr-row-edit{color:#63e9d9}
+#garage .panel>.row:last-child{border-top:1px solid #283f45;padding-top:12px}
+#builder .panel,#event .panel{scroll-margin-top:83px}
+.gbr-bld-driver,.gbr-boost-card{border-color:#2c5756}
+.chest-entry{border-color:#32605a;background:linear-gradient(135deg,#14252b,#192029)}
+.chest-map-panel{border-color:#304c53}
+.chest-next{background:#19252c}
+.mobile-more-panel button.active{border-color:#159d8f!important;background:#0e3837!important;color:#f8ffff!important}
+.mobile-more-panel button.active>span{color:#00efdb!important;background:#08504a!important}
+#mobileNav button.active{color:#18f1dd}
+.gbr-nav-svg{display:block;flex-shrink:0;width:20px;height:20px;stroke:currentColor;stroke-width:1.8}
+#mobileNav .gbr-nav-svg{width:23px;height:23px}
+#mobileMorePanel .gbr-nav-svg{width:21px;height:21px}
+#mobileNav button{position:relative}
+#mobileNav button.active:before{content:"";height:2px;position:absolute;top:-3px;left:24%;right:24%;background:#22ead8;border-radius:5px;box-shadow:0 0 10px #00d2be9a}
+@media(max-width:1100px){.gbr-backup-panel{align-items:flex-start;flex-direction:column}.gbr-backup-actions{width:100%;justify-content:flex-start}.gbr-backup-actions .btn{flex:0 0 auto}}
+@media(max-width:820px){
+ html{scroll-behavior:auto}
+ .rail{display:none}
+ .topbar{height:calc(56px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 13px 0}
+ .content{max-width:590px;padding:12px 12px calc(100px + env(safe-area-inset-bottom))}
+ .content-topline{display:none}
+ .hero{padding:20px 17px;min-height:0}
+ .hero h1{font-size:clamp(28px,8vw,36px);line-height:1.04;margin:10px 0}
+ .hero p{font-size:12px}
+ .panel{padding:14px;border-radius:12px}
+ .panel h2{font-size:22px}
+ .stat{padding:12px}.stat b{font-size:28px}
+ .page-head h1{font-size:29px}
+ .gbr-quick-bar{padding:13px;margin:0 0 12px}
+ .gbr-quick-bar strong{font-size:20px}
+ .gbr-backup-panel{padding:13px;gap:12px}
+ .gbr-backup-copy{gap:10px}
+ .gbr-box-chip{width:52px;min-width:52px;height:50px}
+ .gbr-backup-copy h3{font-size:14px}
+ .gbr-backup-copy p{font-size:11px}
+ .gbr-backup-actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:8px!important}
+ .gbr-backup-actions .btn{justify-content:center;min-width:0;white-space:normal;padding:10px 6px;font-size:11px!important;min-height:44px!important}
+ .gbr-action-icon{font-size:16px}
+ #garage>.panel>h2{font-size:26px}
+ #garage .garage-hint{margin:12px 0;padding:10px}
+ .mobile-nav{border-top:1px solid #326862;background:#111d25f8;box-shadow:0 -10px 30px #0008}
+ .mobile-nav button small{font-size:10px!important}
+ .mobile-nav button{min-height:57px;gap:2px;flex-basis:0}
+ .mobile-more-panel{border-color:#347268;background:linear-gradient(150deg,#142b2e,#122027)}
+ .mobile-more-panel>button{border-color:#2f5955}
+ .track-directory{max-height:168px;overflow:auto}
+ .track-map-visual{min-height:160px}
+ .footer{padding-bottom:15px}
+}
+@media(max-width:390px){
+ .content{padding-left:10px;padding-right:10px}
+ .gbr-backup-copy p{font-size:10px}
+ .mobile-nav button small{font-size:9px!important}
+ .track-priority strong{font-size:20px}
+}
+@media(prefers-reduced-motion:reduce){.btn,.rail nav button{transition:none}}

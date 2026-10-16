@@ -22,6 +22,15 @@ const recoveryFromLink = /(?:[?&#](?:auth|type)=recovery)(?:[&#]|$)/.test(locati
 let recoveryMode = recoveryFromLink;
 let recoverySessionReady = false;
 let booting = false;
+// Confirme no servidor de Auth a identidade lida do armazenamento local.
+// getSession() permanece somente para detectar o fluxo de recuperação.
+async function verifiedSessionUser(session){
+ if(!session?.user?.id)return null;
+ const {data,error}=await client.auth.getUser();
+ if(error)throw error;
+ if(!data?.user?.id||data.user.id!==session.user.id)throw Error('Sessão inválida ou expirada. Entre novamente.');
+ return data.user;
+}
 const clientOptions = { auth: { persistSession:true, autoRefreshToken:true, detectSessionInUrl:true } };
 function setSync(mode, message) {
  const el=$('syncStatus');el.classList.remove('online','pending','error');if(mode)el.classList.add(mode);$('syncText').textContent=message;
@@ -190,7 +199,10 @@ else{
    recoverySessionReady=!!session;
    showRecoveryForm();
    if(!session)message('Aguardando validação do link. Se ele estiver expirado, solicite outro e-mail de recuperação.');
-  }else if(session?.user)await startSession(session.user);
-  else{gateVisible(true);setSync(null,'Aguardando login')}
+  }else if(session?.user){
+   const verifiedUser=await verifiedSessionUser(session);
+   if(!verifiedUser)throw Error('Sessão inválida ou expirada. Entre novamente.');
+   await startSession(verifiedUser);
+  }else{gateVisible(true);setSync(null,'Aguardando login')}
  }catch(e){gateVisible(true);setSync('error','Conexão indisponível');message('Não foi possível iniciar a nuvem: '+(e.message||e))}
 }

@@ -4,7 +4,8 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - 'tests/appsec/admin-move-player.integration.sql'
+      - 'tests/appsec/**'
+      - 'supabase/migrations/20261016230000_appsec_revoke_anon_admin_move_player.sql'
       - '.github/workflows/appsec-admin-move-player.yml'
   workflow_dispatch:
 

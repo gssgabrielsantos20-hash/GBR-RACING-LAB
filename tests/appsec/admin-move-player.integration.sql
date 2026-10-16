@@ -133,7 +133,7 @@ END $check$;
 \echo PASS: admin autorizado, auditoria e idempotência
 
 -- Endurecimento: este REVOKE ocorre SOMENTE no banco descartável.
-REVOKE EXECUTE ON FUNCTION public.admin_move_player(uuid,uuid) FROM anon;
+\ir ../../supabase/migrations/20261016230000_appsec_revoke_anon_admin_move_player.sql
 DO $check$
 BEGIN
  IF has_function_privilege('anon','public.admin_move_player(uuid,uuid)','EXECUTE')

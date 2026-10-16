@@ -1,0 +1,35 @@
+name: GBR Racing Lab - regressao estatica
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gbr-quality-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout read-only
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Validate JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          find . -maxdepth 2 -type f -name '*.js' ! -name '_worker.js' -print0 | xargs -0 -r -n1 node --check
+          node --check _worker.js
+      - name: Favorites model regression
+        run: node tests/favorites-model.test.js
+      - name: Six recent favorites regression
+        run: node tests/favorites-spotlight-six.test.js
+      - name: Hill image identity regression
+        run: node tests/card-art-hill.test.js

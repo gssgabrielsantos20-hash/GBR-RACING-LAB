@@ -27,9 +27,13 @@ const getTrack=id=>window.F1Tracks?.all?.find(t=>t.id===id)||null;
 const getGarage=()=>window.F1App?.getGarage?.()||{parts:[],drivers:[],trackPlans:{}};
 function bonusInEffect(event){return eventStatus(event)==='Em andamento'}
 function isFeaturedPart(part,event){return event.partBoosts.some(name=>norm(name)===norm(part?.name))}
+function driverMatchesSpec(driver,spec){
+ if(!driver||!spec)return false;
+ const names=norm(driver.name).split(' ').filter(Boolean);
+ return names.includes(spec.key)&&(spec.rarity==='any'||driver.rarity===spec.rarity);
+}
 function isFeaturedDriver(driver,event){
- const name=norm(driver?.name);
- return event.driverBoosts.some(spec=>name.split(' ').includes(spec.key)&&(spec.rarity==='any'||driver.rarity===spec.rarity));
+ return event.driverBoosts.some(spec=>driverMatchesSpec(driver,spec));
 }
 function isAllowedDriver(d,event,category){
  if(!d?.owned||n(d.level)<1||n(d.series)>category.series)return false;
@@ -100,10 +104,44 @@ function currentRounds(event){return selectedStage==='qualifying'?event.qualifyi
 function currentRace(event=getEvent()){return currentRounds(event)?.[selectedRound-1]||null}
 function tracksHtml(event){const rounds=currentRounds(event);const entries=rounds||event.tracks.map(track=>({track,rain:null}));return entries.map((race,i)=>{const id=race.track,t=getTrack(id),selected=rounds?selectedRound===i+1:selectedTrackId===id;return `<button type="button" data-gp-track="${esc(id)}" ${rounds?'data-gp-round="'+(i+1)+'"':''} class="gp-circuit ${selected?'selected':''}" aria-pressed="${String(selected)}"><span class="gp-circuit-index">${String(i+1).padStart(2,'0')}</span><span class="gp-circuit-text"><strong>${esc(t?.name||id)}</strong><small>${esc(t?.country||'Circuito não encontrado')}${race.rain===100?' · ☔ Chuva 100%':race.rain===0?' · ☀ Seco 0%':''}</small></span><span aria-hidden="true">↗</span></button>`}).join('')}
 
-function ownedFeatured(event,kind,name){const garage=getGarage();if(kind==='drivers'){const spec=event.driverBoosts.find(d=>d.label===name);return spec?garage.drivers.some(d=>d.owned&&isFeaturedDriver(d,event)):false}return garage.parts.some(p=>p.owned&&norm(p.name)===norm(name))}
+function findFeaturedPart(name){
+ const parts=(getGarage().parts||[]).filter(p=>norm(p.name)===norm(name));
+ parts.sort((a,b)=>Number(Boolean(window.GBRCardArt?.getImage?.(b,'parts')))-Number(Boolean(window.GBRCardArt?.getImage?.(a,'parts')))||Number(Boolean(b.owned))-Number(Boolean(a.owned))||n(b.level)-n(a.level));
+ return parts[0]||{name,category:'',rarity:''};
+}
+function findFeaturedDriver(spec){
+ const drivers=(getGarage().drivers||[]).filter(driver=>driverMatchesSpec(driver,spec));
+ const imageScore=driver=>Number(Boolean(window.GBRCardArt?.getImage?.(driver,'drivers')));
+ const rarityScore=driver=>spec.rarity!=='any'&&driver.rarity===spec.rarity?20:spec.rarity==='any'&&driver.rarity==='Special'?12:0;
+ const editionScore=driver=>spec.rarity==='any'&&norm(driver.editionLabel).includes('paddock')?8:0;
+ drivers.sort((a,b)=>Number(Boolean(b.owned))-Number(Boolean(a.owned))||imageScore(b)-imageScore(a)||rarityScore(b)-rarityScore(a)||editionScore(b)-editionScore(a)||n(b.level)-n(a.level));
+ return drivers[0]||{name:spec.label,rarity:spec.rarity==='any'?'Special':spec.rarity,editionLabel:spec.rarity==='any'?'Escolhas do Paddock':''};
+}
+function ownedFeatured(event,kind,name){
+ const garage=getGarage();
+ if(kind==='drivers'){
+  const spec=event.driverBoosts.find(d=>d.label===name);
+  return spec?garage.drivers.some(d=>d.owned&&driverMatchesSpec(d,spec)):false;
+ }
+ return garage.parts.some(p=>p.owned&&norm(p.name)===norm(name));
+}
+function featuredCardItem(event,entry){
+ if(entry.kind==='drivers'){
+  const spec=event.driverBoosts.find(v=>v.label===entry.label);
+  return spec?findFeaturedDriver(spec):{name:entry.label,rarity:''};
+ }
+ return findFeaturedPart(entry.label);
+}
 function featuredHtml(event){
  const all=[...event.driverBoosts.map(spec=>({kind:'drivers',label:spec.label,detail:spec.rarity==='Legendary'?'Lendário':'Todas as raridades e Escolhas do Paddock'})),...event.partBoosts.map(part=>({kind:'parts',label:part,detail:'Peça do carro'}))];
- return all.map(a=>`<article class="gp-featured-item"><div class="gp-featured-mark">${window.GBRCardArt?.thumb?.({name:a.label,rarity:a.kind==='drivers'?event.driverBoosts.find(v=>v.label===a.label)?.rarity:'Epic',category:a.kind==='parts'?'':undefined},a.kind)||''}</div><div><b>${esc(a.label)}</b><small>${esc(a.detail)}</small><em>${ownedFeatured(event,a.kind,a.label)?'✓ Cadastrado na garagem':'Não identificado na garagem'}</em></div><span class="gp-featured-percentage">${bonusInEffect(event)?'+10% ATIVO':'+10% PREVISTO'}</span></article>`).join('');
+ return all.map(a=>{
+  const card=featuredCardItem(event,a);
+  // Convenção única para todos os GPs: se houver arte extraída do banner já incluído no pacote,
+  // ela não depende de hotlink. O componente compartilha foto cadastrada > arte GP > URL externa.
+  const slug=value=>norm(value).replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+  const localArt=`assets/events/featured/${slug(event.id)}-${slug(a.label)}.webp`;
+  return `<article class="gp-featured-item"><div class="gp-featured-mark">${window.GBRCardArt?.thumb?.(card,a.kind,{eventArt:localArt})||''}</div><div><b>${esc(a.label)}</b><small>${esc(a.detail)}</small><em>${ownedFeatured(event,a.kind,a.label)?'✓ Cadastrado na garagem':'Não identificado na garagem'}</em></div><span class="gp-featured-percentage">${bonusInEffect(event)?'+10% ATIVO':'+10% PREVISTO'}</span></article>`;
+ }).join('');
 }
 function statRow(label,value){return `<div class="gp-stat"><small>${esc(label)}</small><strong>${Math.round(n(value)*10)/10}</strong></div>`}
 function partHtml(p){return `<div class="gp-result-part"><span>${esc(p.category)}</span><div class="gbr-inline-art">${window.GBRCardArt?.thumb?.(p,'parts')||''}<strong>${esc(p.name)}</strong></div><small>Nv. ${n(p.level)} ${p.eventFeatured?'<b class="gp-part-boost">+10%</b>':''}</small></div>`}

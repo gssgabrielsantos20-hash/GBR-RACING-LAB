@@ -33,8 +33,13 @@ function parseOCR(text,forced){
  const data=empty(kind);data.importedByPrint=true;
  // Nome é sugestão: usa catálogo quando possível, mas aceita cartas inéditas.
  const candidates=kind==='drivers'?Array.from(new Set([...Object.values(window.F1Reference?.drivers||{}).map(x=>x.name),'Jenson Button','James Hunt','Graham Hill','Damon Hill','Alain Prost','Ayrton Senna','Michael Schumacher','Andrea Kimi Antonelli'])):Object.keys(window.F1Reference?.parts||{});
- const includes=candidates.filter(name=>normal.includes(norm(name)));
- if(includes.length)data.name=includes.sort((a,b)=>b.length-a.length)[0];
+ const matchedLegendary=kind==='drivers'?window.GBRLegendaryDrivers?.matchesOCR?.(joined):null;
+ // Restringe a palavras inteiras: sobrenomes repetidos não devem virar outra pessoa.
+ const normalizedWords=' '+normal.replace(/[^a-z0-9]+/g,' ').trim()+' ';
+ const includes=candidates.filter(name=>normalizedWords.includes(' '+norm(name).replace(/[^a-z0-9]+/g,' ').trim()+' '));
+ const existing=includes.sort((a,b)=>b.length-a.length)[0];
+ if(matchedLegendary&&(!existing||norm(matchedLegendary.name).length>=norm(existing).length))data.name=matchedLegendary.name;
+ else if(existing)data.name=existing;
  else {
    const statIndex=lines.findIndex(l=>/estat.sticas|ultrapass|velocidade|power|defesa|qualifica/i.test(l));
    const segment=lines.slice(0,statIndex<0?Math.min(12,lines.length):statIndex);

@@ -3,13 +3,15 @@
 'use strict';
 const host='https://www.allclash.com/wp-content/uploads/2026/04/';
 const partUrls={
+ // URL confirmada diretamente na página do AllClash 2026; usada também nos destaques dos Eventos GP.
+ 'Zephyr':'frontwing-zephyr',
  'Flashpoint':'frontwing-flashpoint','Leading Edge':'frontwing-leading-edge','Loose Fit':'frontwing-loose-fit',
  'Scramble':'brakes-scramble','Aegis':'brakes-aegis','Pressure Point':'brakes-pressure-point','Aura Lock':'brakes-aura-lock','Stabilix':'brakes-stabilix',
  'Curver 3.0':'suspension-curver-3-0','Motion Link V2':'suspension-motion-link-v2','Bounce':'suspension-bounce',
  'Downforce':'rearwing-downforce','Vibe Lift':'rearwing-vibe-lift','Impact':'rearwing-impact','Dominus':'rearwing-dominus',
  'Lockdown':'gearbox-lockdown','Shift X':'gearbox-shift-x','Fracture':'gearbox-fracture','Powerbox':'gearbox-powerbox',
  'Velocity':'engine-velocity','DriveOS':'engine-driveos','Overdrive':'engine-overdrive',
- 'Energy Reserve':'battery-energy-reserve','Charge Core':'battery-charge-core','Spare Pack':'battery-spare-pack'
+ 'Energy Reserve':'battery-energy-reserve','Charge Core':'battery-charge-core','Spare Pack':'battery-spare-pack','Tailwind':'rearwing-tailwind'
 };
 const driverUrls={
  'bortoleto|Special|escolhas do paddock':'driver-bortoleto-paddock-picks',
@@ -28,6 +30,43 @@ const driverUrls={
 };
 const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
+const slug=s=>norm(s).replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+const unique=list=>list.filter((value,index,array)=>value&&array.indexOf(value)===index);
+const partCategories={'asa dianteira':'frontwing','freios':'brakes','suspensao':'suspension','asa traseira':'rearwing','cambio':'gearbox','motor':'engine','bateria':'battery'};
+function partReference(item){
+ const mapped=partUrls[item.name];
+ if(mapped)return host+'f1clash-'+mapped+'.jpg';
+ const prefix=partCategories[norm(item.category)];
+ const nameSlug=slug(item.name);
+ return prefix&&nameSlug?host+'f1clash-'+prefix+'-'+nameSlug+'.jpg':'';
+}
+function driverReferenceCandidates(item,candidates,edition){
+ const rarity=String(item.rarity||'').trim();
+ const nameSlugs=unique(candidates.flatMap(name=>{const clean=norm(name).replace(/\./g,'').replace(/\s+/g,' ').trim();const words=clean.split(' ').filter(Boolean);const last=words[words.length-1]||clean;return unique([slug(last),slug(clean)]);}));
+ const refs=[];const add=ref=>{if(ref&&!refs.includes(ref))refs.push(ref)};
+ const addVariant=(nameSlug,rarityName,editionLabel)=>{
+  const type=norm(rarityName);
+  const editionNorm=norm(editionLabel).replace(/\s*:\s*/g,': ');
+  if(!nameSlug||!type)return;
+  if(type==='special'){
+   if(editionNorm==='escolhas do paddock: turbo')add(host+'f1clash-driver-'+nameSlug+'-paddock-picks-turbo.jpg');
+   if(editionNorm==='escolhas do paddock' || editionNorm==='escolhas do paddock: turbo' || !editionNorm)add(host+'f1clash-driver-'+nameSlug+'-paddock-picks.jpg');
+   if(editionNorm)add(host+'f1clash-driver-'+nameSlug+'-'+slug(editionNorm)+'.jpg');
+   return;
+  }
+  if(['common','rare','epic','legendary'].includes(type))add(host+'f1clash-driver-'+nameSlug+'-'+type+'.jpg');
+ };
+ for(const nameSlug of nameSlugs){
+  if(norm(rarity)==='any'){
+   addVariant(nameSlug,'Special','Escolhas do Paddock');
+   addVariant(nameSlug,'Rare','');
+   addVariant(nameSlug,'Epic','');
+   addVariant(nameSlug,'Legendary','');
+   addVariant(nameSlug,'Common','');
+  }else addVariant(nameSlug,rarity,edition);
+ }
+ return refs;
+}
 function overrideKey(item,kind){return kind+'|'+norm(item.name)+'|'+String(item.rarity||'')+'|'+norm(item.editionLabel||'');}
 function overrides(){try{const x=JSON.parse(localStorage.getItem('gbr_visual_images_v53')||'{}');return x&&typeof x==='object'&&!Array.isArray(x)?x:{}}catch{return {}}}
 const validUrl=s=>{try{const u=new URL(String(s||''));return u.protocol==='https:'&&!u.username&&!u.password&&u.href.length<=2048;}catch{return false}};
@@ -35,18 +74,58 @@ const cloud={client:null,rows:new Map(),loaded:false,admin:false,connected:false
 function isRemote(item,kind){return cloud.rows.has(overrideKey(item,kind));}
 function getRow(item,kind){return cloud.rows.get(overrideKey(item,kind))||null;}
 function getSource(item,kind){if(!item)return {url:'',origin:'none'};const key=overrideKey(item,kind);
- const remote=cloud.rows.get(key);if(remote&&validUrl(remote.image_url))return {url:remote.image_url,origin:'shared'};
- const manual=overrides()[key];if(manual&&validUrl(manual))return {url:manual,origin:'local'};
- if(kind==='parts')return partUrls[item.name]?{url:host+'f1clash-'+partUrls[item.name]+'.jpg',origin:'reference'}:{url:'',origin:'none'};
+ const identity=kind==='drivers'&&item.rarity==='Legendary'&&!item.editionLabel?window.GBRLegendaryDrivers?.lookup?.(item.name):null;
+ const aliases=identity?[identity.name,...identity.aliases].filter(name=>norm(name)!==norm(item.name)).map(name=>overrideKey({...item,name},kind)):[];
+ const remote=cloud.rows.get(key)||aliases.map(alias=>cloud.rows.get(alias)).find(row=>row&&validUrl(row.image_url));
+ if(remote&&validUrl(remote.image_url))return {url:remote.image_url,origin:'shared'};
+ const local=overrides(),manual=local[key]||aliases.map(alias=>local[alias]).find(url=>validUrl(url));
+ if(manual&&validUrl(manual))return {url:manual,origin:'local'};
+ if(identity?.imageUrl&&validUrl(identity.imageUrl))return {url:identity.imageUrl,origin:'reference'};
+ // Os lendários sem imagem validada NÃO devem receber uma URL inventada pelo slug.
+ if(kind==='drivers'&&item.rarity==='Legendary'&&!item.editionLabel)return {url:'',origin:'none'};
+ if(kind==='parts'){
+  const url=partReference(item);
+  return url?{url,origin:'reference'}:{url:'',origin:'none'};
+ }
+ if(partUrls[item.name]||window.F1Reference?.parts?.[item.name])return {url:'',origin:'none'};
  const edition=norm(item.editionLabel).replace(/\s*:\s*/g,': '),raw=norm(item.name),clean=raw.replace(/\./g,'').replace(/\s+/g,' ').trim();
  const words=clean.split(' ').filter(Boolean),last=words[words.length-1]||clean,initial=words[0]?.[0]||'',candidates=[];
  for(const key of [raw,clean,initial&&last&&`${initial}. ${last}`,initial&&last&&`${initial} ${last}`,initial&&last&&`${initial}${last}`,last])if(key&&!candidates.includes(key))candidates.push(key);
  for(const nameKey of candidates){const slug=driverUrls[nameKey+'|'+item.rarity+'|'+edition];if(slug)return {url:host+'f1clash-'+slug+'.jpg',origin:'reference'};}
+ for(const url of driverReferenceCandidates(item,candidates,edition))return {url,origin:'reference'};
  return {url:'',origin:'none'};
 }
 function getImage(item,kind){return getSource(item,kind).url;}
-function thumb(item,kind){if(!item)return '';const {url,origin}=getSource(item,kind),label=kind==='parts'?'Peça':'Piloto';
- const placeholder=kind==='parts'?'◇':'◉';return `<span class="gbr-card-thumb ${url?'has-photo':''}" title="${esc(origin==='shared'?'Foto compartilhada da academia':origin==='local'?'Foto local deste dispositivo':origin==='reference'?'Imagem externa de referência':'Foto não cadastrada')}"><span class="gbr-thumb-placeholder" aria-hidden="true">${placeholder}</span>${url?`<img src="${esc(url)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" alt="${esc(label+' '+item.name)}" onerror="this.remove()">`:''}</span>`;
+// Fallback de imagem da ficha de GP: foto do usuário/academia > arte local do evento > referência externa.
+// A existência da arte local é verificada pela própria carga; URL remota presumida não é tratada como foto validada.
+function validEventArt(path){return typeof path==='string'&&/^assets\/events\/featured\/[a-z0-9-]+\.webp$/.test(path)}
+function tryNextImage(img){
+ if(!img)return;
+ let next=[];
+ try{next=JSON.parse(img.dataset?.fallbackUrls||'[]')}catch{};
+ while(next.length){
+  const url=next.shift();
+  if(validEventArt(url)||validUrl(url)){
+   img.dataset.fallbackUrls=JSON.stringify(next);
+   img.src=url;
+   return;
+  }
+ }
+ img.closest?.('.gbr-card-thumb')?.classList?.remove('has-photo');
+ img.remove?.();
+}
+function thumb(item,kind,options={}){
+ if(!item)return '';
+ const {url,origin}=getSource(item,kind),label=kind==='parts'?'Peça':'Piloto';
+ const eventArt=validEventArt(options?.eventArt)?options.eventArt:'';
+ const urls=[];
+ const add=u=>{if(u&&!urls.includes(u))urls.push(u)};
+ if(origin==='shared'||origin==='local') {add(url);add(eventArt)}
+ else {add(eventArt);add(url)}
+ const first=urls[0]||'',other=urls.slice(1);
+ const placeholder=kind==='parts'?'◇':'◉';
+ const description=origin==='shared'?'Foto compartilhada da academia':origin==='local'?'Foto local deste dispositivo':eventArt?'Foto ilustrativa do evento com imagem de reserva':origin==='reference'?'Imagem externa de referência':'Foto não cadastrada';
+ return `<span class="gbr-card-thumb ${first?'has-photo':''}" title="${esc(description)}"><span class="gbr-thumb-placeholder" aria-hidden="true">${placeholder}</span>${first?`<img src="${esc(first)}" data-fallback-urls="${esc(JSON.stringify(other))}" loading="lazy" decoding="async" referrerpolicy="no-referrer" alt="${esc(label+' '+item.name)}" onerror="window.GBRCardArt.tryNextImage(this)">`:''}</span>`;
 }
 function fireUpdate(){document.dispatchEvent(new CustomEvent('gbr-card-art-updated',{detail:status()}));if(window.F1App?.refresh){try{window.F1App.refresh()}catch(e){console.warn('Refresh de miniaturas:',e)}}}
 function status(){return {connected:cloud.connected,loaded:cloud.loaded,admin:cloud.admin,error:cloud.error,shared:cloud.rows.size,local:Object.keys(overrides()).length};}
@@ -86,5 +165,5 @@ async function uploadRemote(item,kind,file){await ensureAdmin();const {blob,mime
 async function migrateLocal(items,progress){await ensureAdmin();const legacy=overrides();let count=0,skip=0,failed=[];
  for(const item of items){const key=overrideKey(item,item.kind),url=legacy[key];if(!url)continue;if(cloud.rows.has(key)){skip++;continue;}try{await saveRemote(item,item.kind,url);count++}catch(e){failed.push(`${item.name}: ${e.message||e}`)}progress?.({count,skip,failed:failed.length});}
  return {count,skip,failed};}
-window.GBRCardArt=Object.freeze({thumb,getImage,getSource,getRow,isRemote,overrideKey,overrides,status,connect,disconnect,refreshRemote,saveRemote,deleteRemote,uploadRemote,migrateLocal,coverage:()=>({parts:Object.keys(partUrls).length,driverVariants:Object.keys(driverUrls).length}),source:'https://www.allclash.com/'});
+window.GBRCardArt=Object.freeze({thumb,tryNextImage,getImage,getSource,getRow,isRemote,overrideKey,overrides,status,connect,disconnect,refreshRemote,saveRemote,deleteRemote,uploadRemote,migrateLocal,coverage:()=>({parts:Object.keys(partUrls).length,driverVariants:Object.keys(driverUrls).length}),source:'https://www.allclash.com/'});
 })();

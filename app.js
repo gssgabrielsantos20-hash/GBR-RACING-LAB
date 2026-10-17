@@ -48,7 +48,15 @@ function migrateGaragem(data){if(!data||!Array.isArray(data.parts)||!Array.isArr
  extra.forEach(x=>{if(!data.deletedCards.drivers.includes(cardIdentity(x,'drivers'))&&!data.drivers.some(d=>d.name===x.name&&d.rarity===x.rarity))data.drivers.push({id:'extra_'+x.name.toLowerCase(),...x,owned:!!data.legacyV2Import})});
  const norm=normalizeCardName;
  for(const [key,ref] of Object.entries(window.F1Reference?.drivers||{})){
-  if(data.deletedCards.drivers.includes(cardIdentity(ref,'drivers'))||data.drivers.some(d=>d.rarity===ref.rarity&&norm(d.name)===norm(ref.name)))continue;
+  // Variações históricas (ex.: D. Hill/Damon Hill) representam a mesma carta lendária.
+  // Respeita também exclusões explícitas e nunca recria um item removido sob outro alias.
+  const legends=window.GBRLegendaryDrivers;
+  const sameReference=name=>norm(name)===norm(ref.name)||(ref.rarity==='Legendary'&&legends?.equivalent?.(name,ref.name));
+  const deleted=(data.deletedCards.drivers||[]).some(key=>{
+   const pieces=String(key).split('|');
+   return pieces[1]===ref.rarity&&!pieces[2]&&sameReference(pieces[0]);
+  });
+  if(deleted||data.drivers.some(d=>d.rarity===ref.rarity&&!String(d.editionLabel||'').trim()&&sameReference(d.name)))continue;
   data.drivers.push({id:'ref_'+key.replace(/[^a-z0-9]/gi,'_'),name:ref.name,rarity:ref.rarity,series:ref.series,level:0,owned:false,overtaking:0,defending:0,qualifying:0,raceStart:0,tyreUse:0});
  }
  return data}
@@ -319,7 +327,10 @@ function bestDrivers(focus,series){const w=focus==='balanced'?{overtaking:1,defe
 $('duelCalc').onclick=()=>{let s=n($('duelSeries').value),f=$('duelFocus').value,d=$('duelDrivers').value,p=optimize(profiles[f],s,'soft'),pilots=bestDrivers(d,s);$('duelOutput').innerHTML=setupHtml(p,`Carro para duelo — Série ${s}`)+`<div class="panel"><h2>Dupla de pilotos</h2>${pilots.length?pilots.map(x=>`<div class="track" style="margin-bottom:8px"><span class="gbr-inline-art">${window.GBRCardArt?.thumb?.(x,'drivers')||''}<b>${esc(x.name)} — Nv. ${x.level} <span class="tag ${x.rarity}">${x.rarity==='Legendary'?'Lendário':x.rarity==='Special'?'Especial':x.rarity==='Epic'?'Épica':x.rarity==='Rare'?'Rara':'Comum'}</span></b></span><span class="mini muted">Ultrap. ${x.overtaking} • Defesa ${x.defending} • Classif. ${x.qualifying} • Largada ${x.raceStart} • Pneus ${x.tyreUse}</span></div>`).join(''):'<div class="warn">Sem pilotos cadastrados para esta série. Atualize a garagem.</div>'}<p class="muted mini">Recomendação calculada a partir do atributo escolhido, não da pista específica. O filtro de série é editável na garagem e deve ser confirmado no jogo.</p></div>`};
 function renderGarage(){
  const kind=$('garageType').value, search=$('garageSearch').value.toLowerCase();
- const items=db[kind].filter(x=>x.name.toLowerCase().includes(search)&&($('rarityFilter').value==='all'||x.rarity===$('rarityFilter').value));
+ const items=db[kind].filter(x=>{
+  const aliases=kind==='drivers'&&x.rarity==='Legendary'?(window.GBRLegendaryDrivers?.lookup?.(x.name)?.aliases||[]):[];
+  return (x.name.toLowerCase().includes(search)||aliases.some(name=>name.toLowerCase().includes(search)))&&($('rarityFilter').value==='all'||x.rarity===$('rarityFilter').value);
+ });
  const fields=kind==='parts'?['level','series','speed','corner','power','qualifying','pit']:['level','series','overtaking','defending','qualifying','raceStart','tyreUse'];
  const labels={level:'Nível',series:'Série',speed:'Vel.',corner:'Curvas',power:'Pot.',qualifying:'Classif.',pit:'Pit',overtaking:'Ultrap.',defending:'Defesa',raceStart:'Largada',tyreUse:'Pneus'};
  const rarities=kind==='drivers'?[['Common','Comum'],['Rare','Rara'],['Epic','Épica'],['Legendary','Lendário'],['Special','Escolhas do Paddock / Edição especial']]:[['Common','Comum'],['Rare','Rara'],['Epic','Épica']];

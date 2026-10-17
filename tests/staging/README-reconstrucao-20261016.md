@@ -52,3 +52,21 @@ Este plano é **documentado mas não testado**; até testes reais de reversão, 
 **Portão de escalabilidade:** atenção; a estrutura corresponde ao domínio do GBR, mas indicadores de volume, carga e performance ainda não foram medidos. Nenhuma otimização especulativa foi incluída.
 
 **Status de produção:** inalterada. Não fazer merge nem deploy sem autorização específica.
+
+
+## Evidências observadas em homologação — 16/10/2026 (local)
+
+- Migração estrutural: ensaio `BEGIN ... ROLLBACK` **PASS**; aplicação no Supabase staging versão `20261017005335` **SUCCESS**.
+- Comparação entre metadados do oficial (leitura) e staging: **47/47 colunas**, **41/41 constraints**, **16/16 políticas**, **14/14 índices** e **6/6 funções** idênticas por nome/corpo, preservando gates de `anon/authenticated`.
+- Storage: bucket público `gbr-card-art`, 4 políticas e Realtime habilitado para `gbr_card_images`, sem copiar objetos.
+- Teste de segurança `tests/staging/validar-esquema-gbr-homologacao.sql`: **PASS** para anonimato, não-admin, códigos privados, checks de slug e HTTPS; tudo revertido via `ROLLBACK`.
+- Seeds fictícios `tests/staging/migrations/20261017005500_homologacao_gbr_seed_sintetico.sql`: ensaio com rollback **PASS**, aplicação versão `20261017005626` **SUCCESS**. Apenas 4 equipes fictícias, 4 códigos aleatórios de convite e 1 código aleatório de academia.
+- Pós-validação: 10 tabelas com RLS, 16 políticas, 0 usuários Auth, 0 membros, 0 garagens, 0 imagens, 0 avisos, 0 objetos Storage. A RPC admin nega `anon` e concede `EXECUTE` a `authenticated`, com autorização do cargo no corpo.
+- Supabase Advisors staging: `rls_enabled_no_policy` INFO (4 tabelas, proposital), `anon_security_definer_function_executable` WARN (`rls_auto_enable`), `authenticated_security_definer_function_executable` WARN (6 funções). **Não corrigidos** nesta etapa.
+- Produção permanece inalterada. A estrutura não inclui `dia_em_cards_agendas` por ser de outro aplicativo. No staging os `TRUNCATE` autenticados que constam na produção foram removidos por privilégio mínimo.
+
+### Pendências explícitas
+
+- Não foi realizado o fluxo real Auth + REST + Storage com usuários de teste nem preview do frontend; não declarar homologação E2E completa.
+- O rollback estrutural está documentado, mas **a restauração integral não foi ensaiada**; uma recriação futura deverá primeiro verificar que não existem contas nem dados a preservar.
+- Código de homologação está fora de `supabase/migrations/` para evitar implantação acidental no banco oficial; PR deve permanecer rascunho até revisão e testes adicionais.

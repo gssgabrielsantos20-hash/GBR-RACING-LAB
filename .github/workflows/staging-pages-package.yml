@@ -1,0 +1,65 @@
+name: Homologacao - pacote Pages isolado
+
+on:
+  push:
+    branches: [staging/app-preview-20261016]
+    paths-ignore:
+      - 'tests/**'
+      - '**/*.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package-staging:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout do branch de homologacao
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Validar isolamento e empacotar arquivos publicos
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import shutil
+          import subprocess
+          src = Path('.')
+          html = (src / 'index.html').read_text(encoding='utf-8')
+          cfg = (src / 'config.js').read_text(encoding='utf-8')
+          if "url: 'https://oageqjzrzalkpyujfyzj.supabase.co'" not in cfg:
+              raise SystemExit('ABORTADO: config.js nao aponta a homologacao.')
+          if "url: 'https://gkjqfirlcmmlhuokszlz.supabase.co'" in cfg:
+              raise SystemExit('ABORTADO: config.js aponta ao projeto oficial.')
+          if 'AMBIENTE DE TESTES' not in html or 'noindex,nofollow,noarchive' not in html:
+              raise SystemExit('ABORTADO: aviso de ambiente ou noindex ausente.')
+          names = subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
+          count=0
+          for name in names:
+              if not name: continue
+              source = Path(name)
+              if any(part in ('.github','tests','supabase') for part in source.parts):
+                  continue
+              if source.suffix.lower() in ('.md','.sql'):
+                  continue
+              if not source.is_file(): continue
+              target = Path('dist') / source
+              target.parent.mkdir(parents=True,exist_ok=True)
+              shutil.copy2(source,target)
+              count += 1
+          if not (Path('dist/index.html').exists() and Path('dist/config.js').exists() and Path('dist/manifest.webmanifest').exists()):
+              raise SystemExit('ABORTADO: faltam arquivos essenciais.')
+          print(f'PACOTE HOMOLOGACAO OK: {count} arquivos isolados.')
+          PY
+      - name: Publicar pacote para download (nao faz deploy)
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: GBR-RACING-LAB-HOMOLOGACAO-ARQUIVOS
+          path: dist/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 6

@@ -90,6 +90,15 @@ jobs:
           if workerhash!=targethash:
               raise SystemExit(f'ABORT: Worker hash differs from approved ZIP: {workerhash}')
           Path('_worker.js').write_bytes(worker)
+          manifest={'version':'5.5.12','base':'5.5.11E','public_files':len(assets),'assets':{
+              key:{'sha256':hashlib.sha256(base64.b64decode(value['b'])).hexdigest(),'mime':value['t']}
+              for key,value in assets.items()
+          }}
+          manifest_bytes=(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n').encode('utf-8')
+          manifest_expected='de0293fa0b50e9a79167c8ff9cfdad694abfac650331a8417ded8ccd0f068d95'
+          if hashlib.sha256(manifest_bytes).hexdigest()!=manifest_expected:
+              raise SystemExit('ABORT: 5.5.12 manifest content differs from approved ZIP')
+          Path('MANIFEST_SHA256_5_5_12.json').write_bytes(manifest_bytes)
           print(f'APPROVED: Worker SHA256 {workerhash}; {len(paths)} public paths')
           PYCODE
       - name: Commit validated source and Worker on staging
@@ -98,7 +107,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- _worker.js index.html app.js cloud.js favorites.js garage-plus.js dashboard-telemetry.js dashboard-telemetry.css setup-print-import.js setup-print-parser.js setup-print-ui.css telemetry-theme.css ui-compact-5512.css assets/telemetry
+          git add -A -- _worker.js MANIFEST_SHA256_5_5_12.json index.html app.js cloud.js favorites.js garage-plus.js dashboard-telemetry.js dashboard-telemetry.css setup-print-import.js setup-print-parser.js setup-print-ui.css telemetry-theme.css ui-compact-5512.css assets/telemetry
           if git diff --cached --quiet; then
             echo "Source already synced"
           else

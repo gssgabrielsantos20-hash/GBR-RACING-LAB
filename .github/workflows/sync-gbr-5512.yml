@@ -15,6 +15,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
       - name: Fetch exact published runtime and verify original Worker contents
         env:
           GBR_RELEASE_URL: https://bbfa335c.gbr-racing-lab.pages.dev

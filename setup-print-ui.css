@@ -1,0 +1,41 @@
+/* GBR Racing Lab 5.5.12 — revisão compacta e acessível de setups por print. */
+#favPrintWizard[hidden],.fav-print-review[hidden]{display:none!important}
+.fav-print-wizard{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;margin:12px 0 18px;padding:17px;border:1px solid #286478;border-radius:15px;background:linear-gradient(145deg,#102737,#071723);color:#e7f8fb;box-shadow:0 10px 32px #0003}
+.fav-print-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:14px}
+.fav-print-header h2{font:800 24px/1.15 system-ui,sans-serif!important;letter-spacing:-.3px;margin:5px 0 6px;color:#f2fcff}
+.fav-print-header p{color:#bed5df;margin:0;max-width:68ch;font-size:13px;line-height:1.45}
+.fav-print-header .btn{flex:0 0 auto}
+.fav-print-upload-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.fav-print-drop{display:flex;flex-direction:column;min-width:0;gap:9px;align-items:stretch;border:1px dashed #37758b;border-radius:13px;background:#081d29;padding:14px;color:#e8faff;font-size:13px;font-weight:800}
+.fav-print-drop:focus-within{outline:2px solid #00ecde;outline-offset:2px}
+.fav-print-drop input[type=file]{display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;color:#cde7ea;font-size:12px;background:#142b38;border-radius:8px;padding:8px;cursor:pointer}
+.fav-print-drop small{color:#9ebfcd;line-height:1.4;font-size:12px;font-weight:400}
+.fav-print-preview:not(:empty){display:flex;align-items:center;justify-content:center;height:140px;border-radius:10px;overflow:hidden;background:#020d13}
+.fav-print-preview img{max-width:100%;height:100%;object-fit:contain}
+.fav-print-name{margin:14px 0 9px;max-width:530px}
+.fav-print-name input{width:100%;box-sizing:border-box;min-height:42px;background:#0d2230;border:1px solid #3b6579;border-radius:8px;padding:9px;color:#f5fcff;font-size:16px}
+.fav-print-caution{border-left:3px solid #f4ad41;background:#30271866;padding:10px 12px;margin:12px 0;color:#f0d9b0;font-size:12px;line-height:1.5}
+.fav-print-buttons{display:flex;gap:9px;flex-wrap:wrap}
+.fav-print-buttons .btn{min-height:40px;font-size:12px}
+.fav-print-status{color:#b3d3dc;font-size:12px;line-height:1.4;margin:11px 0 0;min-height:17px}.fav-print-status.is-error{color:#ffc09f}
+.fav-print-review{margin-top:14px;border:1px solid #225266;border-radius:12px;padding:13px;background:#061825}
+.fav-print-review-head{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:11px;flex-wrap:wrap}.fav-print-review-head b{font-size:14px}.fav-print-review-head small{font-size:11px;color:#a8c4d2}
+.fav-print-detected{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-bottom:12px}
+.fav-print-found{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1px solid #285065;border-radius:8px;padding:8px 9px;min-width:0;font-size:12px;background:#102a38}
+.fav-print-found span{color:#9dc7d0;min-width:0}.fav-print-found strong{font-size:12px;font-weight:700;color:#ebfbfd;text-align:right;overflow-wrap:anywhere}
+.fav-print-found.needs-review{border-color:#83623a;background:#30281966}.fav-print-found.needs-review strong{color:#efcf9f}
+.fav-print-warnings{font-size:12px;color:#e9c9a2;margin:8px 0}.fav-print-warnings:empty{display:none}
+.fav-print-warnings p{margin:0 0 10px}
+#favPrintApply{min-height:42px}
+@media(max-width:660px){
+ .fav-print-wizard{padding:12px;border-radius:12px}
+ .fav-print-header h2{font-size:19px!important}
+ .fav-print-header{gap:8px}.fav-print-header .btn{padding:9px;font-size:11px}
+ .fav-print-upload-grid{grid-template-columns:1fr;gap:9px}
+ .fav-print-drop{padding:10px}
+ .fav-print-preview:not(:empty){height:100px}
+ .fav-print-detected{grid-template-columns:1fr}
+ .fav-print-found{min-height:34px}
+ .fav-print-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ .fav-print-buttons .btn{font-size:11px;padding:8px}
+}

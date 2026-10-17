@@ -206,7 +206,7 @@ function bootstrap(){
  const observer=new MutationObserver(()=>decorateGarage());observer.observe(target,{childList:true});
  // Alt. de categoria e busca usam a renderização original do app.
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&view&&!busy)closeModal()});
- window.GBRGaragePlus={parseOCR,openPrint:openModal,openManual,deleteCard,editExisting,editionKey,sameCard,cardKey};
+ window.GBRGaragePlus={parseOCR,loadOCR,openPrint:openModal,openManual,deleteCard,editExisting,editionKey,sameCard,cardKey};
 }
 bootstrap();
 })();

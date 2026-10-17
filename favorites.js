@@ -73,7 +73,7 @@ function drawForm(){
  };
 }
 function trackName(record){return tracks().find(t=>t.id===record.trackId)?.name||'Setup livre';}
-function openNew(){if(items().length>=model.MAX)return;editing=null;draftCopy=null;mode='new';if(document.querySelector('#nav [data-tab="favorites"]'))window.GBRFavorites?.open?.();$('favEditor')?.replaceChildren();$('favFeedback')&&($('favFeedback').textContent='');render();$('favName')?.focus();}
+function openNew(){if(items().length>=model.MAX)return;window.GBRSetupPrint?.close?.();editing=null;draftCopy=null;mode='new';if(document.querySelector('#nav [data-tab="favorites"]'))window.GBRFavorites?.open?.();$('favEditor')?.replaceChildren();$('favFeedback')&&($('favFeedback').textContent='');render();$('favName')?.focus();}
 function openEdit(recordOrId){
  const record=typeof recordOrId==='string'?items().find(x=>x.id===recordOrId):recordOrId;
  if(!record)return;
@@ -250,6 +250,7 @@ function render(){
  const demo=window.F1Session?.getContext?.()?.demo;
  if($('favNote'))$('favNote').textContent=demo?'Demonstração local: os favoritos não são sincronizados. Entre com sua conta para guardá-los na nuvem.':'Os favoritos pertencem somente à sua conta e usam a sincronização da garagem. Os cards abaixo preservam o setup que já deu certo para você, sem depender da série atual.';
  $('favNew').disabled=count>=model.MAX;
+ $('favImport').disabled=count>=model.MAX;
  $('favNew').title=count>=model.MAX?'Limite de 8 favoritos alcançado. Exclua um para criar outro.':'Criar novo setup favorito';
  $('favList').innerHTML=count&&selected?`${stageHtml(selected)}${libraryHtml(allSorted())}`:'<div class="fav-empty"><strong>Seus melhores setups começam aqui.</strong><p>Monte um carro usando suas peças e pilotos, salve até 8 combinações e consulte sempre que precisar.</p></div>';
  wireStage();
@@ -258,11 +259,21 @@ function render(){
  if(mode==='list')$('favEditor').replaceChildren();
  else if(!$('favForm'))drawForm();
 }
+function openPrintImporter(){
+ if(items().length>=model.MAX){$('favFeedback').textContent='Limite de 8 setups atingido. Exclua um para importar.';return;}
+ editing=null;draftCopy=null;mode='list';render();
+ window.GBRSetupPrint?.open?.({getGarage,onDraft:draft=>{
+  if(items().length>=model.MAX){$('favFeedback').textContent='Limite de 8 setups atingido.';return;}
+  editing=null;draftCopy=draft;mode='new';render();
+  $('favEditor')?.scrollIntoView?.({behavior:'smooth',block:'start'});
+ }});
+}
+$('favImport').onclick=openPrintImporter;
 $('favNew').onclick=()=>{if(items().length>=model.MAX)return;openNew();};
 const previousSet=window.F1App.setGarage;
-window.F1App.setGarage=function(state){editing=null;draftCopy=null;mode='list';selectedId='';const result=previousSet.call(this,state);render();$('favFeedback').textContent='';return result;};
+window.F1App.setGarage=function(state){window.GBRSetupPrint?.close?.();editing=null;draftCopy=null;mode='list';selectedId='';const result=previousSet.call(this,state);render();$('favFeedback').textContent='';return result;};
 const previousRefresh=window.F1App.refresh;
 window.F1App.refresh=function(){const result=previousRefresh.apply(this,arguments);render();return result;};
-window.GBRFavorites=Object.freeze({render,renderGarageSpotlight,open:()=>document.querySelector('#nav [data-tab="favorites"]')?.click(),openNew,openEdit,count:()=>items().length});
+window.GBRFavorites=Object.freeze({render,renderGarageSpotlight,openPrintImporter,open:()=>document.querySelector('#nav [data-tab="favorites"]')?.click(),openNew,openEdit,count:()=>items().length});
 render();
 })();

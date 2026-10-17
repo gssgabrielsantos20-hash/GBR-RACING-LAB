@@ -1,0 +1,37 @@
+/* GBR Racing Lab 5.5.12 — densidade tipográfica moderada.
+   Prioriza informações, evita títulos gigantes e impede zoom automático em inputs do Safari. */
+:root{--gbr-font-ui:system-ui,-apple-system,'Segoe UI',sans-serif}
+.page-head h1,#favorites .fav-head h1{font-size:clamp(22px,2.7vw,31px)!important;line-height:1.12!important;letter-spacing:-.01em!important}
+.page-head p,#favorites .fav-head p{font-size:13px;line-height:1.5}
+#dashboard .telemetry-hero h1{font-size:clamp(25px,3.3vw,42px)!important;line-height:1.07!important;letter-spacing:-.4px!important}
+#dashboard .telemetry-hero .hero-copy p{font-size:12px}
+#dashboard .telemetry-stat b{font-size:31px!important}
+#dashboard .telemetry-panel-heading h2{font-family:var(--gbr-font-ui);font-size:11px!important;font-weight:800;letter-spacing:.06em}
+#favorites .fav-premium-banner h2{font-size:clamp(22px,2.6vw,32px)!important;line-height:1.06!important}
+#favorites .fav-premium-banner p{font-size:12px!important;line-height:1.45!important}
+#favorites .fav-premium-name{font-size:clamp(12px,1.2vw,16px);min-height:0!important;line-height:1.2}
+#favorites .fav-premium-meta span{font-size:10px}
+#favorites .fav-premium-stat strong{font-size:24px!important}
+#favorites .fav-premium-score strong{font-size:31px!important}
+#favorites .fav-premium-score small{font-size:11px}
+#favorites .fav-library-head h3{font-size:21px!important}
+#favorites .fav-editor h2{font-size:22px!important}
+#favorites .fav-block-title{font-size:14px!important}
+#favorites .fav-head-actions .btn{font-family:var(--gbr-font-ui);font-size:12px;min-height:39px}
+#favorites .fav-head-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;min-width:290px;gap:8px}
+#favorites .fav-head-actions .fav-counter{grid-column:1/-1;justify-self:end}
+#favorites .fav-head-actions .btn{flex:none;min-width:0;min-height:38px;padding:9px 12px}
+#favorites .fav-field span{font-size:12px}
+#favorites .fav-field select,#favorites .fav-field input,#favorites .fav-field textarea{font-size:16px}
+#favorites .fav-premium-actions .btn{font-size:12px}
+@media(max-width:600px){
+ .page-head h1,#favorites .fav-head h1{font-size:24px!important}
+ #dashboard .telemetry-hero h1{font-size:clamp(25px,7vw,32px)!important}
+ #dashboard .telemetry-stat b{font-size:28px!important}
+ #favorites .fav-premium-banner h2{font-size:24px!important}
+ #favorites .fav-premium-name{font-size:11px;line-height:1.15}
+ #favorites .fav-premium-stats .fav-premium-stat strong{font-size:21px!important}
+ #favorites .fav-head-actions{width:100%;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr))}
+ #favorites .fav-head-actions .btn{flex:none!important;max-height:44px;font-size:11px;padding:8px 7px}
+ #favorites .fav-slot span{font-size:16px}
+}

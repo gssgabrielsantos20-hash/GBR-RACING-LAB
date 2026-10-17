@@ -40,3 +40,17 @@ Projeto Cloudflare: `gbr-racing-lab-homologacao` (independente de `gbr-racing-la
 - Verificações de RLS SQL em staging foram realizadas em [PR #6](https://github.com/gssgabrielsantos20-hash/GBR-RACING-LAB/pull/6), não equivalem a teste E2E.
 
 **Portão de escalabilidade:** simples projeto estático, sem mudar arquitetura nem custos estruturais. Não foi feita medição de carga.
+
+
+## Verificação após primeiro upload — bloqueio detectado
+
+**Atualização: implantação 16/10/2026 às 22h31 BRT.** Cloudflare Pages confirmou uma implantação ativa `success` no projeto separado `gbr-racing-lab-homologacao` (ID `e2a264f5-999d-4262-94ad-05443b845652`), mas a checagem do conteúdo servido via Cloudflare Browser Rendering **NÃO** correspondeu ao pacote de homologação:
+- HTML de `/` sem o marcador visual `AMBIENTE DE TESTES` e sem `noindex,nofollow,noarchive`.
+- **CRÍTICO:** `/config.js` do domínio de homologação contém a referência ao projeto Supabase oficial `gkjqfirlcmmlhuokszlz`, e **não** a `oageqjzrzalkpyujfyzj`.
+- A configuração correta continua na branch `staging/app-preview-20261016`; o workflow seguro gerou artefato com sucesso em [run 38990932518](https://github.com/gssgabrielsantos20-hash/GBR-RACING-LAB/actions/runs/38990932518).
+- A tentativa de remover somente o deployment incorreto foi bloqueada pelo Cloudflare: `8000034: You cannot delete the active production deployment` (note-se: "production" é a branch de produção **deste projeto isolado**, não a produção pública GBR).
+- Acesso público ao preview ainda é **INSEGURO PARA TESTES**; não autenticar com conta real ali, não considerar homologação funcional concluída. Nenhuma mudança feita em Supabase oficial.
+
+**Correção recomendada:** enviar uma **nova** implantação para o mesmo projeto Cloudflare `gbr-racing-lab-homologacao` utilizando especificamente o ZIP de artefato `GBR-RACING-LAB-HOMOLOGACAO-ARQUIVOS` gerado no run indicado (sem substituí-lo por ZIP da versão oficial). Após status success, repetir verificações HTTP de `/` (marcador/noindex) e `/config.js` (deve conter SOMENTE `oageqjzrzalkpyujfyzj`). Se falhar, interromper uso e não cadastrar usuários.
+
+O site oficial Cloudflare continua com último deployment `0a7eab31-75a0-4af0-b9f8-fbf689b6b43f` e sem alterações por esta operação.

@@ -54,3 +54,23 @@ Projeto Cloudflare: `gbr-racing-lab-homologacao` (independente de `gbr-racing-la
 **Correção recomendada:** enviar uma **nova** implantação para o mesmo projeto Cloudflare `gbr-racing-lab-homologacao` utilizando especificamente o ZIP de artefato `GBR-RACING-LAB-HOMOLOGACAO-ARQUIVOS` gerado no run indicado (sem substituí-lo por ZIP da versão oficial). Após status success, repetir verificações HTTP de `/` (marcador/noindex) e `/config.js` (deve conter SOMENTE `oageqjzrzalkpyujfyzj`). Se falhar, interromper uso e não cadastrar usuários.
 
 O site oficial Cloudflare continua com último deployment `0a7eab31-75a0-4af0-b9f8-fbf689b6b43f` e sem alterações por esta operação.
+
+## Atualização operacional de 18/10/2026 — isolamento corrigido em Cloudflare Pages
+
+**Escopo:** somente projeto Cloudflare `gbr-racing-lab-homologacao`; projeto oficial `gbr-racing-lab` não alterado. Esta seção registra uma implantação ad hoc no projeto de testes, **não** equivale a merge nem a deploy da branch.
+
+- PR #6: estrutura Supabase de homologação `oageqjzrzalkpyujfyzj`, com dados sintéticos, continua separada.
+- PR #7: diretrizes de `config.js` apontando ao projeto de testes, aviso visível e `noindex` adotadas no ambiente servido.
+- Após a implantação incorreta `e2a264f5-999d-4262-94ad-05443b845652`, realizou-se tentativa `f74bf53d-a3e9-4c8f-90a2-62cbfa88d47f`: a nova `/config.js` apontou à homologação, porém arquivos estáticos de outro projeto provocaram HTTP 500; **NÃO UTILIZAR**.
+- Implantação seguinte: `90e724b8-0c2a-4050-be0a-8e0056f736cc` no mesmo projeto de testes, status de deployment `success`, ativa em `https://gbr-racing-lab-homologacao.pages.dev/`.
+- Servidos exclusivamente os **ativos já armazenados no projeto de homologação**, total de 52 no manifesto. `/config.js` oficial excluído do manifesto; um Worker exclusivo de homologação fornece a configuração do Supabase de testes, retorna `robots.txt` com `Disallow: /`, adiciona `noindex,nofollow,noarchive` e faixa visível `AMBIENTE DE TESTES`, e bloqueia rotas de arquivos internos.
+- Evidência HTTP por Cloudflare Browser Rendering: `/config.js` aponta a `oageqjzrzalkpyujfyzj`, sem ID do banco oficial; `/` retorna HTML GBR com aviso/noindex sem HTTP 500; `/cloud.js` responde conteúdo JS. Todos os 39 arquivos referenciados diretamente pelo HTML constam do manifesto (exceto `/config.js`, resolvido pelo Worker).
+- Banco Primary homologação, consulta somente leitura em 18/10: 0 usuários Auth, 0 membros, 0 garagens, 0 objetos Storage; 16 políticas no schema público; 0 tabelas públicas sem RLS. `anon` sem SELECT em `garage_states` e sem EXECUTE em `join_academy(text,text)` e `admin_move_player(uuid,uuid)`.
+- Banco oficial e Cloudflare oficial preservados. Cloudflare oficial segue no deployment `16f59ff1-d6ca-4591-b3b7-c983e1bc1ed1`.
+- Segurança pendente: aviso do linter para `rls_auto_enable` como função `SECURITY DEFINER` executável em roles públicas; requer revisão e correção separada se necessária. Não foi alterado nenhum grant ou política neste trabalho.
+
+**LIMITAÇÕES E BLOQUEIOS:** o site de testes agora acessível utiliza ativos estáticos da publicação **anterior de homologação**, não o ZIP R6 Oxanium mais recente. O pacote R6 local de homologação foi previamente preparado e validado estaticamente, mas seu conteúdo **ainda não foi implantado** nesse domínio. A equivalência dos bytes com a produção oficial permanece não verificada. Redirecionamentos de Supabase Auth (Site URL / Redirect URLs) não verificados; **não executar login nem recuperar senha até conferir essa configuração**. Não houve testes E2E de autenticação ou carga.
+
+**Rollback seguro:** nunca restaurar `e2a264f5...` (conectava ao Supabase oficial), nem `f74bf53d...` (HTTP 500). Caso o isolamento falhe, substituir temporariamente o projeto de homologação por uma página de manutenção sem `config.js` ou suspender os testes; não realizar rollback de produção, nem apagar dados ou projeto. O bundle dessa implantação ad hoc deve ser versionado em staging antes de torná-la uma baseline reproduzível.
+
+**Próximo passo técnico:** gerar um pacote reproduzível contendo todos os 85 arquivos do ZIP R6, com sua `config.js` apontando exclusivamente ao Primary e proteção `noindex`; publicar SOMENTE no projeto `gbr-racing-lab-homologacao` após validar manifesto de ativos; confirmar URLs de redirecionamento Auth e repetir verificações HTTP antes de testar usuários fictícios. Sem merge deste PR no `main`.

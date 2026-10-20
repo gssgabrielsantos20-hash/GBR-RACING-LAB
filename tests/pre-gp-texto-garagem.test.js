@@ -96,7 +96,7 @@ assert.ok(html.indexOf('events-gp.js')<html.indexOf('gbr-pre-gp-ui.js'));
 assert.equal(engine.parseBriefing('Pista: Austin',{tracks}).entries[0].trackId,'austin');
 // A leitura de relatório da conta anterior deve ser negada ANTES de calcular novo setup.
 let currentUser='conta-1',applyHandler=null;
-const textField={value:'Júnior:\nCorrida 1: Austin | 6 voltas | chuva 0%'};
+const textField={value:'GP de teste\nJúnior:\nCorrida 1: Austin | 6 voltas | chuva 0%'};
 const fakeHub={querySelector:selector=>selector==='.gp-result-panel'?fakePanel:null};
 const fakePanel={insertAdjacentHTML(){},querySelector:()=>null};
 const fakeResult={querySelector:()=>null};

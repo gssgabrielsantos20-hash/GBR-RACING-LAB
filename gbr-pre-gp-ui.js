@@ -4,6 +4,7 @@
 const reports=new Map();
 let lastSessionKey=null;
 function sessionKey(){const c=window.F1Session?.getContext?.();return c?.demo?'demo':c?.userId?'user:'+c.userId:'no-session';}
+function ensureSession(){const currentKey=sessionKey();if(lastSessionKey!==null&&lastSessionKey!==currentKey)reports.clear();lastSessionKey=currentKey;}
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const LABELS={soft:'Macio',medium:'Médio',hard:'Duro',wet:'Chuva'};
@@ -16,6 +17,7 @@ function parsedFor(eventId){
  catch{return null}
 }
 function raceFor(eventId,categoryId,trackId,stage,round){
+ ensureSession();
  const parsed=parsedFor(eventId);
  return window.GBRPreGP?.resolve?.(parsed,{categoryId,trackId,stage,round})?.race||null;
 }
@@ -67,9 +69,7 @@ function planHTML(result,plan,reportInfo){
   '<p class="gp-note">Confiança: setup — '+esc(plan.confidence.setup)+'; pneus — '+esc(plan.confidence.tyres)+'; energia — '+esc(plan.confidence.energy)+'; Boost — '+esc(plan.confidence.boosts)+'. '+esc(plan.recommendation)+'</p></section>';
 }
 function mount(){
- const currentKey=sessionKey();
- if(lastSessionKey!==null&&lastSessionKey!==currentKey)reports.clear();
- lastSessionKey=currentKey;
+ ensureSession();
  const hub=$('gbrEventHub'),state=window.GBREvents?.getState?.();
  if(!hub||!state||!window.GBRPreGP)return;
  const event=window.GBREvents.all.find(e=>e.id===state.selectedEventId);

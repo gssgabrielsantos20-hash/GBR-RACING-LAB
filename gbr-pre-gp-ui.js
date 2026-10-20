@@ -59,7 +59,7 @@ function planHTML(result,plan,reportInfo){
   '<span class="kicker">ESTRATÉGIA AUTOMÁTICA / SUA GARAGEM</span><h3>Plano para '+esc(result.track.name)+' · '+esc(result.category.label)+'</h3>'+
   '<p><b>Configuração:</b> '+esc(result.parts.length)+'/'+esc(result.required.length)+' peças elegíveis; dupla de pilotos '+(result.complete?'completa':'incompleta')+'. Foco carro: '+esc(focus)+'; foco piloto: '+esc(driver)+'.</p>'+
   '<p><b>Contexto:</b> '+esc(source)+' · '+esc(plan.laps?plan.laps+' voltas':'voltas não informadas')+' · '+esc(plan.weather==='wet'?'chuva':plan.weather==='dry'?'seco':plan.weather==='variable'?'clima variável':'clima não confirmado')+'</p>'+
-  '<h4>Pneus e paradas</h4>'+tyresHTML(plan)+
+  '<h4>Pneus e paradas</h4>'+tyresHTML(plan)+'<p><b>Dupla:</b> '+esc(plan.driverAdvice)+' <b>Boxes:</b> '+esc(plan.pitAdvice)+'</p>'+
   '<h4>Bateria e impulso</h4><ol>'+energy+'</ol>'+
   '<h4>Reforços (Boosts)</h4><p>Prioridade de efeito: '+esc(plan.boostFocus)+'. '+esc(plan.boostNote)+'</p>'+
   '<p><b>Aprendizado próprio:</b> '+plan.evidenceSample+' registro(s) da mesma pista e série; '+esc(plan.evidenceMode==='experiment'?'hipótese experimental habilitada pelo histórico':'recomendação-base, sem histórico mínimo obrigatório')+'.</p>'+

@@ -1,7 +1,6 @@
 /* GBR Racing Lab 5.5.11 — visual aprovado 3 / Neon de Telemetria.
-   Apenas apresentação. Fonte Racing Sans One: licença OFL 1.1, NÃO é a fonte proprietária da F1. */
-@import url('https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap');
-:root{--bg:#050c16;--rail:#05101c;--panel:#091b2b;--panel2:#0c2433;--stroke:#23566b;--text:#f1fcff;--muted:#a0bdca;--red:#00e7e9;--red2:#00bbce;--gbr-title:'Racing Sans One','Barlow Condensed',Impact,'Arial Black',sans-serif;color-scheme:dark}
+   Apenas apresentação. Tipografia Oxanium sob SIL OFL 1.1, sem vínculo com a fonte proprietária da F1. */
+:root{--bg:#050c16;--rail:#05101c;--panel:#091b2b;--panel2:#0c2433;--stroke:#23566b;--text:#f1fcff;--muted:#a0bdca;--red:#00e7e9;--red2:#00bbce;--gbr-title:'Oxanium',system-ui,-apple-system,'Segoe UI',sans-serif;color-scheme:dark}
 html,body{background:#050c16;color:var(--text)}
 body{background:radial-gradient(ellipse at 85% 0%,rgba(2,115,156,.16),transparent 45%),radial-gradient(ellipse at 9% 75%,rgba(0,215,231,.055),transparent 52%),#050c16}
 .app-shell{grid-template-columns:246px minmax(0,1fr)}

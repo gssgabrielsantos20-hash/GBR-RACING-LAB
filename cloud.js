@@ -173,10 +173,11 @@ window.F1Session={scheduleSave,refreshAcademy:renderTeams,forceFlush:flush,getCo
 window.addEventListener('online',()=>{if(dirty&&!conflict&&enabled)flush()});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&dirty&&!conflict&&enabled)flush()});
 // Configuração intencionalmente pendente em um pacote distribuível.
+$('cloudRetry').onclick=()=>location.reload();
 if(!configured){$('configAlert').classList.remove('hide');message('Publique os arquivos e configure a URL/chave pública do Supabase para ativar contas e sincronização.');gateVisible(true);setSync('error','Nuvem não configurada');}
 else{
  try{
-  const mod=await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.0/+esm');
+  const mod=await window.GBRSupabaseSDK.load();
   client=mod.createClient(config.url.trim().replace(/\/$/,''),config.anonKey.trim(),clientOptions);
   client.auth.onAuthStateChange((event,session)=>{
    if(event==='PASSWORD_RECOVERY'){
@@ -192,5 +193,5 @@ else{
    if(!session)message('Aguardando validação do link. Se ele estiver expirado, solicite outro e-mail de recuperação.');
   }else if(session?.user)await startSession(session.user);
   else{gateVisible(true);setSync(null,'Aguardando login')}
- }catch(e){gateVisible(true);setSync('error','Conexão indisponível');message('Não foi possível iniciar a nuvem: '+(e.message||e))}
+ }catch(e){gateVisible(true);setSync('error','Conexão indisponível');message('Não foi possível iniciar a nuvem: '+(e.message||e));$('cloudRetry').classList.remove('hide')}
 }

@@ -5,7 +5,7 @@ const driverUnlockSeries={"Epic":{"Leclerc":12,"Bearman":11,"Pérez":10,"Piastri
 const init=()=>({
 parts:Object.entries(window.F1Reference.parts).map(([name,ref],i)=>({id:'p'+i,category:partCategory[name],name,level:0,rarity:ref.rarity,series:ref.series,owned:false,speed:0,corner:0,power:0,qualifying:0,pit:0})),
 drivers:Object.values(window.F1Reference.drivers).map((ref,i)=>({id:'d'+i,name:ref.name,rarity:ref.rarity,level:0,series:ref.series,owned:false,overtaking:0,defending:0,qualifying:0,raceStart:0,tyreUse:0})),
-saved:[],favoriteSetups:[],trackPlans:{},deletedCards:{parts:[],drivers:[]},chests:{series:12,totalWins:0,gpWins:0,offset:0,history:[]},schemaVersion:5});
+saved:[],favoriteSetups:[],raceAnalyses:[],trackPlans:{},deletedCards:{parts:[],drivers:[]},chests:{series:12,totalWins:0,gpWins:0,offset:0,history:[]},schemaVersion:5});
 // Cada novo usuário começa com uma garagem vazia. O inventário v2 do criador NÃO é compartilhado.
 function emptyGarage(){const data=init();for(const p of data.parts){p.owned=false;p.level=0;p.speed=0;p.corner=0;p.power=0;p.qualifying=0;p.pit=0;}for(const d of data.drivers){d.owned=false;d.level=0;d.overtaking=0;d.defending=0;d.qualifying=0;d.raceStart=0;d.tyreUse=0;}data.schemaVersion=6;
 const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
@@ -25,6 +25,8 @@ function migrateGaragem(data){if(!data||!Array.isArray(data.parts)||!Array.isArr
  if(!Array.isArray(data.saved))data.saved=[];
  // Favoritos pessoais acompanham o JSON da própria garagem, sem nova tabela compartilhada.
  if(!Array.isArray(data.favoriteSetups))data.favoriteSetups=[];
+ // Histórico individual da Inteligência GBR acompanha apenas a garagem autenticada.
+ if(!Array.isArray(data.raceAnalyses))data.raceAnalyses=[];
  if(!data.deletedCards||typeof data.deletedCards!=='object')data.deletedCards={parts:[],drivers:[]};
  for(const k of ['parts','drivers'])if(!Array.isArray(data.deletedCards[k]))data.deletedCards[k]=[];
  const cardIdentity=(x,k)=>[String(x.name||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(),x.rarity||'Common',k==='drivers'?String(x.editionLabel||'').trim().toLowerCase():''].join('|');
@@ -62,7 +64,7 @@ function migrateGaragem(data){if(!data||!Array.isArray(data.parts)||!Array.isArr
  return data}
 db=migrateGaragem(db);
 let currentSetup=null;const $=id=>document.getElementById(id),save=()=>{window.F1Session?.scheduleSave?.();renderDashboard()};const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const n=x=>Number(x)||0;const types=['Suspensão','Motor','Asa traseira','Asa dianteira','Freios','Câmbio','Bateria'];
-function tab(t){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('hide',x.id!==t));document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));if(t==='garage')renderGarage();if(t==='dashboard')renderDashboard();if(t==='event')renderRaces();if(t==='notices')window.GBRNotices?.render?.();if(t==='favorites')window.GBRFavorites?.render?.()};document.querySelectorAll('#nav button').forEach(x=>x.onclick=()=>tab(x.dataset.tab));
+function tab(t){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('hide',x.id!==t));document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));if(t==='garage')renderGarage();if(t==='dashboard')renderDashboard();if(t==='event')renderRaces();if(t==='notices')window.GBRNotices?.render?.();if(t==='favorites')window.GBRFavorites?.render?.();if(t==='raceLearning')window.GBRLearningUI?.refresh?.()};document.querySelectorAll('#nav button').forEach(x=>x.onclick=()=>tab(x.dataset.tab));
 const profiles={speed:{speed:100,corner:0,power:0,qualifying:0},corner:{speed:0,corner:100,power:0,qualifying:0},power:{speed:0,corner:0,power:100,qualifying:0},balanced:{speed:30,corner:30,power:25,qualifying:15},qualifying:{speed:20,corner:20,power:15,qualifying:45},custom:{speed:25,corner:25,power:25,qualifying:25}};let weights={...profiles.speed};function renderWeights(){ $('weights').innerHTML=Object.entries({speed:'Velocidade',corner:'Curvas',power:'Unidade de potência',qualifying:'Classificação'}).map(([k,label])=>`<div class="field"><label>${label}: <b id="v-${k}">${weights[k]}</b></label><input type="range" min="0" max="100" step="5" value="${weights[k]}" data-weight="${k}"></div>`).join('');document.querySelectorAll('[data-weight]').forEach(e=>e.oninput=()=>{weights[e.dataset.weight]=n(e.value);$('v-'+e.dataset.weight).textContent=e.value;$('preset').value='custom'})};$('preset').onchange=e=>{weights={...profiles[e.target.value]};renderWeights()};
 function scorePart(p,w,pit){const sum=Object.values(w).reduce((a,b)=>a+b,0)||1;return ((p.speed*w.speed+p.corner*w.corner+p.power*w.power+p.qualifying*w.qualifying)/sum)-(pit==='strong'?30:pit==='soft'?10:0)*n(p.pit)}
 function optimize(w=weights,series=12,pit='none'){const required=series<=3?types.filter(category=>category!=='Bateria'):types;let chosen=required.map(category=>db.parts.filter(p=>p.owned&&p.category===category&&n(p.series)<=series).sort((a,b)=>scorePart(b,w,pit)-scorePart(a,w,pit))[0]).filter(Boolean);let totals={speed:0,corner:0,power:0,qualifying:0,pit:0};chosen.forEach(p=>Object.keys(totals).forEach(k=>totals[k]+=n(p[k])));return {chosen,totals,required}}
@@ -152,9 +154,12 @@ let selectedTrackId='melbourne';
 function trackInfo(){
  const track=TRACKS_2026.find(t=>t.id===selectedTrackId)||TRACKS_2026[0];
  const series=n($('trackSeries').value)||12;
- const override=TRACK_SERIES[series]?.[track.id];
- const driver=override?.[0]||track.driver,car=override?.[1]||track.car;
- const source=track.id==='madrid'?'official':override?'community':'indicative';
+  // Só a rotação vigente dos Duelos altera a ficha de pista; o mapa legado
+  // TRACK_SERIES segue como referência comunitária para GPs e outras pistas.
+  const duelFocus=window.GBRIntelligence?.priorityFor?.(series,track.id)||null;
+  const override=duelFocus||TRACK_SERIES[series]?.[track.id];
+  const driver=override?.[0]||track.driver,car=override?.[1]||track.car;
+  const source=duelFocus?'rotation':track.id==='madrid'?'official':override?'community':'indicative';
  return {track,series,driver,car,source};
 }
 function trackWeights(car){return {
@@ -185,7 +190,7 @@ function renderTrackDirectory(){
  const sort=$('trackSort').value;
  const matches=TRACKS_2026.filter(t=>{
   const words=(t.name+' '+t.country).toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-  return words.includes(q)&&(sort==='all'||(TRACK_SERIES[n($('trackSeries').value)]?.[t.id]?.[1]||t.car)===sort);
+  return words.includes(q)&&(sort==='all'||(window.GBRIntelligence?.priorityFor?.(n($('trackSeries').value),t.id)?.[1]||TRACK_SERIES[n($('trackSeries').value)]?.[t.id]?.[1]||t.car)===sort);
  });
  $('trackDirectory').innerHTML=matches.map(t=>{
  const chosen=t.id===selectedTrackId;
@@ -205,12 +210,14 @@ function trackCarScore(set,w){if(set.chosen.length!==set.required.length)return 
  return total;
 }
 function trackCompareVariants(car,series){
+ const learning=window.GBRRecommendations?.evidence?.(db,{series,trackId:selectedTrackId,baseWeights:trackWeights(car)});
  const variants=[
  {id:'circuit',name:'Foco na pista',description:'Enfatiza o atributo prioritário do circuito.',w:trackWeights(car),pit:'none'},
  {id:'balanced',name:'Equilibrado',description:'Distribui importância por todos os atributos.',w:profiles.balanced,pit:'none'},
  {id:'qualifying',name:'Classificação',description:'Dá mais peso à posição de largada.',w:profiles.qualifying,pit:'none'},
  {id:'pit',name:'Box mais rápido',description:'Sacrifica parte do desempenho para reduzir tempo-base de parada.',w:trackWeights(car),pit:'strong'}
  ];
+ if(learning?.hasExperiment)variants.push({id:'gbr',name:'Inteligência GBR · teste',description:'Hipótese baseada em corridas revisadas. Não garante vitória.',w:learning.weights,pit:'none',learning});
  // Comparação sob a mesma escala da pista; o modo pit tem trade-off próprio.
  return variants.map(v=>{
   const build=optimize(v.w,series,v.pit);
@@ -222,6 +229,8 @@ function renderTrackSetup(){
  const {track,series,driver,car}=trackInfo();
  const variants=trackCompareVariants(car,series),primary=variants[0],pilots=trackDriverPair(driver,series);
  const valid=primary.trackScore!==null;
+ const learned=window.GBRRecommendations?.evidence?.(db,{series,trackId:track.id,baseWeights:trackWeights(car)});
+ const alternatives=window.GBRRecommendations?.candidates?.(db,{series,trackId:track.id,baseWeights:trackWeights(car)})||[];
  $('trackUseSetup').disabled=!valid;
  $('trackBestSetup').innerHTML=valid?`<div class="track-setup-metrics">${Object.entries(TRACK_CAR).map(([k,label])=>`<div class="track-metric"><small>${esc(label)}</small><strong>${n(primary.build.totals[k]).toFixed(0)}</strong></div>`).join('')}</div><div class="track-setup-parts">${primary.build.chosen.map(p=>`<div class="track-part"><small>${esc(p.category)}</small><span class="gbr-inline-art">${window.GBRCardArt?.thumb?.(p,'parts')||''}<b>${esc(p.name)}</b></span><span>Nv. ${n(p.level)} · ${esc(p.rarity)} · Série ${n(p.series)}</span></div>`).join('')}</div><p class="muted mini">Pit stop — soma do indicador das peças: <strong>${n(primary.build.totals.pit).toFixed(2)} s</strong> (comparação; não representa tempo total de box).</p>`:'<div class="warn">Não há peças cadastradas em todas as posições elegíveis. Em <b>Minha garagem</b>, marque as peças que possui e informe os níveis para desbloquear o cálculo.</div>';
  $('trackBestDrivers').innerHTML=`<h3>Dupla de pilotos • foco em ${esc(TRACK_DRIVER[driver])}</h3>${pilots.length===2?`<div class="track-driver-grid">${pilots.map((d,i)=>`<div class="track-driver-card"><span class="kicker">PILOTO ${i+1}</span><span class="gbr-inline-art">${window.GBRCardArt?.thumb?.(d.data,'drivers')||''}<b>${esc(d.data.name)}</b></span><small>${esc(d.data.rarity)} · nível ${n(d.data.level)} · ${esc(TRACK_DRIVER[driver])}: ${n(d.data[driver])}</small></div>`).join('')}</div>`:'<div class="warn">Cadastre pelo menos dois pilotos elegíveis na garagem. A recomendação só usa pilotos que você possui.</div>'}`;
@@ -233,6 +242,12 @@ function renderTrackSetup(){
   const percent=valid&&baseline!==null&&baseline!==0?Math.max(6,Math.min(100,100*v.trackScore/baseline)):0;
   return `<div class="track-compare-row"><div class="track-compare-main"><b>${esc(v.name)} ${v.id==='circuit'?'<span class="track-recommend-tag">PISTA</span>':''}</b><small>${esc(v.description)}</small><div class="track-progress"><i style="width:${Number.isFinite(percent)?percent:0}%"></i></div></div><div class="track-compare-score"><strong>${score}</strong><small>${delta===null?'Sem dados':delta===0?'Referência':(delta>0?'+':'')+delta.toFixed(1)+' vs. foco'}</small></div></div>`
  }).join('')+`<p class="muted mini">Score comparável somente dentro desta pista, ponderado pelos atributos relevantes. Para entender o benefício do box, compare também as somas de pit stop: ${variants.map(v=>`${esc(v.name)} ${n(v.build.totals.pit).toFixed(2)}s`).join(' • ')}. Os níveis de bateria são preservados, mas seus atributos específicos de overtake não constam desta base.</p>`;
+ const experiment=variants.find(v=>v.id==='gbr');
+ const favorite=alternatives.find(f=>f.validated)||alternatives[0];
+ const learnedText=learned?.message||'Sem histórico confiável nesta pista/série.';
+ const favText=favorite?`${esc(favorite.name)} · ${favorite.sample} corrida(s) confirmada(s)${favorite.validated?` · ${favorite.wins} vitória(s)`:' · dados insuficientes para taxa confiável'}`:'Nenhum favorito elegível vinculado a esta pista.';
+ $('trackComparison').insertAdjacentHTML('beforeend',`<div class="gbr-reco-inline"><div><b>Inteligência GBR</b><p>${esc(learnedText)}</p><small>${favText}</small></div>${experiment?'<button type="button" class="btn outline" id="trackTryGBR">TESTAR NO MONTADOR →</button>':''}</div>`);
+ if(experiment)$('trackTryGBR').onclick=()=>openBuilderFromTrack(series,track.id,experiment.w,true);
 }
 function tyrePlans(laps,limits,maxStints){
  const options=Object.entries(limits).filter(([k,v])=>v&&v>0&&k!=='wet');
@@ -290,8 +305,8 @@ function renderRaces(){
  $('trackTitle').textContent=track.name;$('trackSubtitle').textContent=track.description;
  $('trackCountry').textContent=track.country;
  $('trackMapVisual').innerHTML=renderTrackMap(track);
- $('trackPriorities').innerHTML=`<div class="track-priority"><small>ATRIBUTO PRIORITÁRIO DO CARRO</small><strong>${esc(TRACK_CAR[car])}</strong><span>${source==='official'?'Confirmado pela equipe F1 Clash':'Baseado na referência de pista/série'}</span></div><div class="track-priority"><small>ATRIBUTO PRIORITÁRIO DO PILOTO</small><strong>${esc(TRACK_DRIVER[driver])}</strong><span>Valorizado na seleção da sua dupla de pilotos</span></div>`;
- $('trackPrioritySource').textContent=source==='official'?'FONTE: F1 Clash — Madring, setembro de 2026.':source==='community'?`FONTE: Compilação comunitária F1-Clash-Advisor, Série ${series}. Verifique prioridades atuais dentro do jogo.`:'PERFIL ORIENTATIVO: não há prioridade validada para esta combinação de pista/série na base consultada; confirme no jogo.';
+ $('trackPriorities').innerHTML=`<div class="track-priority"><small>ATRIBUTO PRIORITÁRIO DO CARRO</small><strong>${esc(TRACK_CAR[car])}</strong><span>${source==='official'?'Confirmado pela equipe F1 Clash':source==='rotation'?'Rotação 21/10–03/11 fornecida pelo responsável':'Baseado na referência de pista/série'}</span></div><div class="track-priority"><small>ATRIBUTO PRIORITÁRIO DO PILOTO</small><strong>${esc(TRACK_DRIVER[driver])}</strong><span>Valorizado na seleção da sua dupla de pilotos</span></div>`;
+ $('trackPrioritySource').textContent=source==='indicative'?'Perfil indicativo: confirme no jogo.':source==='rotation'?'Prioridades da rotação informada para a série; confirme no jogo.':'Prioridades orientativas para esta pista e série; confirme no jogo.';
  writeTrackPrefs();renderTrackStrategies();renderTrackSetup();
 }
 function renderRaceOptions(){renderTrackDirectory();renderRaces()}
@@ -301,7 +316,16 @@ $('trackSearch').oninput=renderTrackDirectory;
 $('trackSort').onchange=renderTrackDirectory;
 $('trackSeries').onchange=renderRaceOptions;
 ['trackLaps','trackWeather','trackSoft','trackMedium','trackHard','trackWet'].forEach(id=>$(id).addEventListener('change',saveTrackPrefs));
-$('trackUseSetup').onclick=()=>{const {series,car}=trackInfo();$('seriesLimit').value=String(series);$('preset').value='custom';weights={...trackWeights(car)};renderWeights();tab('builder');build()};
+function openBuilderFromTrack(series,trackId,w,useIntelligence=false){
+ $('seriesLimit').value=String(series);weights={...w};$('preset').value='custom';renderWeights();
+ tab('builder');
+ const trackControl=$('gbrBuildTrack'),follow=$('gbrFollowTrack'),mode=$('gbrBuildRecommendationMode');
+ if(trackControl)trackControl.value=trackId;
+ if(follow)follow.checked=true;
+ if(mode)mode.value=useIntelligence?'gbr':'baseline';
+ build();window.GBRBuildPlus?.refresh?.();
+}
+$('trackUseSetup').onclick=()=>{const {series,car,track}=trackInfo();openBuilderFromTrack(series,track.id,trackWeights(car))};
 function openTrackFromDuel(trackId,series){
  const track=TRACKS_2026.find(t=>t.id===String(trackId||''));
  const selectedSeries=Number(series);
@@ -324,7 +348,13 @@ function openTrackFromDuel(trackId,series){
 window.F1Tracks={all:TRACKS_2026,series:TRACK_SERIES,plans:tyrePlans,trackInfo,render:renderRaceOptions,openTrack:openTrackFromDuel};
 
 function bestDrivers(focus,series){const w=focus==='balanced'?{overtaking:1,defending:1,qualifying:1,raceStart:1,tyreUse:1}:{[focus]:1};return db.drivers.filter(d=>d.owned&&n(d.series)<=series).sort((a,b)=>Object.entries(w).reduce((s,[k,v])=>s+n(b[k])*v-n(a[k])*v,0)).slice(0,2)}
-$('duelCalc').onclick=()=>{let s=n($('duelSeries').value),f=$('duelFocus').value,d=$('duelDrivers').value,p=optimize(profiles[f],s,'soft'),pilots=bestDrivers(d,s);$('duelOutput').innerHTML=setupHtml(p,`Carro para duelo — Série ${s}`)+`<div class="panel"><h2>Dupla de pilotos</h2>${pilots.length?pilots.map(x=>`<div class="track" style="margin-bottom:8px"><span class="gbr-inline-art">${window.GBRCardArt?.thumb?.(x,'drivers')||''}<b>${esc(x.name)} — Nv. ${x.level} <span class="tag ${x.rarity}">${x.rarity==='Legendary'?'Lendário':x.rarity==='Special'?'Especial':x.rarity==='Epic'?'Épica':x.rarity==='Rare'?'Rara':'Comum'}</span></b></span><span class="mini muted">Ultrap. ${x.overtaking} • Defesa ${x.defending} • Classif. ${x.qualifying} • Largada ${x.raceStart} • Pneus ${x.tyreUse}</span></div>`).join(''):'<div class="warn">Sem pilotos cadastrados para esta série. Atualize a garagem.</div>'}<p class="muted mini">Recomendação calculada a partir do atributo escolhido, não da pista específica. O filtro de série é editável na garagem e deve ser confirmado no jogo.</p></div>`};
+if($('duelTrack'))$('duelTrack').innerHTML='<option value="">Sem pista específica</option>'+TRACKS_2026.map(t=>`<option value="${esc(t.id)}">${esc(t.name)}</option>`).join('');
+$('duelCalc').onclick=()=>{let s=n($('duelSeries').value),f=$('duelFocus').value,d=$('duelDrivers').value;
+ const selected=$('duelTrack')?.value||'';
+ const learned=selected?window.GBRRecommendations?.evidence?.(db,{series:s,trackId:selected,baseWeights:profiles[f]}):null;
+ const weight=learned?.hasExperiment?learned.weights:profiles[f];
+ const p=optimize(weight,s,'soft'),pilots=bestDrivers(d,s);
+ $('duelOutput').innerHTML=setupHtml(p,`Carro para duelo — Série ${s}`)+`<div class="panel"><h2>Dupla de pilotos</h2>${pilots.length?pilots.map(x=>`<div class="track" style="margin-bottom:8px"><span class="gbr-inline-art">${window.GBRCardArt?.thumb?.(x,'drivers')||''}<b>${esc(x.name)} — Nv. ${x.level} <span class="tag ${x.rarity}">${x.rarity==='Legendary'?'Lendário':x.rarity==='Special'?'Especial':x.rarity==='Epic'?'Épica':x.rarity==='Rare'?'Rara':'Comum'}</span></b></span><span class="mini muted">Ultrap. ${x.overtaking} • Defesa ${x.defending} • Classif. ${x.qualifying} • Largada ${x.raceStart} • Pneus ${x.tyreUse}</span></div>`).join(''):'<div class="warn">Sem pilotos cadastrados para esta série. Atualize a garagem.</div>'}<p class="muted mini">${selected?esc(learned?.message||'Prioridade da série sem histórico revisado.'):'Recomendação pelo atributo escolhido. Selecione uma pista para usar a Inteligência GBR.'} Confira restrições da série no jogo.</p></div>`};
 function renderGarage(){
  const kind=$('garageType').value, search=$('garageSearch').value.toLowerCase();
  const items=db[kind].filter(x=>{
@@ -361,12 +391,12 @@ $('exportBtn').onclick=()=>{let blob=new Blob([JSON.stringify(db,null,2)],{type:
 
 
 // GBR Racing Lab v3: navegação responsiva e rotinas de recarregamento após sessão cloud.
-function refreshAll(){renderGarage();renderDashboard();renderRaceOptions();build();try{renderRaces()}catch(e){console.warn('renderRaces',e)}window.F1Chests?.render?.()}
+function refreshAll(){renderGarage();renderDashboard();renderRaceOptions();build();try{renderRaces()}catch(e){console.warn('renderRaces',e)}window.F1Chests?.render?.();window.GBRLearningUI?.refresh?.()}
 window.F1App={getGarage:()=>db,setGarage:(state)=>{db=migrateGaragem(state);refreshAll()},newGarage:()=>emptyGarage(),refresh:refreshAll,originalBackup:()=>localStorage.getItem('f1clash-manager-v1')};
 document.querySelectorAll('[data-go]').forEach(el=>el.addEventListener('click',()=>tab(el.dataset.go)));
 document.querySelectorAll('#mobileNav [data-tab]').forEach(el=>el.addEventListener('click',()=>tab(el.dataset.tab)));
-const previousTab=tab;tab=function(next){previousTab(next);document.querySelectorAll('#mobileNav button').forEach(el=>el.classList.toggle('active',el.dataset.tab===next));const names={dashboard:'PAINEL',builder:'MONTADOR',event:'PISTAS',duel:'DUELOS',garage:'MINHA GARAGEM',academy:'EQUIPES',chests:'BAÚS',notices:'AVISOS',favorites:'MEUS SETUPS'};$('pageName').textContent=names[next]||'PAINEL';if(next==='academy')window.F1Session?.refreshAcademy?.();if(next==='chests')window.F1Chests?.render?.()};
-const garageSection=document.querySelector('#garage .panel');if(garageSection){const hint=document.createElement('div');hint.className='garage-hint';hint.innerHTML='<b>Garagem individual sincronizada</b><p>Marque as cartas que possui e selecione o nível. Selecione o nível e os atributos serão preenchidos automaticamente conforme a planilha TR The Flash (quando houver referência). Se um nível não estiver na base, os atributos ficam zerados para preenchimento manual — não fazemos estimativas. Salvar é automático após você entrar.</p>';garageSection.prepend(hint)}
+const previousTab=tab;tab=function(next){previousTab(next);document.querySelectorAll('#mobileNav button').forEach(el=>el.classList.toggle('active',el.dataset.tab===next));const names={dashboard:'PAINEL',builder:'MONTADOR',event:'PISTAS',duel:'DUELOS',garage:'MINHA GARAGEM',academy:'EQUIPES',chests:'BAÚS',notices:'AVISOS',favorites:'MEUS SETUPS',raceLearning:'INTELIGÊNCIA GBR'};$('pageName').textContent=names[next]||'PAINEL';if(next==='academy')window.F1Session?.refreshAcademy?.();if(next==='chests')window.F1Chests?.render?.()};
+const garageSection=document.querySelector('#garage .panel');if(garageSection){const hint=document.createElement('div');hint.className='garage-hint';hint.innerHTML='<b>Garagem individual sincronizada</b><p>Marque as cartas que possui e selecione o nível. Selecione o nível e os atributos serão preenchidos automaticamente quando houver valores validados no catálogo de atributos. Se um nível não estiver na base, os atributos ficam zerados para preenchimento manual — não fazemos estimativas. Salvar é automático após você entrar.</p>';garageSection.prepend(hint)}
 
 // Superfície somente-leitura para módulos de apresentação GBR 5.0 (sem alterar autenticação).
 window.GBRCore={getCurrentSetup:()=>currentSetup,optimize,profiles,trackWeights,trackDriverPair,TRACK_SERIES,TRACK_MAPS,TRACK_CAR,TRACK_DRIVER,trackInfo,scorePart,applyWeights:(w)=>{weights={...w};$('preset').value='custom';renderWeights();}};

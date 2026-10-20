@@ -1,0 +1,75 @@
+/* GBR 5.5.13 — cards densos e fontes legíveis no iPhone/PC */
+#raceLearning{--rl-cyan:#00d8cd;--rl-border:#28505a;font-family:inherit}
+.rl-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.rl-head h1{font-size:clamp(1.32rem,2vw,1.8rem);line-height:1.16;margin:5px 0 6px}.rl-head p{font-size:.88rem;line-height:1.5;color:#b1c3cc;max-width:750px}.rl-chip{border:1px solid #2c666a;color:#57ddd5;padding:7px 10px;border-radius:30px;font-size:.68rem;letter-spacing:.04em}
+.rl-highlights{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 14px}.rl-highlights>div{padding:11px;border:1px solid var(--rl-border);border-radius:10px;background:#0b2229}.rl-highlights small{display:block;font-size:.6rem;letter-spacing:.08em;color:#9eb5c3}.rl-highlights strong{display:block;font-size:1.45rem;color:#e3fffe;margin-top:4px}
+.rl-columns{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.85fr);gap:12px}.rl-panel{border:1px solid var(--rl-border);background:#0c1b25;border-radius:12px;padding:15px;min-width:0}.rl-panel h2{font-size:1.02rem;margin:0 0 9px}.rl-muted,.rl-panel p{font-size:.79rem;line-height:1.45;color:#aac3c9}.rl-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.rl-field{display:grid;gap:4px;margin:0 0 10px;color:#b6c9d4;font-size:.76rem}.rl-field input,.rl-field select,.rl-field textarea{width:100%;min-width:0;border:1px solid #395563;border-radius:7px;background:#081720;color:#e7faf8;padding:9px 8px;font:inherit;font-size:.85rem;box-sizing:border-box}.rl-field select{appearance:auto}.rl-field textarea{resize:vertical}.rl-field input:focus-visible,.rl-field select:focus-visible,.rl-field textarea:focus-visible{outline:2px solid #1fd0cf;outline-offset:1px}
+.rl-metric-title{display:grid;grid-template-columns:minmax(96px,1fr) 86px 86px;gap:6px;align-items:center;font-size:.74rem;margin:12px 0 6px;color:#6ce9e0}.rl-metric-title b{text-align:center}.rl-metric-row{display:grid;grid-template-columns:minmax(96px,1fr) 86px 86px;gap:6px;align-items:center;margin-bottom:6px;font-size:.74rem}.rl-metric-row label{color:#c0d3d8;overflow-wrap:anywhere}.rl-metric-row input{width:100%;min-width:0;max-width:100%;padding:8px 6px;border:1px solid #34515a;background:#0b2b34;color:#e4fffb;border-radius:6px;font-size:.8rem;box-sizing:border-box}
+.rl-files{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:10px 0}.rl-files label{min-width:0;font-size:.73rem;color:#abcbd2}.rl-files input{display:block;max-width:100%;font-size:.74rem;margin-top:6px}.rl-preview{max-height:160px;overflow:hidden;margin-top:5px}.rl-preview img{display:block;max-width:100%;max-height:160px;border-radius:6px}
+.rl-actions{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.rl-message{display:block;min-height:20px;font-size:.75rem;color:#9cedde;margin:7px 0}.rl-evidence{border-left:3px solid var(--rl-cyan);padding:8px 10px;background:#102d35;margin-bottom:12px}.rl-panel ul{padding-left:17px}.rl-panel li{font-size:.78rem;line-height:1.6;margin-bottom:8px;color:#cadce0}.rl-history{margin-top:12px}.rl-record{border-top:1px solid #29444c;padding:10px 0;display:flex;justify-content:space-between;gap:12px;align-items:start}.rl-record strong{font-size:.82rem}.rl-record small{display:block;font-size:.72rem;color:#92bdc5}.rl-record p{margin:5px 0 0}.rl-record .btn{font-size:.7rem;padding:6px 9px}
+@media(max-width:880px){.rl-columns{grid-template-columns:1fr}.rl-highlights{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:380px){.rl-panel{padding:10px}.rl-metric-title,.rl-metric-row{grid-template-columns:minmax(95px,1fr) 65px 65px;gap:5px}.rl-metric-row input{padding:7px 3px}.rl-grid{grid-template-columns:1fr}}
+
+.rl-metric-row input[data-ocr="suggested"]{border-color:#cfae4d;background:#3b321b}#rlOCR:disabled{opacity:.55;cursor:wait}
+
+/* GBR 5.5.14A — leitura compacta dos quatro pilotos no relatório comparativo. */
+.rl-driver-fieldset{margin:14px 0 12px;padding:10px;border:1px solid #35646a;border-radius:9px;min-inline-size:0;background:#071d26}
+.rl-driver-fieldset legend{color:#76efe3;font-size:.79rem;font-weight:800;padding:0 6px}
+.rl-driver-hint{margin:3px 0 9px!important;font-size:.72rem!important;color:#a7bfc8!important}
+.rl-driver-roster{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:10px 0}
+.rl-driver-card{background:#0d2932;border:1px solid #31515e;border-radius:8px;padding:8px;min-width:0}
+.rl-driver-card h4{color:#d8fffb;font-size:.72rem;margin:0 0 6px}.rl-driver-card.rival{background:#13222d;border-color:#52606a}
+.rl-driver-card .rl-driver-card-fields{display:grid;grid-template-columns:minmax(0,1fr) 54px;gap:5px}
+.rl-driver-card input{min-width:0;width:100%;box-sizing:border-box;border:1px solid #47616a;background:#0b1720;color:#ecfffc;border-radius:6px;font-size:.75rem;padding:8px 5px}
+.rl-driver-card label{display:grid;gap:3px;color:#aec5d1;font-size:.65rem}
+.rl-driver-table-wrap{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+.rl-driver-table{width:100%;min-width:325px}
+.rl-driver-metric-head,.rl-driver-metric-row{display:grid;grid-template-columns:minmax(91px,1.65fr) repeat(4,minmax(44px,.83fr));gap:4px;align-items:center}
+.rl-driver-metric-head{font-size:.63rem;text-align:center;color:#75e8e1;margin:9px 0 6px}
+.rl-driver-metric-head span:first-child{text-align:left}
+.rl-driver-metric-row{margin-bottom:5px}
+.rl-driver-metric-row label{font-size:.69rem;color:#bed0dc;overflow-wrap:anywhere}
+.rl-driver-metric-row input{width:100%;min-width:0;box-sizing:border-box;padding:8px 3px;border:1px solid #405763;border-radius:6px;background:#0a303a;color:#e1faf5;font-size:.72rem;text-align:center}
+.rl-driver-metric-row input[data-ocr="suggested"]{border-color:#d8ba57;background:#41331d}
+.rl-record .rl-driver-history{margin:7px 0;border:1px solid #34515b;padding:6px;border-radius:7px;color:#c1dce2;font-size:.72rem}
+.rl-driver-history summary{cursor:pointer}.rl-driver-history div{margin-top:4px}
+@media(max-width:400px){.rl-driver-fieldset{padding:7px}.rl-driver-roster{gap:5px}.rl-driver-card{padding:6px}.rl-driver-card .rl-driver-card-fields{grid-template-columns:minmax(0,1fr) 46px}.rl-driver-metric-head,.rl-driver-metric-row{grid-template-columns:minmax(77px,1.45fr) repeat(4,minmax(42px,.85fr));gap:3px}}
+
+.rl-driver-history-table{max-width:100%;overflow-x:auto;margin-top:8px}
+.rl-driver-history-row{display:grid;grid-template-columns:minmax(82px,1.7fr) repeat(4,minmax(34px,1fr));gap:3px;align-items:center;text-align:center;min-width:270px;padding:5px 0;border-bottom:1px solid #254651;font-size:.7rem}
+.rl-driver-history-row span:first-child,.rl-driver-history-row b:first-child{text-align:left}
+
+/* 5.5.14C etapa 2: campos opcionais da identidade da carta e estado da leitura. */
+.rl-driver-card .rl-driver-card-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-top:7px}
+.rl-driver-card select{width:100%;min-width:0;box-sizing:border-box;padding:7px 3px;border:1px solid #47616a;border-radius:6px;background:#0b1720;color:#ecfffc;font-size:.69rem}
+.rl-driver-card input[data-ocr="suggested"],.rl-driver-card select[data-ocr="suggested"]{border-color:#d8ba57;background:#41331d}
+.rl-driver-ocr-note{display:block;font-size:.65rem;color:#b9d1d8;margin-top:6px;line-height:1.4}
+
+/* 5.5.14C release: pneus, contexto semanal e parecer observacional */
+#rlEventFields[hidden],#rlVerdictPanel[hidden]{display:none!important}
+#rlEventFields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;grid-column:1/-1}
+.rl-tyre-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.rl-tyre-pilot{min-width:0;border:1px solid #31515e;background:#102630;border-radius:9px;padding:10px}
+.rl-tyre-pilot h4{font-size:.8rem;margin:0 0 10px;color:#d7fffb}
+.rl-tyre-stop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:7px;padding:7px 0;border-top:1px solid #314955}
+.rl-tyre-pilot .rl-field{margin-bottom:7px}
+.rl-reference-panel{padding:10px 12px;border:1px solid #355965;background:#10272f;border-radius:10px;margin:10px 0}
+.rl-reference-panel h3{font-size:.84rem;color:#76e5dd;margin:0 0 6px}
+.rl-verdict{margin-top:12px;border-color:#469a92}
+.rl-verdict-subtitle{font-size:.72rem;color:#d3efea;margin:5px 0}
+.rl-verdict h3{font-size:.83rem;margin:12px 0 5px}
+.rl-verdict ul{margin:4px 0 10px}
+.rl-history .rl-verdict-inline{padding:8px;border-left:2px solid #3e9e93;background:#09232c;margin-top:8px}
+.rl-history .rl-verdict-inline summary{font-size:.73rem;cursor:pointer}
+@media(max-width:530px){#rlEventFields,.rl-tyre-grid{grid-template-columns:1fr}}
+
+/* R1: o layout grid não pode sobrescrever o atributo hidden das paradas não usadas. */
+.rl-tyre-stop[hidden]{display:none}
+
+/* R2: valores calculados pelo catálogo nunca se parecem com leitura confirmada. */
+.rl-metric-row input[data-estimated="true"]{border:2px dashed #e4b45f;background:#2d281d;color:#ffe0a4}
+.rl-pit-estimate-note{font-size:.75rem;color:#ffe0a4;background:#241f19;border-left:3px solid #e4b45f;padding:8px 10px;margin:8px 0 12px}
+.rl-pit-estimate-note[hidden]{display:none!important}
+
+/* R3: correção explícita de estatística suspeita, sem sobrepor colunas no histórico mobile. */
+.rl-correction-actions{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.rl-correct-stat{font-size:.69rem;white-space:normal;line-height:1.2}

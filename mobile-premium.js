@@ -13,13 +13,14 @@ const support={
  academy:{title:'Equipes · como usar',intro:'O perfil conecta seu nome de jogador à academia. A equipe é atribuída pela administração.',steps:['Faça seu cadastro, entre na academia com o código de convite e informe seu nome no F1 Clash.','Acompanhe a equipe atribuída pelo administrador.','Sua garagem e suas preferências continuam individuais, mesmo quando outros pilotos estão na mesma equipe.']},
  login:{title:'Conta · como usar',intro:'Entre ou crie sua conta no GBR Racing Lab. Não informe sua senha a outros pilotos ou administradores.',steps:['Para criar uma conta, use um e-mail seu e defina uma senha segura.','Se esqueceu a senha, toque em Esqueci minha senha para receber o link por e-mail.','Após entrar, verifique o status de sincronização. Para testar sem conta, escolha Demonstração local (não sincroniza).']}
 };
-support.notices={title:'Central de Avisos · como usar',intro:'Veja comunicados e notícias da academia. Administradores podem publicar, editar e fixar mensagens.',steps:['Abra Avisos no menu principal ou em Mais no iPhone.','Filtre por Atualização, Academia, Evento GP, Manutenção ou Dica.','Marque as mensagens lidas. Se você for administrador, toque em Publicar aviso para cadastrar notícias e comunicados.','Em modo demonstração, os avisos ficam apenas no navegador; para compartilhar com a academia é necessária a migração Supabase da versão 5.2.']};
+support.notices={title:'Central de Avisos · como usar',intro:'Veja comunicados e notícias da academia. Administradores podem publicar, editar e fixar mensagens.',steps:['Abra Avisos no menu principal ou em Mais no iPhone.','Filtre por Atualização, Academia, Evento GP, Manutenção ou Dica.','Marque as mensagens lidas. Se você for administrador, toque em Publicar aviso para cadastrar notícias e comunicados.','Os avisos do sistema acompanham o aplicativo. Comunicados compartilhados da academia dependem de login e das permissões de administrador; a demonstração guarda somente seus próprios rascunhos locais.']};
+support.raceLearning={title:'Inteligência GBR · como usar',intro:'Registre corridas do F1 Clash para comparar carros, quatro pilotos e estratégias de pneus. O parecer usa seu próprio histórico e não comprova a causa da vitória ou derrota.',steps:['Abra Mais > Inteligência GBR. Escolha série, pista, vitória ou derrota, condição observada e duelo de série ou evento semanal. Se desejar, vincule um setup salvo.','Anexe o print dos carros e o dos pilotos. O OCR começa a leitura no navegador; toque em Reler prints (assistido) se necessário. Você também pode digitar ou corrigir os valores manualmente.','Confira os seis indicadores dos carros (velocidade, curvas, potência, qualificação, tempo médio de pit stop e modo de ultrapassagem). Valores aproximados de pit stop dependem das peças identificadas e aparecem como estimativas.','Revise os quatro pilotos: nome, raridade, série quando conhecida, nível e cinco atributos — ultrapassagem, defesa, qualificação, início de corrida e gerenciamento de pneus. Correspondências pelo catálogo, como a do Fangio, são sugestões e devem ser conferidas.','Informe a quantidade real de voltas e o composto inicial de cada piloto. Para até três paradas, registre o fim da volta e o novo composto; revise a simulação antes de salvar.','Toque em Salvar corrida revisada. No histórico, consulte as comparações e o parecer da Inteligência GBR. Se houver um atributo suspeito em corrida anterior, use a correção assistida. Registre mais corridas comparáveis para melhorar a amostra.']};
 support['gp-events']={title:'Eventos de GP · como usar',intro:'Monte setups para eventos temporários com regras de categoria, pistas limitadas e +10% nas cartas destacadas.',steps:['Abra Pistas > Eventos de GP e escolha o evento pelo cartaz.','Selecione Júnior, Competidor, Contendor ou Campeão para restringir as cartas elegíveis à série máxima.','Toque numa das pistas do evento e confira o carro, a dupla de pilotos, as cartas com +10% e as restrições de raridade.','Use Exportar setup PNG para guardar a estratégia. Os bônus são temporários e não alteram sua garagem.']};
 const faq=[
  {areas:['gp-events'],q:'Como funcionam os +10% dos eventos?',a:'O GBR aplica uma simulação de +10% aos atributos-base das cartas destacadas durante o cálculo e não modifica seus dados no Supabase. O pit stop não é tratado como atributo aumentado.'},
- {areas:['gp-events'],q:'Por que um piloto lendário não aparece no GP dos Estados Unidos?',a:'Esse GP não permite pilotos Lendários. O Nightmare Fuel permite Lendários. Edições Especiais são permitidas nos dois eventos; cartas acima do limite da categoria também ficam de fora.'},
+ {areas:['gp-events'],q:'Por que um piloto lendário não aparece no GP dos Estados Unidos?',a:'O GP dos Estados Unidos não permite pilotos Lendários. Edições Especiais são permitidas, mas cartas acima do limite da categoria ficam de fora.'},
  {areas:['gp-events'],q:'As sete pistas indicam a ordem das corridas?',a:'Não. Os anúncios fornecem apenas pistas possíveis, não a ordem de cada rodada. Confira calendário e previsão de chuva no jogo antes de definir pneus e stints.'},
- {areas:['gp-events'],q:'O que significam Ghoulfuel e Eagle?',a:'São os bônus de evento informados nos anúncios. O nome é mostrado na estratégia, mas seu efeito numérico não foi presumido no cálculo; confirme os atributos no jogo.'},
+ {areas:['gp-events'],q:'O que significa Eagle no GP dos Estados Unidos?',a:'Eagle é o booster indicado no anúncio do GP dos Estados Unidos. Seu efeito numérico não foi presumido no cálculo; confirme os atributos no jogo.'},
 
  {areas:['chests'],q:'Como descobrir minha posição na sequência de baús?',a:'Abra Baús > Localizador. Registre os tipos de baús recebidos na ordem correta, examine as posições possíveis e confirme somente quando estiver seguro. Também é possível ajustar a posição manualmente.'},
  {areas:['chests'],q:'As vitórias de GP avançam a sequência?',a:'Não. O progresso de baús usa as vitórias de duelo. Informe o total de vitórias e as vitórias de GP separadamente, para descontá-las do avanço.'},
@@ -44,8 +45,23 @@ const faq=[
  {areas:['dashboard','login'],q:'Como alterar meu nome no aplicativo?',a:'Abra Mais > Equipes e atualize o nome do jogador no perfil. Isso não altera o seu e-mail de login nem as cartas da garagem.'},
  {areas:['favorites'],q:'Posso salvar cartas de séries diferentes?',a:'Sim. Os favoritos não aplicam restrição de série: escolha qualquer peça e piloto que marcou como seu. Os valores ficam registrados como estavam no momento em que salvou.'},
  {areas:['favorites'],q:'Meus favoritos são visíveis para toda a academia?',a:'Não. Eles ficam dentro da garagem pessoal da sua conta e seguem as mesmas regras de sincronização e privacidade. O modo demonstração não sincroniza.'},
+ {areas:['raceLearning'],q:'Por que Fangio ou outro piloto aparece como sugestão?',a:'Quando o OCR não consegue ler o nome, o app pode comparar os quatro atributos reconhecidos com cartas de referência do mesmo nível. Uma correspondência única é apenas uma sugestão: confira nome, raridade, nível, série e atributos antes de salvar.'},
+ {areas:['raceLearning'],q:'Por que o tempo de pit stop aparece com ≈?',a:'O símbolo ≈ indica cálculo aproximado pelas sete peças identificadas e seus níveis, não leitura exata do jogo. Se o print mostrar o tempo real, insira ou confirme esse valor manualmente; a correção deixa de ser estimativa.'},
+ {areas:['raceLearning'],q:'Por que Gerenciamento de pneus ficou sem valor?',a:'A linha pode ficar ilegível no print. Use Reler prints (assistido) ou informe os quatro números manualmente, conferindo a ordem Você 1, Você 2, Rival 1 e Rival 2. Sugestões do catálogo não são leituras confirmadas.'},
+ {areas:['raceLearning'],q:'O parecer informa por que ganhei ou perdi?',a:'Não. Ele apresenta observações, diferenças, hipóteses e pontos de atenção usando os registros revisados. Uma única vitória ou derrota não prova que velocidade, pneus ou uma peça causou o resultado.'},
+ {areas:['raceLearning'],q:'Como registrar paradas e pneus?',a:'Informe a quantidade real de voltas, o pneu inicial de cada piloto e até três pit stops por piloto. Em cada parada, a volta escolhida é a volta ao final da qual acontece a troca; o novo pneu começa na volta seguinte.'},
+ {areas:['raceLearning'],q:'Minhas análises de corrida ficam visíveis para outros?',a:'A Inteligência GBR trabalha com registros da sua garagem pessoal. Não compartilha automaticamente imagens, setups ou histórico de corrida com os demais integrantes. Confira o indicador de sincronização antes de trocar de dispositivo.'},
+ {areas:['favorites'],q:'Posso importar meus setups por print?',a:'Sim. Em Mais > Meus setups, use Importar prints, revise as sugestões de seis peças obrigatórias, bateria opcional e dois pilotos, e só então salve no editor. Uma imagem ilegível não vira seleção automática confirmada.'},
+ {areas:['garage'],q:'Como atualizar fotos de pilotos e peças?',a:'Abra Minha garagem > Biblioteca Visual da Academia. As imagens podem ser consultadas no site; a edição compartilhada depende de permissão de administrador. Fotos e atributos de cartas são cadastros diferentes.'},
+ {areas:['notices'],q:'Onde encontro as notas das versões mais recentes?',a:'Abra Avisos e selecione a categoria Atualizações. As notas do sistema aparecem para todos no aplicativo; os comunicados da academia são gerenciados por administradores autorizados.'},
+ {areas:['dashboard','event','builder','favorites','duel','chests','garage','academy','notices','raceLearning','login','gp-events'],q:'Como consultar a ajuda de outro menu?',a:'Abra o ícone ? no topo ou a Central de Ajuda em Mais e escolha a área na lista Como usar cada menu. Isso não muda a tela atual nem altera sua garagem.'},
  {areas:['garage','login'],q:'O que fazer em caso de conflito de sincronização?',a:'Evite editar a garagem em dois aparelhos ao mesmo tempo. Se houver aviso de conflito, exporte um backup antes de escolher entre carregar a nuvem ou enviar sua versão atual.'}
+
 ];
+const helpMenuOrder=[['dashboard','Início'],['event','Pistas'],['gp-events','Eventos de GP'],['builder','Montador'],['duel','Duelos'],['chests','Baús'],['garage','Minha garagem e Biblioteca Visual'],['favorites','Meus setups'],['raceLearning','Inteligência GBR'],['notices','Avisos'],['academy','Equipes'],['login','Conta e acesso']];
+// O seletor não navega pelo app nem escreve dados: só alterna o texto da ajuda.
+const areaPicker=$('helpAreaSelect');
+for(const [key,label] of helpMenuOrder){if(!support[key])throw Error('Ajuda sem guia para: '+key);const option=document.createElement('option');option.value=key;option.textContent=label;areaPicker.append(option)}
 let returnFocus=null;let current='dashboard';
 function activeArea(){
  if(!$('accessGate')?.classList.contains('hide')) return 'login';
@@ -53,8 +69,8 @@ function activeArea(){
  if(tab?.id==='event'&&document.getElementById('gbrEventHub')&&!document.getElementById('gbrEventHub').hidden)return 'gp-events';
  return tab?.id&&support[tab.id]?tab.id:'dashboard';
 }
-function renderHelp(){
- current=activeArea();const data=support[current];
+function renderHelp(area=activeArea()){
+ current=support[area]?area:'dashboard';areaPicker.value=current;const data=support[current];
  $('helpTitle').textContent=data.title;$('helpIntro').textContent=data.intro;
  const steps=$('helpSteps');steps.replaceChildren();
  data.steps.forEach((step,i)=>{const el=document.createElement('div');el.className='help-step';const n=document.createElement('span');n.textContent=String(i+1).padStart(2,'0');const p=document.createElement('p');p.textContent=step;el.append(n,p);steps.append(el)});
@@ -78,7 +94,7 @@ function closeHelp(){
 function setMoreActive(){
  const open=!$('mobileMorePanel').hidden;
  const tab=activeArea();
- const active=['builder','favorites','garage','academy'].includes(tab)||open;
+ const active=['builder','favorites','garage','academy','raceLearning'].includes(tab)||open;
  $('mobileMoreBtn').classList.toggle('active',active);
  $('mobileMoreBtn').setAttribute('aria-expanded',String(open));
 }
@@ -94,6 +110,7 @@ $('openLoginHelp')?.addEventListener('click',openHelp);
 $('helpClose')?.addEventListener('click',closeHelp);
 $('helpUnderlay')?.addEventListener('click',closeHelp);
 $('helpSearch')?.addEventListener('input',renderFaq);
+areaPicker.addEventListener('change',()=>{$('helpSearch').value='';renderHelp(areaPicker.value)});
 $('mobileMoreBtn')?.addEventListener('click',toggleMore);
 $('mobileMoreClose')?.addEventListener('click',()=>{closeMore();$('mobileMoreBtn').focus()});
 $('mobileMoreBackdrop')?.addEventListener('click',closeMore);
@@ -116,5 +133,5 @@ document.addEventListener('keydown',ev=>{
  }
 });
 // Lightweight immutable-test surface; no access to garage or authentication data.
-window.GBRMobileHelp={open:()=>openHelp(),close:closeHelp,area:activeArea,faqCount:faq.length};
+window.GBRMobileHelp={open:()=>openHelp(),close:closeHelp,area:activeArea,faqCount:faq.length,menuCount:helpMenuOrder.length};
 })();

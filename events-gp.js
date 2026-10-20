@@ -5,7 +5,6 @@
 (()=>{
 'use strict';
 const EVENTS=[
- {id:'nightmare-fuel-2026',name:'Nightmare Fuel',label:'Nightmare Fuel',kind:'Especial de Halloween',starts:'2026-10-14',ends:'2026-10-18',image:'assets/events/nightmare-fuel-2026.png',color:'purple',description:'É época de terror! Assuste seus rivais com o melhor equipamento e lute pelo pódio.',eventBoost:'Ghoulfuel',allowLegendary:true,allowSpecial:true,driverBoosts:[{key:'prost',label:'Alain Prost',rarity:'Legendary'}],partBoosts:['Stabilix','Lockdown','Zephyr'],tracks:['mexico','sao-paulo','silverstone','suzuka','barcelona','montreal','las-vegas'],rounds:[{track:'mexico',rain:0},{track:'barcelona',rain:0},{track:'sao-paulo',rain:0},{track:'montreal',rain:0},{track:'silverstone',rain:100},{track:'las-vegas',rain:0},{track:'suzuka',rain:0},{track:'mexico',rain:0}],qualifying:[{track:'mexico',rain:0},{track:'sao-paulo',rain:0},{track:'silverstone',rain:100},{track:'suzuka',rain:0}],source:'https://www.allclash.com/f1-clash-nightmare-fuel-event-2026-guide-junior-challenger-contender-champion/',verified:'2026-10-16'},
  {id:'us-grand-prix-2026',name:'Grande Prêmio dos Estados Unidos',label:'GP dos Estados Unidos',kind:'GP oficial / Austin',starts:'2026-10-21',ends:'2026-10-25',image:'assets/events/us-gp-2026.png',color:'blue',description:'O desafio de Austin e suas mudanças de direção exige um setup bem equilibrado.',eventBoost:'Eagle',allowLegendary:false,allowSpecial:true,driverBoosts:[{key:'bearman',label:'Oliver Bearman',rarity:'any'},{key:'bortoleto',label:'Gabriel Bortoleto',rarity:'any'}],partBoosts:['Fracture','Motion Link V2','Tailwind'],tracks:['sakhir','hungaroring','madrid','austin','baku','barcelona','sao-paulo']}
 ];
 const CATEGORIES=[
@@ -158,8 +157,8 @@ function resultHtml(result){if(!result)return '<p class="gp-empty">Selecione uma
  ${!result.complete?'<p class="gp-warning">Setup incompleto: algumas peças ou pilotos da categoria escolhida não estão cadastrados na sua garagem. Nenhum item será inventado.</p>':''}
  <div class="gp-setup-actions"><button type="button" class="btn primary" id="gpExportPNG" ${result.parts.length?'':'disabled'}>↓ EXPORTAR SETUP PNG</button><button type="button" class="btn outline" id="gpGoGarage">ATUALIZAR GARAGEM →</button></div>
  <p class="gp-result-disclaimer">Comparação relativa para sua garagem, não garantia de vitória. Bônus ativos são aplicados somente no cálculo e nunca gravados na garagem. Clima e números de voltas devem ser confirmados no jogo.</p>`}
-function strategyHtml(r){const verified=r.event.id==='nightmare-fuel-2026'&&r.category.id==='campeao'&&r.round===1&&r.weather==='dry';
- if(verified)return `<div class="gp-race-plan"><b>Plano dos 2 pilotos · prova 1 (Champion)</b><p>Piloto 1: Médio 4 voltas → Duro 5 voltas; piloto 2: Duro 5 voltas → Médio 4 voltas. Uma parada por piloto, alternada nas voltas 4 e 5.</p><small>Exemplo verificado na referência AllClash em 16/10/2026, para corrida seca de 9 voltas. Ajuste ao tráfego, Safety Car, níveis reais e condições do jogo.</small></div>`;
+function strategyHtml(r){
+  // Sem estratégia numérica ativa para o GP dos Estados Unidos: preserve a orientação geral.
  return `<div class="gp-race-plan"><b>Planejamento conjunto dos 2 pilotos</b><p>${r.weather==='wet'?'Priorize pneus de chuva e confirme sua durabilidade.':'Compare macios, médios e duros conforme o desgaste real da pista.'} Programe as paradas em voltas diferentes sempre que viável para evitar fila nos boxes.</p><small>Orientação geral: ainda sem tempos, voltas ou compostos confirmados para esta prova e categoria. Nenhuma estratégia numérica foi inventada.</small></div>`;}
 function toPNGSnapshot(result){
  const {event,category,track,parts,totals,required,drivers}=result;

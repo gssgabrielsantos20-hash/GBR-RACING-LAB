@@ -1,0 +1,45 @@
+/* GBR Racing Lab 5.5.14C-R6 Oxanium — mudança exclusivamente visual.
+ * Oxanium © 2019 The Oxanium Project Authors — SIL OFL 1.1.
+ * Fontes carregadas via Google Fonts; fallback local quando indisponível.
+ * Pesos: 300 Light, 400 Regular, 700 Bold. */
+:root {
+  --font: 'Oxanium', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --gbr-title: 'Oxanium', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+html, body, button, input, select, textarea {
+  font-family: var(--font);
+}
+/* Fontes explícitas da interface anterior devem seguir a nova identidade. */
+.brand-emblem b, .rail-brand strong, .rail-label, .side-feature strong,
+.hero h1, .gate-copy h1, #dashboard .hero h1,
+#dashboard .telemetry-hero h1,
+.section-heading h2, .page-head h1, .fav-head h1,
+.panel h2, .gp-section-top h2, .gp-panel h3,
+.stat b, .team-panel::after, .side-feature::after,
+.help-dialog h2, #helpClose, #mobileMoreClose {
+  font-family: var(--gbr-title);
+}
+/* Oxanium Bold disponível é 700: não depender de uma falsa variante 900. */
+.brand-emblem b, .rail-brand strong, .side-feature strong,
+.hero h1, .gate-copy h1, #dashboard .hero h1,
+#dashboard .telemetry-hero h1, .section-heading h2,
+.page-head h1, .fav-head h1, .panel h2,
+.gp-section-top h2, .gp-panel h3, .stat b,
+.help-dialog h2 {
+  font-weight: 700;
+}
+/* Light apenas em textos secundários de tamanho confortável; pequenos rótulos
+ * continuam regulares para boa legibilidade no Safari do iPhone. */
+.hero p, .side-feature p, #dashboard .hero p {
+  font-weight: 300;
+}
+/* Formulários e tabelas preservam legibilidade e alinhamento dos números. */
+input, select, textarea { font-weight: 400; }
+input[type='number'], .stat b, #raceLearning input[type='number'] {
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 420px) {
+  .rail-brand strong { letter-spacing: .25px; }
+  #dashboard .hero h1 { letter-spacing: -.3px; }
+  .mobile-nav button { letter-spacing: 0; }
+}

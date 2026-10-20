@@ -50,7 +50,9 @@ function driverHTML(d,i){
 }
 function generateSnapshot(overrides){
  const ctx=selectedContext();
- const priority=ctx.track&&$('gbrFollowTrack').checked?core.trackWeights(ctx.car):null;
+ const base=ctx.track&&$('gbrFollowTrack').checked?core.trackWeights(ctx.car):null;
+ const learned=base?window.GBRRecommendations?.evidence?.(db(),{series:ctx.series,trackId:ctx.track.id,baseWeights:base}):null;
+ const priority=base&&$('gbrBuildRecommendationMode')?.value==='gbr'&&learned?.hasExperiment?learned.weights:base;
  const series=value($('seriesLimit').value)||12;
  const pit=$('pitMode').value;
  const setup=priority?core.optimize(priority,series,pit):core.getCurrentSetup()||core.optimize(core.profiles[$('preset').value]||core.profiles.balanced,series,pit);
@@ -87,7 +89,9 @@ function renderCurrent(){
  ensureDriverSelectors();
  lastSnapshot=generateSnapshot();
  const s=lastSnapshot,ctx=selectedContext();
- host.innerHTML=`<div class="panel gbr-full-panel"><div class="gbr-build-head"><div><div class="kicker">SEU SETUP COMPLETO</div><h2>Carro + dupla de pilotos</h2><p class="muted mini">${s.track?`Pista: ${esc(s.track.name)}`:'Selecione um circuito para adaptar automaticamente o conjunto à pista.'} · Série ${s.series} · Foco: ${esc(core.TRACK_CAR[s.carFocus]||'Personalizado')} / ${esc(core.TRACK_DRIVER[s.driverFocus]||'Equilibrado')}</p></div><button id="gbrExportCurrent" class="btn primary" type="button">↓ EXPORTAR PNG</button></div>
+ const insight=ctx.track?window.GBRRecommendations?.evidence?.(db(),{series:ctx.series,trackId:ctx.track.id,baseWeights:core.trackWeights(ctx.car)}):null;
+ const isExperiment=$('gbrBuildRecommendationMode')?.value==='gbr'&&insight?.hasExperiment&&$('gbrFollowTrack')?.checked;
+ host.innerHTML=`<div class="panel gbr-full-panel"><div class="gbr-build-head"><div><div class="kicker">SEU SETUP COMPLETO</div><h2>Carro + dupla de pilotos</h2><p class="muted mini">${s.track?`Pista: ${esc(s.track.name)}`:'Selecione um circuito para adaptar automaticamente o conjunto à pista.'} · Série ${s.series} · Foco: ${esc(core.TRACK_CAR[s.carFocus]||'Personalizado')} / ${esc(core.TRACK_DRIVER[s.driverFocus]||'Equilibrado')}</p>${insight?`<p class="gbr-bld-learning">${esc(isExperiment?'TESTE GBR • '+insight.message:insight.message)}</p>`:''}</div><button id="gbrExportCurrent" class="btn primary" type="button">↓ EXPORTAR PNG</button></div>
  <div class="gbr-pilot-pair">${s.drivers.map(driverHTML).join('')}</div>
  <div class="gbr-build-sub"><b>Carro selecionado</b><span>${s.setup.chosen.length} de ${s.setup.required.length} posições preenchidas</span></div>
  <div class="gbr-part-chips">${s.setup.chosen.map(p=>`<div><small>${esc(p.category)}</small><b>${esc(p.name)}</b><span>Nível ${value(p.level)}</span></div>`).join('')||'<p class="muted mini">Cadastre peças na garagem antes de montar.</p>'}</div>
@@ -100,14 +104,19 @@ function renderCurrent(){
 function refresh(){ensureDriverSelectors();renderCurrent()}
 function openBuilder(){
  const panel=$('builder')?.querySelector('.panel');if(!panel)return;
- const top=document.createElement('div');top.className='gbr-build-controls';top.innerHTML=`<div class="gbr-build-title"><div class="kicker">MONTADOR COMPLETO 5.0</div><h3>Monte o carro e escolha os pilotos</h3><p>Use os seus níveis reais e selecione uma pista para aplicar as prioridades da corrida.</p></div><div class="gbr-build-fields"><div class="field"><label for="gbrBuildTrack">Pista</label><select id="gbrBuildTrack"><option value="">Sem pista · perfil manual</option>${window.F1Tracks.all.map(t=>`<option value="${esc(t.id)}">${esc(t.name)}</option>`).join('')}</select></div><label class="gbr-check-track"><input id="gbrFollowTrack" type="checkbox" checked> Dar prioridade ao atributo da pista</label><div class="field"><label for="gbrPilot1">Piloto 1</label><select id="gbrPilot1"><option value="auto">Automático</option></select></div><div class="field"><label for="gbrPilot2">Piloto 2</label><select id="gbrPilot2"><option value="auto">Automático</option></select></div></div><div class="gbr-build-hint">A recomendação usa somente cartas que você marcou como suas, respeitando a série. Você pode substituir cada piloto manualmente.</div>`;
+ const top=document.createElement('div');top.className='gbr-build-controls';top.innerHTML=`<div class="gbr-build-title"><div class="kicker">MONTADOR COMPLETO 5.0</div><h3>Monte o carro e escolha os pilotos</h3><p>Use os seus níveis reais e selecione uma pista para aplicar as prioridades da corrida.</p></div><div class="gbr-build-fields"><div class="field"><label for="gbrBuildTrack">Pista</label><select id="gbrBuildTrack"><option value="">Sem pista · perfil manual</option>${window.F1Tracks.all.map(t=>`<option value="${esc(t.id)}">${esc(t.name)}</option>`).join('')}</select></div><label class="gbr-check-track"><input id="gbrFollowTrack" type="checkbox" checked> Dar prioridade ao atributo da pista</label><div class="field"><label for="gbrBuildRecommendationMode">Modo de recomendação</label><select id="gbrBuildRecommendationMode"><option value="baseline">Prioridades da pista</option><option value="gbr">Inteligência GBR · testar</option></select></div><div class="field"><label for="gbrPilot1">Piloto 1</label><select id="gbrPilot1"><option value="auto">Automático</option></select></div><div class="field"><label for="gbrPilot2">Piloto 2</label><select id="gbrPilot2"><option value="auto">Automático</option></select></div></div><div class="gbr-build-hint">A recomendação usa somente cartas que você marcou como suas, respeitando a série. Você pode substituir cada piloto manualmente.</div>`;
  panel.prepend(top);
  const results=$('buildOutput');const extended=document.createElement('div');extended.id='gbrFullBuildOutput';results.after(extended);
  const saved=document.createElement('div');saved.className='panel gbr-saved-panel';saved.innerHTML='<div class="kicker">HISTÓRICO PESSOAL</div><h2>Setups salvos</h2><div id="gbrSavedSetups"></div>';extended.after(saved);
  const calc=$('optimize'),save=$('saveSetup');
- calc.addEventListener('click',()=>{if($('gbrFollowTrack').checked&&selectedTrack()){const ctx=selectedContext();core.applyWeights(core.trackWeights(ctx.car));}},true);
+ calc.addEventListener('click',()=>{if($('gbrFollowTrack').checked&&selectedTrack()){
+  const ctx=selectedContext(),base=core.trackWeights(ctx.car);
+  const data=window.GBRRecommendations?.evidence?.(db(),{series:ctx.series,trackId:ctx.track.id,baseWeights:base});
+  core.applyWeights($('gbrBuildRecommendationMode').value==='gbr'&&data?.hasExperiment?data.weights:base);
+ }},true);
  calc.addEventListener('click',()=>queueMicrotask(renderCurrent));
- $('gbrBuildTrack').onchange=()=>{if($('gbrFollowTrack').checked){const ctx=selectedContext();core.applyWeights(core.trackWeights(ctx.car))}calc.click()};
+ $('gbrBuildTrack').onchange=()=>calc.click();
+ $('gbrBuildRecommendationMode').onchange=()=>calc.click();
  $('gbrFollowTrack').onchange=()=>calc.click();
  $('seriesLimit').addEventListener('change',()=>{ensureDriverSelectors();calc.click()});
  $('pitMode').addEventListener('change',()=>calc.click());

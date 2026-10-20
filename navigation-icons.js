@@ -19,7 +19,7 @@
  }
  function currentTab(){return document.querySelector('.tab:not(.hide)')?.id||'dashboard'}
  function syncNavigation(next=currentTab()){
-  const secondary=['builder','garage','academy','notices'].includes(next);
+  const secondary=['builder','garage','academy','notices','raceLearning'].includes(next);
   const more=document.getElementById('mobileMoreBtn');
   if(more){ more.classList.toggle('active',secondary); if(secondary)more.setAttribute('aria-current','page');else more.removeAttribute('aria-current'); }
   document.querySelectorAll('#mobileNav button[data-tab]').forEach(button=>{

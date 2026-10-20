@@ -1,0 +1,6 @@
+/* GBR 5.5.14 — recomendações discretas, adaptáveis ao iPhone. */
+.gbr-reco-inline{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(125deg,rgba(0,216,201,.08),rgba(7,19,29,.1));border:1px solid rgba(0,216,201,.32);border-radius:12px;padding:12px 14px;margin-top:12px}
+.gbr-reco-inline b{font-size:13px;color:var(--cyan,#04d9d0)}.gbr-reco-inline p{margin:4px 0;color:var(--muted,#bbd1d8);font-size:12px;line-height:1.45}.gbr-reco-inline small{font-size:11px;color:var(--muted,#bbd1d8)}
+.gbr-reco-inline .btn{font-size:11px;white-space:normal;min-height:36px;padding:8px 11px}.gbr-bld-learning{margin-top:7px!important;font-size:12px!important;color:#a8ece4!important;line-height:1.5}
+.track-footnote summary{cursor:pointer;list-style:none}.track-footnote summary::-webkit-details-marker{display:none}.track-footnote summary::after{content:' + "' ▾'" + ';font-size:12px;color:#8ca8ac}
+@media(max-width:680px){.gbr-reco-inline{flex-direction:column;align-items:stretch}.gbr-reco-inline .btn{width:100%}.gbr-bld-learning{font-size:11px!important}}

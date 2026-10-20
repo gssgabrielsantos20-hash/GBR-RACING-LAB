@@ -26,3 +26,9 @@
 .gp-race-plan{padding:12px;border-radius:12px;background:rgba(68,172,186,.08);border:1px solid rgba(68,172,186,.19);margin:12px 0}
 .gp-race-plan b{font-size:.91rem}.gp-race-plan p{margin:6px 0;font-size:.82rem}.gp-race-plan small{opacity:.75;font-size:.73rem}
 @media(max-width:700px){.gbr-intel-rotation{grid-template-columns:repeat(2,minmax(0,1fr))}.gbr-intel-card{padding:14px}.gbr-intel-table{font-size:.77rem}}
+
+/* R7: informações por corrida da rotação fornecida (sem alterar outros cards). */
+.gbr-intel-track-body{display:flex;flex-direction:column;gap:5px;align-items:center;min-width:0}
+.gbr-intel-track-stats{display:block;font-size:.69rem;line-height:1.45;font-weight:500;opacity:.83;overflow-wrap:anywhere}
+.gbr-intel-track-link:has(.gbr-intel-track-stats){min-height:88px}
+@media(max-width:700px){.gbr-intel-track-link:has(.gbr-intel-track-stats){min-height:104px;padding:10px 8px}}

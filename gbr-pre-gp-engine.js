@@ -130,6 +130,12 @@ function buildPlan({result,garage,race}={}){
  const stats={speed:'velocidade',corner:'curvas',power:'unidade de potência',qualifying:'classificação'};
  const driverStats={overtaking:'ultrapassagem',defending:'defesa',raceStart:'largada',tyreUse:'gerenciamento de pneus',qualifying:'classificação'};
  const hasBattery=(result.parts||[]).some(p=>p.category==='Bateria');
+ const pair=result.drivers||[];
+ const tyreA=Number(pair[0]?.tyreUse),tyreB=Number(pair[1]?.tyreUse);
+ const driverAdvice=pair[0]&&pair[1]&&Number.isFinite(tyreA)&&Number.isFinite(tyreB)?
+  (tyreA===tyreB?'Os dois pilotos têm o mesmo gerenciamento de pneus cadastrado.':'O piloto '+(tyreA>tyreB?'1':'2')+' tem maior gerenciamento de pneus ('+Math.max(tyreA,tyreB)+' contra '+Math.min(tyreA,tyreB)+'). Considere esse diferencial antes de atribuir o stint mais longo.'):
+  'Complete os atributos dos dois pilotos para comparar gerenciamento de pneus.';
+ const pitAdvice='Evite paradas simultâneas quando os dois stints suportarem voltas diferentes; não force uma volta extra além da durabilidade cadastrada.';
  const nature=result.track?.nature;
  const energy=[
   'Volta 1: modo rápido apenas em disputa vantajosa; retorne ao neutro para não desperdiçar pneus e potência. Overtake Mode indisponível na primeira volta.',
@@ -143,7 +149,7 @@ function buildPlan({result,garage,race}={}){
  const scoped=(Array.isArray(garage?.raceAnalyses)?garage.raceAnalyses:[]).filter(r=>r&&r.trackId===trackId&&Number(r.series)===series);
  const evidence=window.GBRRecommendations?.evidence?.(garage,{series,trackId,baseWeights:result.carWeights});
  return {
-  laps,weather,tyreOptions,energy,warnings,boostFocus,boostVerified:false,
+  laps,weather,tyreOptions,energy,warnings,boostFocus,driverAdvice,pitAdvice,boostVerified:false,
   boostNote:'A garagem não cadastra quantidades e atributos dos Boosts. O GBR recomenda efeitos, não inventa um item possuído.',
   evidenceSample:scoped.length,evidenceMode:evidence?.mode||'baseline',
   setupComplete:!!result.complete,

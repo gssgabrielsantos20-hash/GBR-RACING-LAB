@@ -157,3 +157,18 @@
  .gp-event-choice{transition:none}
  .gp-event-choice:hover{transform:none}
 }
+
+/* GBR Pré-GP: interface aditiva e isolada; nenhum elemento de login é alterado. */
+.gp-pre-gp-input{display:grid;gap:11px}
+.gp-pre-gp-input h3{margin:0}
+.gp-pre-gp-input p{margin:0;color:#b5c9ca;line-height:1.5;font-size:12px}
+.gp-pre-gp-input label{color:#d2e7e6;font-size:12px;font-weight:700}
+.gp-pre-gp-textarea{box-sizing:border-box;width:100%;min-height:135px;padding:13px 14px;resize:vertical;border:1px solid #34716f;border-radius:10px;background:#0b181c;color:#eefaf8;font:500 13px/1.55 system-ui,sans-serif}
+.gp-pre-gp-textarea:focus-visible{outline:2px solid #17ead7;outline-offset:2px}
+.gp-pre-gp-actions{display:flex;flex-wrap:wrap;gap:9px}
+.gp-pre-gp-result{margin-top:18px;overflow-wrap:anywhere}
+.gp-pre-gp-result h3,.gp-pre-gp-result h4{margin:12px 0 7px;color:#f0fffc}
+.gp-pre-gp-result ol,.gp-pre-gp-result ul{padding-left:21px;margin:9px 0;display:grid;gap:8px}
+.gp-pre-gp-result li{line-height:1.55;color:#d2e5e4}
+.gp-pre-gp-warnings{border-left:2px solid #d9aa63;padding-left:24px!important}
+@media(max-width:600px){.gp-pre-gp-actions .btn{flex:1 1 100%}}

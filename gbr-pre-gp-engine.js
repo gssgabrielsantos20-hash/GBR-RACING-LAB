@@ -40,7 +40,7 @@ function focusFrom(line,kind){
  return key?names[key]:null;
 }
 function parseWeather(line){
- const text=clean(line);
+ const text=String(line??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9%]+/g,' ').trim();
  const a=text.match(/(?:chuva|rain)\s*(?:probabilidade|chance|de)?\s*(\d{1,3})\s*(?:por cento|%)/);
  const b=text.match(/(\d{1,3})\s*(?:por cento|%)\s*(?:de\s*)?(?:chuva|rain)/);
  const value=a||b?Number((a||b)[1]):null;
@@ -91,8 +91,8 @@ function resolve(parsed,{trackId,categoryId,stage,round}={}){
  const exact=candidates.filter(e=>e.categoryId===categoryId);
  candidates=exact.length?exact:candidates.filter(e=>!e.categoryId);
  if(!candidates.length)return {race:null,warning:null};
- const staged=candidates.filter(e=>!e.stage||e.stage===stage);
- if(staged.length)candidates=staged;
+ candidates=candidates.filter(e=>!e.stage||e.stage===stage);
+ if(!candidates.length)return {race:null,warning:'O relatório não possui esta pista na etapa selecionada.'};
  const numbered=candidates.filter(e=>e.round===integer(round));
  if(numbered.length)candidates=numbered;
  if(candidates.length!==1)return {race:null,warning:'Há mais de uma corrida para esta pista e categoria; especifique a rodada no texto.'};

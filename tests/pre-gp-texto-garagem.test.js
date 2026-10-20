@@ -93,4 +93,35 @@ assert.ok(!fs.readFileSync(path.join(root,'gbr-pre-gp-ui.js'),'utf8').includes('
 const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 assert.ok(html.indexOf('gbr-pre-gp-engine.js')<html.indexOf('events-gp.js'));
 assert.ok(html.indexOf('events-gp.js')<html.indexOf('gbr-pre-gp-ui.js'));
+assert.equal(engine.parseBriefing('Pista: Austin',{tracks}).entries[0].trackId,'austin');
+// A leitura de relatório da conta anterior deve ser negada ANTES de calcular novo setup.
+let currentUser='conta-1',applyHandler=null;
+const textField={value:'Júnior:\nCorrida 1: Austin | 6 voltas | chuva 0%'};
+const fakeHub={querySelector:selector=>selector==='.gp-result-panel'?fakePanel:null};
+const fakePanel={insertAdjacentHTML(){},querySelector:()=>null};
+const fakeResult={querySelector:()=>null};
+const fakeDoc={getElementById:id=>({
+ gbrEventHub:fakeHub,gbrGpResult:fakeResult,gpBriefingText:textField,
+ gpBriefingApply:{addEventListener:(event,fn)=>{if(event==='click')applyHandler=fn}},
+ gpBriefingClear:{addEventListener(){}},gpBriefingFeedback:{textContent:''}
+})[id]||null};
+const uiWin={
+ GBRPreGP:engine,F1Tracks:window.F1Tracks,
+ F1Session:{getContext:()=>({userId:currentUser,demo:false})},
+ GBREvents:{
+  all:[{id:'gp',name:'GP de teste',tracks:['austin']}],
+  categories:[{id:'junior',label:'Júnior',series:3}],
+  getState:()=>({selectedEventId:'gp',selectedCategoryId:'junior',selectedTrackId:'austin',selectedStage:'final',selectedRound:1}),
+  computeSetup:()=>null,select(){}
+ },
+ F1App:{getGarage:()=>garage}
+};
+const uiCtx={window:uiWin,document:fakeDoc,console};
+vm.createContext(uiCtx);
+vm.runInContext(fs.readFileSync(path.join(root,'gbr-pre-gp-ui.js'),'utf8'),uiCtx);
+assert.equal(typeof applyHandler,'function');
+applyHandler();
+assert.equal(uiWin.GBRPreGPUI.raceFor('gp','junior','austin','final',1).laps,6);
+currentUser='conta-2';
+assert.equal(uiWin.GBRPreGPUI.raceFor('gp','junior','austin','final',1),null);
 console.log('OK: parser, categorias, clima, garagem, pneus, bateria, Boost e integração Pré-GP.');

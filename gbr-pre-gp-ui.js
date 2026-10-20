@@ -13,7 +13,7 @@ function parsedFor(eventId){
  if(entry)return entry.parsed;
  const event=window.GBREvents?.all?.find(e=>e.id===eventId);
  if(!event?.briefingText||!window.GBRPreGP)return null;
- try{return window.GBRPreGP.parseBriefing(event.briefingText,{tracks:window.F1Tracks?.all||[]})}
+ try{return window.GBRPreGP.parseEventBriefing(event.briefingText,{tracks:window.F1Tracks?.all||[],drivers:(event.driverBoosts||[]).map(d=>d.label),parts:event.partBoosts||[]})}
  catch{return null}
 }
 function raceFor(eventId,categoryId,trackId,stage,round){
@@ -21,19 +21,28 @@ function raceFor(eventId,categoryId,trackId,stage,round){
  const parsed=parsedFor(eventId);
  return window.GBRPreGP?.resolve?.(parsed,{categoryId,trackId,stage,round})?.race||null;
 }
+function eventFor(eventId){
+ ensureSession();
+ const parsed=parsedFor(eventId),event=window.GBREvents?.all?.find(e=>e.id===eventId);
+ if(!parsed?.tracks?.length||!event)return null;
+ const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').trim();
+ if(!parsed.eventTitle||!norm(parsed.eventTitle).startsWith(norm(event.name)))return null;
+ if(!parsed.tracks.every(id=>event.tracks.includes(id)))return null;
+ return parsed;
+}
 function reportFeedback(eventId){
  const entry=reports.get(eventId),parsed=parsedFor(eventId);
  if(!parsed)return 'Sem relatório adicional: usando pistas e regras já cadastradas no GBR.';
  const matching=parsed.entries.length;
  const warnings=parsed.warnings.slice(0,3).join(' ');
- return matching+' corrida(s) reconhecida(s) no texto. '+warnings+
+ return (parsed.tracks?.length||0)+' pista(s) identificada(s); '+matching+' corrida(s) detalhada(s); '+(parsed.driverBoosts?.length||0)+' piloto(s) e '+(parsed.partBoosts?.length||0)+' peça(s) com bônus reconhecidos. '+(parsed.eventBoost?'Boost anunciado: '+parsed.eventBoost+'. ':'')+warnings+
   (entry?' O texto está somente na memória desta sessão.':' Briefing cadastrado no evento.');
 }
 function briefingHTML(eventId){
- const text=reports.get(eventId)?.text||'';
+ const text=reports.get(eventId)?.text||window.GBREvents?.all?.find(e=>e.id===eventId)?.briefingText||'';
  return '<section class="panel gp-panel gp-pre-gp-input" aria-label="Texto detalhado do GP">'+
   '<span class="kicker">GBR PRÉ-GP / DADOS PRÓPRIOS</span><h3>Relatório do GP</h3>'+
-  '<p>Cole o texto do evento com pistas, categorias, voltas, clima e prioridades. O GBR interpreta as linhas reconhecidas e cruza com sua garagem. Sem vídeos, importação de estratégias ou serviços externos.</p>'+
+  '<p>Cole o texto do evento com pistas, categorias, voltas, clima e prioridades. O GBR identifica a lista de pistas e as regras do GP; voltas e clima por corrida são opcionais para planejamento condicional. Sem vídeos, importação de estratégias ou serviços externos.</p>'+
   '<label for="gpBriefingText">Exemplo: Júnior: / Corrida 1: Austin | 6 voltas | chuva 0% | carro: curvas | piloto: largada</label>'+
   '<textarea id="gpBriefingText" class="gp-pre-gp-textarea" maxlength="20000" rows="5" placeholder="Júnior:\nCorrida 1: Austin | 6 voltas | chuva 0% | carro: curvas | piloto: largada">'+esc(text)+'</textarea>'+
   '<div class="gp-pre-gp-actions"><button type="button" class="btn primary" id="gpBriefingApply">ANALISAR RELATÓRIO</button><button type="button" class="btn outline" id="gpBriefingClear">LIMPAR</button></div>'+
@@ -87,8 +96,10 @@ function mount(){
  $('gpBriefingApply')?.addEventListener('click',()=>{
   const text=$('gpBriefingText')?.value||'';
   try{
-   const parsed=window.GBRPreGP.parseBriefing(text,{tracks:window.F1Tracks?.all||[]});
-   if(!parsed.entries.length){$('gpBriefingFeedback').textContent=parsed.warnings.join(' ');return;}
+   const parsed=window.GBRPreGP.parseEventBriefing(text,{tracks:window.F1Tracks?.all||[],drivers:(event.driverBoosts||[]).map(d=>d.label),parts:event.partBoosts||[]});
+   if(!parsed.tracks.length&&!parsed.entries.length){$('gpBriefingFeedback').textContent=parsed.warnings.join(' ');return;}
+   const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').trim();
+   if(!parsed.eventTitle||!norm(parsed.eventTitle).startsWith(norm(event.name))){$('gpBriefingFeedback').textContent='O título do texto não corresponde ao GP selecionado; nenhuma alteração aplicada.';return;}
    reports.set(event.id,{text,parsed});
    window.GBREvents.select(state.selectedEventId,state.selectedCategoryId,state.selectedTrackId);
   }catch(err){$('gpBriefingFeedback').textContent='Relatório não aceito: '+String(err?.message||'erro de leitura');}
@@ -98,6 +109,6 @@ function mount(){
   window.GBREvents.select(state.selectedEventId,state.selectedCategoryId,state.selectedTrackId);
  });
 }
-window.GBRPreGPUI=Object.freeze({mount,raceFor});
+window.GBRPreGPUI=Object.freeze({mount,raceFor,eventFor});
 mount();
 })();

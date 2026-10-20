@@ -53,9 +53,10 @@ function driverScore(d,focus){
 }
 function computeSetup(event=getEvent(),category=getCategory(),trackId=selectedTrackId,garage=getGarage()){
  const track=getTrack(trackId);if(!track||!event.tracks.includes(track.id))return null;
+ const report=window.GBRPreGPUI?.raceFor?.(event.id,category.id,trackId,selectedStage,selectedRound)||null;
  const priority=window.GBRCore?.TRACK_SERIES?.[category.series]?.[track.id];
- const car=priority?.[1]||track.car;
- const driver=priority?.[0]||track.driver;
+ const car=report?.carFocus||priority?.[1]||track.car;
+ const driver=report?.driverFocus||priority?.[0]||track.driver;
  const weights=window.GBRCore?.trackWeights?.(car)||{speed:30,corner:30,power:25,qualifying:15};
  const maxSeries=category.series;
  const required=['Suspensão','Motor','Asa traseira','Asa dianteira','Freios','Câmbio',...(maxSeries>3?['Bateria']:[])];
@@ -78,10 +79,10 @@ function computeSetup(event=getEvent(),category=getCategory(),trackId=selectedTr
  }
  const adjustedDrivers=[driverPair[0]||null,driverPair[1]||null];
  const featuredCount=chosen.filter(p=>p.eventFeatured).length+adjustedDrivers.filter(d=>d?.eventFeatured).length;
- const weather=currentRace(event)?.rain===100?'wet':currentRace(event)?.rain===0?'dry':garage.trackPlans?.[maxSeries+':'+track.id]?.weather||'dry';
+ const weather=report?.weather||(currentRace(event)?.rain===100?'wet':currentRace(event)?.rain===0?'dry':garage.trackPlans?.[maxSeries+':'+track.id]?.weather||'dry');
  const boosts=window.GBRBoosts?.recommend?.({track,car,driver,weather})||[];
  const complete=chosen.length===required.length&&adjustedDrivers.every(Boolean);
- return {event,category,track,carFocus:car,driverFocus:driver,carWeights:weights,parts:chosen,totals,required,drivers:adjustedDrivers,featuredCount,boosts,complete,weather,bonusInEffect:bonusInEffect(event),round:currentRace(event)?selectedRound:null};
+ return {event,category,track,carFocus:car,driverFocus:driver,carWeights:weights,parts:chosen,totals,required,drivers:adjustedDrivers,featuredCount,boosts,complete,weather,bonusInEffect:bonusInEffect(event),round:currentRace(event)?selectedRound:report?.round||null,reportContext:report};
 }
 function eventStatus(event){
  const today=new Date();const todayText=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
@@ -188,6 +189,7 @@ function render(){const host=$('gbrEventHub');if(!host)return;
  host.querySelectorAll('[data-gp-stage]').forEach(b=>b.onclick=()=>{selectedStage=b.dataset.gpStage;selectedRound=1;selectedTrackId=currentRace(getEvent())?.track||getEvent().tracks[0];render()});
  host.querySelectorAll('[data-gp-track]').forEach(b=>b.onclick=()=>{selectedTrackId=b.dataset.gpTrack;if(b.dataset.gpRound)selectedRound=Number(b.dataset.gpRound);render();if(window.innerWidth<821)$('gbrGpResult')?.scrollIntoView({behavior:'smooth',block:'start'})});
  refreshResult();
+ window.GBRPreGPUI?.mount?.();
 }
 function openEvents(){if(window.tab)window.tab('event');else document.querySelector('#nav [data-tab="event"]')?.click();changeView('events');if(window.innerWidth<=820)document.getElementById('mobileMoreClose')?.click()}
 function makeNav(){const trackSection=$('event');if(!trackSection)return;
@@ -207,6 +209,6 @@ function makeNav(){const trackSection=$('event');if(!trackSection)return;
  const originalSet=window.F1App.setGarage;
  window.F1App.setGarage=function(next){const out=originalSet.apply(this,arguments);if(section==='events')render();return out};
 }
-window.GBREvents={all:EVENTS,categories:CATEGORIES,computeSetup,isFeaturedDriver,isFeaturedPart,isAllowedDriver,boostedDriver,boostedPart,open:openEvents,showLibrary:()=>changeView('library'),getState:()=>({selectedEventId,selectedCategoryId,selectedTrackId}),select:(eventId,categoryId,trackId)=>{if(EVENTS.some(e=>e.id===eventId))selectedEventId=eventId;if(CATEGORIES.some(t=>t.id===categoryId))selectedCategoryId=categoryId;if(trackId&&getEvent().tracks.includes(trackId))selectedTrackId=trackId;else if(!getEvent().tracks.includes(selectedTrackId))selectedTrackId=getEvent().tracks[0];render()}};
+window.GBREvents={all:EVENTS,categories:CATEGORIES,computeSetup,isFeaturedDriver,isFeaturedPart,isAllowedDriver,boostedDriver,boostedPart,open:openEvents,showLibrary:()=>changeView('library'),getState:()=>({selectedEventId,selectedCategoryId,selectedTrackId,selectedStage,selectedRound}),select:(eventId,categoryId,trackId)=>{if(EVENTS.some(e=>e.id===eventId))selectedEventId=eventId;if(CATEGORIES.some(t=>t.id===categoryId))selectedCategoryId=categoryId;if(trackId&&getEvent().tracks.includes(trackId))selectedTrackId=trackId;else if(!getEvent().tracks.includes(selectedTrackId))selectedTrackId=getEvent().tracks[0];render()}};
 makeNav();
 })();

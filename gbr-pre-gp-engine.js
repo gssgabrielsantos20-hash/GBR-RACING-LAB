@@ -29,7 +29,7 @@ function categoryFrom(line){
  return found.size===1?[...found][0]:null;
 }
 function focusFrom(line,kind){
- const text=clean(line),names=kind==='car'?CAR:DRIVER;
+ const text=String(line??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(),names=kind==='car'?CAR:DRIVER;
  const prefix=kind==='car'?/(?:carro|componente|strong car|atributo do carro|foco do carro)\s*[:=-]\s*([a-z ]+)/:
   /(?:piloto|strong driver|atributo do piloto|foco do piloto)\s*[:=-]\s*([a-z ]+)/;
  const match=text.match(prefix);

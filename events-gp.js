@@ -5,7 +5,7 @@
 (()=>{
 'use strict';
 const EVENTS=[
- {id:'us-grand-prix-2026',name:'Grande Prêmio dos Estados Unidos',label:'GP dos Estados Unidos',kind:'GP oficial / Austin',starts:'2026-10-21',ends:'2026-10-25',image:'assets/events/us-gp-2026.png',color:'blue',description:'O desafio de Austin e suas mudanças de direção exige um setup bem equilibrado.',eventBoost:'Eagle',allowLegendary:false,allowSpecial:true,driverBoosts:[{key:'bearman',label:'Oliver Bearman',rarity:'any'},{key:'bortoleto',label:'Gabriel Bortoleto',rarity:'any'}],partBoosts:['Fracture','Motion Link V2','Tailwind'],tracks:['sakhir','hungaroring','madrid','austin','baku','barcelona','sao-paulo']}
+ {id:'us-grand-prix-2026',name:'Grande Prêmio dos Estados Unidos',label:'GP dos Estados Unidos',kind:'GP oficial / Austin',starts:'2026-10-21',ends:'2026-10-25',image:'assets/events/us-gp-2026.png',color:'blue',description:'O desafio de Austin e suas mudanças de direção exige um setup bem equilibrado.',eventBoost:'Eagle',allowLegendary:false,allowSpecial:true,driverBoosts:[{key:'bearman',label:'Oliver Bearman',rarity:'any'},{key:'bortoleto',label:'Gabriel Bortoleto',rarity:'any'}],partBoosts:['Fracture','Motion Link V2','Tailwind'],tracks:['sakhir','hungaroring','madrid','austin','baku','barcelona','sao-paulo'],briefingText:"Grande Prêmio dos Estados Unidos – Começa em 21 de outubro\nTudo é maior no Texas, inclusive a Curva 1 do COTA. Você vai conseguir enfrentar o desafio neste circuito exigente?\nOs itens que receberão um aumento de 10% nas estatísticas durante todo o evento são:\nOliver Bearman (todas as raridades + escolhas do paddock)\nGabriel Bortoleto (todas as raridades + escolhas do paddock)\nFracture (caixa de câmbio)\nMotion Link v2 (suspensão)\nTailwind (asa traseira)\nBônus do evento: Eagle\nPilotos lendários: Não permitidos\nEdições especiais: Permitidas\nOpções de pista:\nSakhir\nHungaroring\nMadri\nAustin\nBaku\nBarcelona\nInterlagos"}
 ];
 const CATEGORIES=[
  {id:'junior',label:'Júnior',series:3,description:'Séries 1 a 3'},
@@ -40,26 +40,33 @@ function isAllowedDriver(d,event,category){
  if(d.rarity==='Special'&&!event.allowSpecial)return false;
  return true;
 }
-function withBonus(item,keys,featured){
- const x={...item,eventFeatured:featured,eventBoostPercentage:featured?10:0};
- keys.forEach(k=>x[k]=featured?n(item[k])*1.1:n(item[k]));
+function withBonus(item,keys,featured,percentage=10){
+ const pct=Number.isFinite(Number(percentage))?Math.max(0,Math.min(100,Number(percentage))):10;
+ const x={...item,eventFeatured:featured,eventBoostPercentage:featured?pct:0};
+ keys.forEach(k=>x[k]=featured?n(item[k])*(1+pct/100):n(item[k]));
  return x;
 }
-function boostedPart(part,event){return withBonus(part,CAR_KEYS,bonusInEffect(event)&&isFeaturedPart(part,event))}
-function boostedDriver(driver,event){return withBonus(driver,DRIVER_KEYS,bonusInEffect(event)&&isFeaturedDriver(driver,event))}
+function bonusForPlanning(event){return eventStatus(event)!=='Encerrado'}
+function boostedPart(part,event,forPlan=false){return withBonus(part,CAR_KEYS,(forPlan?bonusForPlanning(event):bonusInEffect(event))&&isFeaturedPart(part,event),event.featuredPercent??10)}
+function boostedDriver(driver,event,forPlan=false){return withBonus(driver,DRIVER_KEYS,(forPlan?bonusForPlanning(event):bonusInEffect(event))&&isFeaturedDriver(driver,event),event.featuredPercent??10)}
 function driverIdentity(d){const pieces=norm(d?.name).split(' ');return pieces[pieces.length-1]||'';}
 function driverScore(d,focus){
  return n(d[focus])*.65+DRIVER_KEYS.reduce((total,k)=>total+n(d[k])*.07,0)
 }
 function computeSetup(event=getEvent(),category=getCategory(),trackId=selectedTrackId,garage=getGarage()){
  const track=getTrack(trackId);if(!track||!event.tracks.includes(track.id))return null;
+ const preview=window.GBRPreGPUI?.eventFor?.(event.id)||null;
+ // Alterações do briefing são somente locais; negação por padrão preserva restrições oficiais.
+ if(preview&&preview.tracks?.includes(track.id))event={...event,allowLegendary:event.allowLegendary&&preview.allowLegendary!==false,allowSpecial:event.allowSpecial&&preview.allowSpecial!==false,
+  featuredPercent:preview.featuredPercent??10,driverBoosts:preview.driverBoosts?.length?preview.driverBoosts:event.driverBoosts,partBoosts:preview.partBoosts?.length?preview.partBoosts:event.partBoosts};
+ const report=window.GBRPreGPUI?.raceFor?.(event.id,category.id,trackId,selectedStage,selectedRound)||null;
  const priority=window.GBRCore?.TRACK_SERIES?.[category.series]?.[track.id];
- const car=priority?.[1]||track.car;
- const driver=priority?.[0]||track.driver;
+ const car=report?.carFocus||priority?.[1]||track.car;
+ const driver=report?.driverFocus||priority?.[0]||track.driver;
  const weights=window.GBRCore?.trackWeights?.(car)||{speed:30,corner:30,power:25,qualifying:15};
  const maxSeries=category.series;
  const required=['Suspensão','Motor','Asa traseira','Asa dianteira','Freios','Câmbio',...(maxSeries>3?['Bateria']:[])];
- const candidates=garage.parts.filter(p=>p?.owned&&n(p.level)>0&&n(p.series)<=maxSeries).map(p=>boostedPart(p,event));
+ const candidates=garage.parts.filter(p=>p?.owned&&n(p.level)>0&&n(p.series)<=maxSeries).map(p=>boostedPart(p,event,true));
  const chosen=required.map(cat=>{
    const options=candidates.filter(p=>p.category===cat);
    options.sort((a,b)=>scorePart(b)-scorePart(a));
@@ -68,7 +75,7 @@ function computeSetup(event=getEvent(),category=getCategory(),trackId=selectedTr
  function scorePart(p){return CAR_KEYS.reduce((total,k)=>total+n(p[k])*n(weights[k]),0)/100}
  const totals={speed:0,corner:0,power:0,qualifying:0,pit:0};
  for(const p of chosen){for(const k of Object.keys(totals)){totals[k]+=n(p[k])}}
- const drivers=garage.drivers.filter(d=>isAllowedDriver(d,event,category)).map(d=>boostedDriver(d,event));
+ const drivers=garage.drivers.filter(d=>isAllowedDriver(d,event,category)).map(d=>boostedDriver(d,event,true));
  drivers.sort((a,b)=>driverScore(b,driver)-driverScore(a,driver));
  const driverPair=[];
  for(const d of drivers){
@@ -78,10 +85,10 @@ function computeSetup(event=getEvent(),category=getCategory(),trackId=selectedTr
  }
  const adjustedDrivers=[driverPair[0]||null,driverPair[1]||null];
  const featuredCount=chosen.filter(p=>p.eventFeatured).length+adjustedDrivers.filter(d=>d?.eventFeatured).length;
- const weather=currentRace(event)?.rain===100?'wet':currentRace(event)?.rain===0?'dry':garage.trackPlans?.[maxSeries+':'+track.id]?.weather||'dry';
+ const weather=report?.weather||(currentRace(event)?.rain===100?'wet':currentRace(event)?.rain===0?'dry':garage.trackPlans?.[maxSeries+':'+track.id]?.weather||'dry');
  const boosts=window.GBRBoosts?.recommend?.({track,car,driver,weather})||[];
  const complete=chosen.length===required.length&&adjustedDrivers.every(Boolean);
- return {event,category,track,carFocus:car,driverFocus:driver,carWeights:weights,parts:chosen,totals,required,drivers:adjustedDrivers,featuredCount,boosts,complete,weather,bonusInEffect:bonusInEffect(event),round:currentRace(event)?selectedRound:null};
+ return {event,category,track,carFocus:car,driverFocus:driver,carWeights:weights,parts:chosen,totals,required,drivers:adjustedDrivers,featuredCount,boosts,complete,weather,bonusInEffect:bonusInEffect(event),bonusProjected:!bonusInEffect(event)&&bonusForPlanning(event),round:currentRace(event)?selectedRound:report?.round||null,reportContext:report};
 }
 function eventStatus(event){
  const today=new Date();const todayText=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
@@ -149,7 +156,7 @@ function resultHtml(result){if(!result)return '<p class="gp-empty">Selecione uma
  const carLabel=window.GBRCore?.TRACK_CAR?.[result.carFocus]||result.carFocus;
  const driverLabel=window.GBRCore?.TRACK_DRIVER?.[result.driverFocus]||result.driverFocus;
  return `<div class="gp-result-head"><div><span class="kicker">SETUP GP • EXCLUSIVO DA SUA GARAGEM ${result.round?'• CORRIDA '+result.round:''}</span><h3>${esc(result.track.name)}</h3><p>Carro: <b>${esc(carLabel)}</b> · Pilotos: <b>${esc(driverLabel)}</b> · Série máxima ${result.category.series}</p></div><span class="gp-result-bonus">${result.featuredCount} item(ns) com +10%</span></div>
- <p class="gp-result-disclaimer">${result.round?'Prova '+result.round+' · ':''}${result.weather==='wet'?'☔ Chuva confirmada na ficha do evento':'☀ Referência de pista seca ou condição manual'} · ${result.bonusInEffect?'Bônus temporário ativo':'Bônus temporário não aplicado fora do período do GP'}</p>
+ <p class="gp-result-disclaimer">${result.round?'Prova '+result.round+' · ':''}${result.weather==='wet'?'☔ Chuva confirmada na ficha do evento':'☀ Referência de pista seca ou condição manual'} · ${result.bonusInEffect?'Bônus temporário ativo':result.bonusProjected?'Bônus de evento projetado para a corrida (ainda não ativo)':'Evento encerrado; bônus não aplicado'}</p>
  <div class="gp-result-metrics">${statRow('Velocidade',result.totals.speed)}${statRow('Curvas',result.totals.corner)}${statRow('Potência',result.totals.power)}${statRow('Classificação',result.totals.qualifying)}</div>
  <h4>Carro · ${result.parts.length}/${result.required.length} peças</h4><div class="gp-result-parts">${result.parts.map(partHtml).join('')||'<p>Nenhuma peça cadastrada para essa categoria.</p>'}</div>
  <h4>Dupla de pilotos</h4><div class="gp-result-pilots">${result.drivers.map(pilotHtml).join('')}</div>
@@ -188,6 +195,7 @@ function render(){const host=$('gbrEventHub');if(!host)return;
  host.querySelectorAll('[data-gp-stage]').forEach(b=>b.onclick=()=>{selectedStage=b.dataset.gpStage;selectedRound=1;selectedTrackId=currentRace(getEvent())?.track||getEvent().tracks[0];render()});
  host.querySelectorAll('[data-gp-track]').forEach(b=>b.onclick=()=>{selectedTrackId=b.dataset.gpTrack;if(b.dataset.gpRound)selectedRound=Number(b.dataset.gpRound);render();if(window.innerWidth<821)$('gbrGpResult')?.scrollIntoView({behavior:'smooth',block:'start'})});
  refreshResult();
+ window.GBRPreGPUI?.mount?.();
 }
 function openEvents(){if(window.tab)window.tab('event');else document.querySelector('#nav [data-tab="event"]')?.click();changeView('events');if(window.innerWidth<=820)document.getElementById('mobileMoreClose')?.click()}
 function makeNav(){const trackSection=$('event');if(!trackSection)return;
@@ -207,6 +215,6 @@ function makeNav(){const trackSection=$('event');if(!trackSection)return;
  const originalSet=window.F1App.setGarage;
  window.F1App.setGarage=function(next){const out=originalSet.apply(this,arguments);if(section==='events')render();return out};
 }
-window.GBREvents={all:EVENTS,categories:CATEGORIES,computeSetup,isFeaturedDriver,isFeaturedPart,isAllowedDriver,boostedDriver,boostedPart,open:openEvents,showLibrary:()=>changeView('library'),getState:()=>({selectedEventId,selectedCategoryId,selectedTrackId}),select:(eventId,categoryId,trackId)=>{if(EVENTS.some(e=>e.id===eventId))selectedEventId=eventId;if(CATEGORIES.some(t=>t.id===categoryId))selectedCategoryId=categoryId;if(trackId&&getEvent().tracks.includes(trackId))selectedTrackId=trackId;else if(!getEvent().tracks.includes(selectedTrackId))selectedTrackId=getEvent().tracks[0];render()}};
+window.GBREvents={all:EVENTS,categories:CATEGORIES,computeSetup,bonusForPlanning,isFeaturedDriver,isFeaturedPart,isAllowedDriver,boostedDriver,boostedPart,open:openEvents,showLibrary:()=>changeView('library'),getState:()=>({selectedEventId,selectedCategoryId,selectedTrackId,selectedStage,selectedRound}),select:(eventId,categoryId,trackId)=>{if(EVENTS.some(e=>e.id===eventId))selectedEventId=eventId;if(CATEGORIES.some(t=>t.id===categoryId))selectedCategoryId=categoryId;if(trackId&&getEvent().tracks.includes(trackId))selectedTrackId=trackId;else if(!getEvent().tracks.includes(selectedTrackId))selectedTrackId=getEvent().tracks[0];render()}};
 makeNav();
 })();

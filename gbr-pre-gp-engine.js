@@ -67,7 +67,7 @@ function parseBriefing(text,{tracks=[]}={}){
    if(/\b(?:classificacao|qualificacao)\b/.test(normalized))sectionStage='qualifying';
    else if(/\b(?:final|abertura)\b/.test(normalized))sectionStage='final';
   }
-  const candidate=/(?:\bcorrida\b|\bprova\b|\bvoltas?\b|\blaps?\b|\bpista\s*:|\bcircuito\s*:)/.test(normalized)||/^\d{1,2}\s*[).:-]/.test(line);
+  const candidate=/(?:\bcorrida\b|\bprova\b|\bvoltas?\b|\blaps?\b)/.test(normalized)||/\b(?:pista|circuito)\s*:/i.test(line)||/^\d{1,2}\s*[).:-]/.test(line);
   if(!candidate||/^(?:pistas|circuitos)\s*:/.test(normalized))continue;
   const match=identifyTrack(line,tracks);
   if(match.ambiguous){warnings.push('Linha '+(i+1)+': várias pistas identificadas; confirme a corrida.');continue;}

@@ -1,0 +1,257 @@
+/* GBR RACING LAB — v1.0: tokens do tema e camadas visuais.
+   O tema escuro legado permanece intacto; o claro é um override isolado.
+   Assets/miniaturas/imagens de cartas NÃO são invertidos. */
+
+/* Componentes independentes do tema: menu Configurações. */
+.gbr-settings-trigger {
+  display:flex;align-items:center;justify-content:flex-start;gap:10px;
+  width:100%;padding:11px 12px;border:1px solid #2f5a60;border-radius:9px;
+  background:#10252e;color:#d5f5f1;font:700 12px 'Oxanium',system-ui,sans-serif;
+}
+.gbr-settings-trigger svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8}
+.gbr-settings-trigger:hover,.gbr-settings-trigger:focus-visible{outline-offset:2px;border-color:#00b4aa;color:#03dfcf}
+.gbr-settings-trigger .gbr-theme-state{margin-left:auto;font-size:10px;color:#a0c6c9}
+.gbr-settings-trigger-login{width:auto;min-width:66px;padding:8px;justify-content:center;font-size:11px}
+#mobileMorePanel button.gbr-more-settings{display:flex;align-items:center}
+#mobileMorePanel button.gbr-more-settings>span{display:grid;place-items:center}
+#mobileMorePanel button.gbr-more-settings svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8}
+.gbr-settings-dialog {
+  --settings-surface:#101c28;--settings-ink:#edfaff;--settings-muted:#a5bdc8;
+  --settings-border:#326070;--settings-field:#112a36;
+  color:var(--settings-ink);background:var(--settings-surface);
+  border:1px solid var(--settings-border);border-radius:18px;
+  width:min(94vw,480px);max-height:min(80vh,650px);padding:0;
+  box-shadow:0 30px 90px #0008;font-family:'Oxanium',system-ui,sans-serif;
+}
+.gbr-settings-dialog::backdrop{background:rgba(0,7,16,.72);backdrop-filter:blur(5px)}
+.gbr-settings-dialog form{margin:0;padding:25px}
+.gbr-settings-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.gbr-settings-head h2{margin:8px 0;font-size:25px;color:var(--settings-ink)}
+.gbr-settings-eyebrow{font-size:10px;font-weight:800;letter-spacing:1.5px;color:#00aa9f}
+.gbr-settings-close{border:1px solid var(--settings-border);border-radius:8px;background:var(--settings-field);color:var(--settings-ink);font-size:20px;width:38px;height:38px}
+.gbr-settings-desc{font-size:13px;line-height:1.6;color:var(--settings-muted)}
+.gbr-theme-options{padding:0;margin:20px 0 10px;border:0;display:grid;gap:10px}
+.gbr-theme-options legend{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--settings-muted);margin-bottom:11px}
+.gbr-theme-option{display:flex;align-items:center;gap:12px;padding:15px;border:1px solid var(--settings-border);border-radius:11px;background:var(--settings-field);cursor:pointer}
+.gbr-theme-option:has(input:checked){border-color:#008f88;box-shadow:inset 3px 0 #008f88}
+.gbr-theme-option input{accent-color:#008f88;flex:0 0 auto;width:18px;height:18px;margin:0}
+.gbr-theme-option span{display:flex;flex-direction:column;gap:3px}
+.gbr-theme-option strong{font-size:14px;color:var(--settings-ink)}
+.gbr-theme-option small{font-size:11px;color:var(--settings-muted)}
+.gbr-settings-note{color:var(--settings-muted);font-size:11px;line-height:1.5;margin-bottom:0}
+.gbr-audit-theme-picker{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0 2px;font-size:12px;font-weight:700}
+.gbr-audit-theme-picker select{min-height:38px}
+
+/* Tema claro — mantém a marca GBR em azul-petróleo/verde acessível. */
+:root[data-theme="light"] {
+  color-scheme:light;
+  --bg:#f3f7fa;--rail:#edf3f6;--panel:#ffffff;--panel2:#f0f5f8;
+  --stroke:#cbdce3;--text:#16303c;--muted:#526a77;
+  --red:#007f79;--red2:#006d69;--silver:#425c69;
+  --gbr-ink:#f3f7fa;--gbr-panel:#ffffff;--gbr-border:#d0dfe6;
+  --gbr-cyan:#007f79;--gbr-mid:#526a77;--gbr-silver:#193744;--gbr-race:#007e78;
+  --edge:#ccdde4;--aqua:#007c76;
+  --settings-surface:#ffffff;--settings-ink:#16303c;
+  --settings-muted:#4b6570;--settings-border:#c5d7df;--settings-field:#f3f8fa;
+}
+html[data-theme="light"] body,
+html[data-theme="light"] .app-shell,
+html[data-theme="light"] .workspace {
+  color:var(--text);background:#f3f7fa!important;background-image:none!important;
+}
+
+/* Estrutura, menus e autenticação. */
+html[data-theme="light"] .rail{background:linear-gradient(180deg,#f4f8fa,#e9f2f5)!important;border-color:#ccdde4!important;box-shadow:5px 0 20px #1937440c}
+html[data-theme="light"] .rail-label,
+html[data-theme="light"] .rail-foot,
+html[data-theme="light"] .topbar-breadcrumb{color:#4e6774!important}
+html[data-theme="light"] .rail-brand strong,
+html[data-theme="light"] .topbar-breadcrumb b,
+html[data-theme="light"] .topbar,
+html[data-theme="light"] .topbar-right,
+html[data-theme="light"] .account-chip{color:#173744!important}
+html[data-theme="light"] .rail nav button:not(.active){color:#31515f!important}
+html[data-theme="light"] .rail nav button:not(.active) .nav-icon{color:#517784!important}
+html[data-theme="light"] .rail nav button:not(.active):hover{background:#ddecee!important;border-color:#bbd3d9!important}
+html[data-theme="light"] .rail nav button.active,
+html[data-theme="light"] #mobileNav button.active{background:#d4edea!important;color:#006b67!important;border-color:#a6d4ce!important;box-shadow:inset 3px 0 #007f79!important}
+html[data-theme="light"] .rail nav button.active .nav-icon{color:#007f79!important}
+html[data-theme="light"] .topbar{background:#ffffffef!important;border-color:#c9dce2!important;box-shadow:0 3px 12px #19435608}
+html[data-theme="light"] .content-topline{border-color:#d2e1e6!important;color:#59717f!important}
+html[data-theme="light"] .content-topline span:first-child{color:#007e78!important}
+html[data-theme="light"] .small-button,
+html[data-theme="light"] .help-trigger{background:#e7f3f2!important;border-color:#bddad8!important;color:#14645f!important}
+html[data-theme="light"] .sync-status,
+html[data-theme="light"] .topbar-right .account-chip{color:#344f5a!important}
+html[data-theme="light"] .mobile-nav{background:#f8fbfcee!important;border-color:#bbd6dc!important;box-shadow:0 -7px 20px #17374412}
+html[data-theme="light"] .mobile-nav button{color:#416575!important}
+html[data-theme="light"] .mobile-more-panel{background:#edf5f8!important;border-color:#b4ccd4!important;box-shadow:0 12px 35px #1b394833}
+html[data-theme="light"] .mobile-more-panel>button{background:#fff!important;border-color:#d0e0e5!important;color:#264955!important}
+html[data-theme="light"] .mobile-more-panel>button>span{background:#e1f0f1!important;color:#007d76!important}
+html[data-theme="light"] .mobile-more-panel .more-title,
+html[data-theme="light"] #mobileMoreClose{color:#173744!important}
+html[data-theme="light"] .access-gate{background:#f3f7fa!important;color:#173744!important}
+html[data-theme="light"] .gate-noise{background:radial-gradient(circle at 15% 35%,#e0f4f0,transparent 45%),linear-gradient(135deg,#f4f8fa,#e8f1f5)!important}
+html[data-theme="light"] .gate-copy h1,
+html[data-theme="light"] .gate-copy .gate-metrics b,
+html[data-theme="light"] .auth-card h2{color:#18333f!important}
+html[data-theme="light"] .gate-copy p,
+html[data-theme="light"] .auth-card p,
+html[data-theme="light"] .gate-metrics small{color:#4c6674!important}
+html[data-theme="light"] .auth-card{background:#fff!important;border-color:#cbdee5!important;color:#16303c!important;box-shadow:0 18px 42px #24425016}
+html[data-theme="light"] .auth-links button{color:#006f6b!important}
+html[data-theme="light"] .gbr-settings-trigger{background:#e7f1f3!important;color:#245460!important;border-color:#bfdae0!important}
+html[data-theme="light"] .gbr-settings-trigger .gbr-theme-state{color:#49717b!important}
+html[data-theme="light"] .gbr-settings-dialog{--settings-surface:#fff;--settings-ink:#173744;--settings-muted:#526a77;--settings-border:#c5d8df;--settings-field:#f2f8fa}
+
+/* Cards estruturais: o dashboard usa os mesmos planos de superfície em todas as abas. */
+html[data-theme="light"] :is(
+  .panel,.stat,.track,.team-card,.side-feature,.gbr-quick-bar,.gbr-backup-panel,
+  .gbr-sheet-panel,.gbr-png-dialog,.gbr-build-controls,.gbr-bld-driver,
+  .gbr-part-chips>div,.gbr-build-boosts>div,.gbr-saved-row,.gbr-boost-card,
+  .fav-record,.fav-metrics>div,.fav-item,.fav-memo,.fav-editor,
+  .fav-spot-card,.fav-spot-metrics div,.fav-spot-driver,.fav-premium-stage,
+  .fav-premium-banner,.fav-print-wizard,.fav-print-drop,.fav-print-review,
+  .fav-print-found,.gp-event-choice,.gp-event-banner,.gp-event-overview-card,
+  .gp-tier,.gp-circuit,.gp-featured-item,.gp-view-switch,.gp-hub-stamp,
+  .gbr-notice,.rl-panel,.rl-highlights>div,.rl-evidence,.rl-driver-fieldset,
+  .rl-driver-card,.rl-tyre-pilot,.rl-reference-panel,.rl-history .rl-verdict-inline
+) {
+  background:#fff!important;background-image:none!important;
+  border-color:#ccdde4!important;color:#193744!important;box-shadow:0 4px 14px #132f410b;
+}
+html[data-theme="light"] :is(.track-priority,.gbr-drop,.gbr-original-preview,.gbr-review-note,
+ .gbr-edit-stat,.gbr-existing-hint,.rl-driver-card.rival,.fav-slot,.fav-spot-count,
+ .gp-event-status,.gp-circuit-index,.gp-sidebar-sub.active,.gbr-ocr-status) {
+ background:#e9f5f3!important;color:#244b54!important;border-color:#b9d9d8!important;
+}
+html[data-theme="light"] :is(.gp-event-choice.selected,.gp-tier.selected,.gp-circuit.selected,
+ .fav-slot.active,.gp-view-switch>button.active) {
+ background:#d4efe9!important;color:#00685f!important;border-color:#75b9b1!important;
+}
+
+/* Dashboard de telemetria: mantém as fotos do hero sem inverter pixels. */
+html[data-theme="light"] #dashboard .telemetry-panel,
+html[data-theme="light"] #dashboard .stats-dashboard .stat,
+html[data-theme="light"] #dashboard .telemetry-team-card,
+html[data-theme="light"] #dashboard .telemetry-help {
+  background:#fff!important;border-color:#c9dce4!important;color:#16303c!important;
+  box-shadow:0 5px 20px #213d4b0d;
+}
+html[data-theme="light"] #dashboard .telemetry-team-card,
+html[data-theme="light"] #dashboard .telemetry-shortcut-icon,
+html[data-theme="light"] #dashboard .telemetry-activity-icon {
+  background:#e7f3f4!important;border-color:#c7dbdf!important;color:#007a76!important;
+}
+html[data-theme="light"] #dashboard .telemetry-event-bottom,
+html[data-theme="light"] #dashboard .telemetry-event-main,
+html[data-theme="light"] #dashboard .telemetry-team-owner {
+  background:#fff!important;border-color:#d4e2e8!important;color:#264a57!important;
+}
+html[data-theme="light"] #dashboard .telemetry-event-bottom button{background:#e6f4f2!important;color:#006c68!important}
+html[data-theme="light"] #dashboard .telemetry-event-picture{background:#d7e8ec!important}
+/* O banner de corrida mantém contraste escuro próprio sobre imagem. */
+html[data-theme="light"] #dashboard .telemetry-hero,
+html[data-theme="light"] #dashboard .telemetry-hero :is(h1,p,.eyebrow,.telemetry-hero-foot){color:#f6ffff}
+html[data-theme="light"] #dashboard .telemetry-hero h1 em{color:#42fff1!important}
+
+/* Títulos, metadados e labels normalmente definidos com cinzas claros. */
+html[data-theme="light"] :is(
+  .panel,.stat,.track,.team-card,.gbr-backup-panel,.gbr-sheet-panel,
+  .fav-record,.fav-editor,.gp-event-overview-card,.gp-circuit,.rl-panel,
+  .rl-driver-fieldset,.telemetry-panel,.gbr-notice
+) :is(h1,h2,h3,h4,strong,b,legend){color:#1b3c49}
+html[data-theme="light"] :is(.panel,.stat,.track,.team-card,.rl-panel,.fav-record,
+ .gp-event-overview-card,.gbr-notice,.telemetry-panel) :is(p,small,label) {
+  color:#526c77;
+}
+html[data-theme="light"] :is(.muted,.mini,.rl-muted,.rl-driver-hint,.fav-head p,
+ .tracks-head p,.page-head p,.gbr-backup-copy p,.gbr-learning-hint){color:#526b78!important}
+html[data-theme="light"] :is(.kicker,.eyebrow,.tinycaps,.telemetry-overline,
+ .telemetry-mini-icon){color:#007c76!important}
+html[data-theme="light"] :is(.page-head h1,.tracks-head h1,.fav-head h1,.section-heading h2,
+ .panel h2,.rl-head h1){color:#193946!important}
+html[data-theme="light"] .content :is(.division,.eventline){border-color:#d5e3e9!important}
+html[data-theme="light"] .footer{color:#58717d!important}
+
+/* Formulários e tabelas — preservar realce de foco/erros das páginas. */
+html[data-theme="light"] :is(
+  .field input,.field select,.field textarea,.fav-field input,.fav-field select,
+  .fav-field textarea,.rl-field input,.rl-field select,.rl-field textarea,
+  .rl-metric-row input,.rl-driver-card input,.rl-driver-card select,
+  .rl-driver-metric-row input,.gbr-notice-toolbar select,
+  #gbrNoticeForm input:not([type=checkbox]),#gbrNoticeForm textarea,#gbrNoticeForm select,
+  .fav-print-name input,.fav-print-drop input[type=file],#helpSearch,.help-area-select
+) {
+  background:#f7fafc!important;color:#183542!important;border:1px solid #b9ced7!important;
+}
+html[data-theme="light"] :is(input,select,textarea)::placeholder{color:#708691;opacity:1}
+html[data-theme="light"] :is(.panel,.rl-panel,.fav-editor,.gbr-sheet-panel) :is(
+  input,select,textarea
+):focus-visible{outline:2px solid #007e79;outline-offset:2px}
+html[data-theme="light"] .tablewrap{background:#fff!important;border-color:#d1e2e7!important}
+html[data-theme="light"] .tablewrap th,
+html[data-theme="light"] table th{background:#e6f1f3!important;color:#234a57!important;border-color:#c5d9e0!important}
+html[data-theme="light"] table td{background:#fff;color:#294955;border-color:#d4e3e8}
+html[data-theme="light"] :is(.token,.pill,.compactstats span,.setup div,.fav-spot-metrics div){
+  background:#eaf3f5!important;color:#305461!important;border-color:#cfdee2!important;
+}
+html[data-theme="light"] .btn:not(.primary){background:#e9f3f6!important;color:#244955!important;border-color:#bcd5dd!important}
+html[data-theme="light"] :is(.btn.primary,.primary){background:#007f79!important;color:#fff!important;border-color:#007f79!important;box-shadow:none}
+html[data-theme="light"] .btn.primary:hover{background:#006b66!important}
+html[data-theme="light"] .fav-delete:hover{background:#ffe9ea!important;color:#98212a!important}
+
+/* Painéis especiais, overlays e diálogos: não alterar imagens do usuário. */
+html[data-theme="light"] .help-dialog{background:#fff!important;color:#173744!important;border-color:#c5d8df!important}
+html[data-theme="light"] :is(.help-item,.help-step){background:#f0f7f8!important;color:#274c57!important;border-color:#c9dde3!important}
+html[data-theme="light"] :is(#helpClose,#mobileMoreClose){background:#e8f2f5!important;color:#264856!important;border-color:#b7d1da!important}
+html[data-theme="light"] .gbr-x,
+html[data-theme="light"] .gbr-png-dialog header button{background:#e9f3f6!important;color:#244955!important;border-color:#bfd4dc!important}
+html[data-theme="light"] .gbr-sheet,.gbr-png-modal{background:#09202aa8!important}
+html[data-theme="light"] :is(.rl-metric-row input[data-ocr="suggested"],
+ .rl-driver-metric-row input[data-ocr="suggested"],
+ .rl-driver-card input[data-ocr="suggested"],.rl-driver-card select[data-ocr="suggested"],
+ .rl-metric-row input[data-estimated="true"]) {
+ background:#fff1d7!important;color:#69500c!important;border-color:#d7b960!important;
+}
+html[data-theme="light"] :is(.warn,.gbr-incomplete,.fav-print-caution){
+ background:#fff1d9!important;color:#76520e!important;border-color:#d9ae60!important;
+}
+html[data-theme="light"] :is(.gbr-row-remove,.danger){color:#a92935!important}
+html[data-theme="light"] .gp-event-banner:after{background:linear-gradient(90deg,rgba(14,38,51,.93),rgba(16,42,57,.72) 45%,transparent 95%)!important}
+html[data-theme="light"] .gp-event-banner :is(h2,h3,p,small,strong){color:#fff!important}
+
+/* Biblioteca Visual: página HTML independente com a mesma preferência. */
+:root[data-theme="light"] .gbr-audit-page {
+  background:linear-gradient(180deg,#edf6f8,#f7fafc 60%)!important;
+  color:#193946!important;
+}
+html[data-theme="light"] .gbr-audit-page :is(.status,.stat,.card){
+  background:#fff!important;border-color:#ccdde4!important;color:#173744!important;
+}
+html[data-theme="light"] .gbr-audit-page :is(input,select,button){
+  background:#f7fbfc!important;border-color:#b8d0d8!important;color:#1a3a46!important;
+}
+html[data-theme="light"] .gbr-audit-page button.primary{background:#007f79!important;color:#fff!important;border-color:#007f79!important}
+html[data-theme="light"] .gbr-audit-page .card .art{background:#e4f0f3!important}
+html[data-theme="light"] .gbr-audit-page .status.ok{color:#116b4d!important}
+html[data-theme="light"] .gbr-audit-page .status.warn{color:#76520e!important}
+html[data-theme="light"] .gbr-audit-page .status.error{color:#9b2635!important}
+html[data-theme="light"] .gbr-audit-page .card .source,
+html[data-theme="light"] .gbr-audit-page .card .source.local{color:#88610b!important}
+html[data-theme="light"] .gbr-audit-page .card .source.shared{color:#006b52!important}
+
+/* Alterações de aparência têm transição discreta; movimento reduzido prevalece. */
+@media (prefers-reduced-motion:no-preference) {
+  body,.rail,.topbar,.panel,.stat,.mobile-nav,.gbr-settings-dialog{
+    transition:background-color .18s ease,color .18s ease,border-color .18s ease;
+  }
+}
+@media (max-width:820px) {
+  .gbr-settings-dialog form{padding:20px}
+  .gbr-settings-head h2{font-size:22px}
+  .gbr-settings-trigger-login{padding:6px;font-size:10px;min-width:50px}
+}
+@media (prefers-reduced-motion:reduce) {
+  body,.rail,.topbar,.panel,.stat,.mobile-nav,.gbr-settings-dialog{transition:none!important}
+}

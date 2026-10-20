@@ -124,4 +124,22 @@ applyHandler();
 assert.equal(uiWin.GBRPreGPUI.raceFor('gp','junior','austin','final',1).laps,6);
 currentUser='conta-2';
 assert.equal(uiWin.GBRPreGPUI.raceFor('gp','junior','austin','final',1),null);
+// O comunicado original do GP deve funcionar SEM corridas/voltas explícitas.
+const allUS=[...tracks,
+ {id:'sakhir',name:'Sakhir'},{id:'hungaroring',name:'Hungaroring'},
+ {id:'madrid',name:'Madri · Madring'},{id:'barcelona',name:'Barcelona-Catalunya'},
+ {id:'sao-paulo',name:'São Paulo · Interlagos'}];
+const original=ctx.window.GBRPreGP.parseEventBriefing(event.briefingText,{
+ tracks:allUS,drivers:event.driverBoosts.map(x=>x.label),parts:event.partBoosts
+});
+assert.equal(original.tracks.length,7,'Comunicado: sete circuitos reconhecidos');
+assert.equal(original.entries.length,0,'Lista de pistas não é calendário de corridas');
+assert.equal(original.driverBoosts.length,2);
+assert.equal(original.partBoosts.length,3);
+assert.equal(original.featuredPercent,10);
+assert.equal(original.eventBoost,'Eagle');
+assert.equal(original.allowLegendary,false);
+assert.equal(original.allowSpecial,true);
+assert.equal(original.warnings.length,0);
+assert.equal(ctx.window.GBRPreGP.resolve(original,{trackId:'austin',categoryId:'junior',stage:'final',round:1}).race,null);
 console.log('OK: parser, categorias, clima, garagem, pneus, bateria, Boost e integração Pré-GP.');

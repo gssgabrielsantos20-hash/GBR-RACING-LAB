@@ -63,9 +63,9 @@ function parseBriefing(text,{tracks=[]}={}){
   const line=lines[i].trim();if(!line)continue;
   const normalized=clean(line),category=categoryFrom(line);
   if(category&&/^(?:categoria|classe|dificuldade|junior|competidor|challenger|contendor|contender|campeao|champion)\b/.test(normalized))sectionCategory=category;
-  if(/^(?:etapa|fase|classificacao|qualificacao|final|abertura)\b/.test(normalized)){
-   if(/\b(?:classificacao|qualificacao)\b/.test(normalized))sectionStage='qualifying';
-   else if(/\b(?:final|abertura)\b/.test(normalized))sectionStage='final';
+  if(/^(?:etapa|fase|classificacao|qualificacao|qualifying|opening|final|abertura)\b/.test(normalized)){
+   if(/\b(?:classificacao|qualificacao|qualifying)\b/.test(normalized))sectionStage='qualifying';
+   else if(/\b(?:final|abertura|opening)\b/.test(normalized))sectionStage='final';
   }
   const candidate=/(?:\bcorrida\b|\bprova\b|\bvoltas?\b|\blaps?\b)/.test(normalized)||/\b(?:pista|circuito)\s*:/i.test(line)||/^\d{1,2}\s*[).:-]/.test(line);
   if(!candidate||/^(?:pistas|circuitos)\s*:/.test(normalized))continue;
@@ -77,7 +77,7 @@ function parseBriefing(text,{tracks=[]}={}){
   if(laps!==null&&(laps<2||laps>100)){warnings.push('Linha '+(i+1)+': número de voltas fora do limite.');continue;}
   const weather=parseWeather(line);
   if(weather.invalid){warnings.push('Linha '+(i+1)+': probabilidade de chuva inválida.');continue;}
-  const roundMatch=normalized.match(/\b(?:corrida|prova)\s*(\d{1,2})\b/);
+  const roundMatch=normalized.match(/\b(?:corrida|prova)\s*(\d{1,2})\b/)||line.match(/^\s*(\d{1,2})\s*[).:-]/);
   entries.push({trackId:match.id,categoryId:category||sectionCategory||null,stage:sectionStage,round:roundMatch?Number(roundMatch[1]):null,laps,weather:weather.weather,rain:weather.rain,carFocus:focusFrom(line,'car'),driverFocus:focusFrom(line,'driver'),line:i+1});
   if(entries.length>=MAX_RACES){warnings.push('Limite de 64 corridas atingido.');break;}
  }
@@ -94,7 +94,8 @@ function resolve(parsed,{trackId,categoryId,stage,round}={}){
  candidates=candidates.filter(e=>!e.stage||e.stage===stage);
  if(!candidates.length)return {race:null,warning:'O relatório não possui esta pista na etapa selecionada.'};
  const numbered=candidates.filter(e=>e.round===integer(round));
- if(numbered.length)candidates=numbered;
+ if(candidates.some(e=>e.round!==null))candidates=numbered;
+ if(!candidates.length)return {race:null,warning:'Não há correspondência entre rodada selecionada e relatório.'};
  if(candidates.length!==1)return {race:null,warning:'Há mais de uma corrida para esta pista e categoria; especifique a rodada no texto.'};
  return {race:candidates[0],warning:null};
 }
@@ -161,5 +162,56 @@ function buildPlan({result,garage,race}={}){
   recommendation:'Plano orientativo, sem garantia de vitória.'
  };
 }
-window.GBRPreGP=Object.freeze({parseBriefing,resolve,buildPlan,identifyTrack,version:'1.0.0'});
+
+/* Comunicado de GP: fatos verificáveis, sem inferir voltas ou usar creators. */
+function parseEventBriefing(text,{tracks=[],drivers=[],parts=[]}={}){
+ const fallback=parseBriefing(text,{tracks});
+ const lines=text.replace(/\r/g,'').split('\n');
+ const warnings=fallback.warnings.filter(w=>!w.includes('Nenhuma corrida reconhecida')&&!/circuito não identificado/.test(w));
+ const result={eventTitle:null,featuredPercent:null,driverBoosts:[],partBoosts:[],eventBoost:null,allowLegendary:null,allowSpecial:null,tracks:[],entries:fallback.entries,warnings,source:'texto_informado',version:2};
+ let trackSection=false,featureSection=false;
+ const strictTrack=raw=>{
+  const t=clean(raw.replace(/^[\s\-*•\d).:]+/,'').replace(/\s*[—-]\s*(?:seco|chuva|dry|wet).*$/i,''));
+  for(const entry of tracks){
+   const names=[entry.id,entry.name,String(entry.name||'').split('·')[0],...Object.entries(ALIASES).filter(v=>v[1]===entry.id).map(v=>v[0])].map(clean);
+   if(names.includes(t))return entry.id;
+  }
+  return null;
+ };
+ const seenDriver=new Set(),seenPart=new Set(),seenTrack=new Set();
+ const normalizedKnown=(src,label)=>src.find(x=>clean(typeof x==='string'?x:x?.name||x?.label)===clean(label));
+ for(let i=0;i<lines.length;i++){
+  const raw=lines[i].trim(),line=clean(raw);if(!raw)continue;
+  if(!result.eventTitle&&/^(?:grande premio|gp)\s+(?:do|da|de|dos|das)?\s*\S+/.test(line))result.eventTitle=raw.split(/\s+[–—-]\s+/)[0].trim().slice(0,160);
+  const pct=line.match(/(?:aumento|incremento|featured assets|estatisticas)[^\n]{0,90}?\b(\d{1,3})\s*(?:por cento)?/);
+  if(/\b(?:10\s*%|10\s*por cento)\b/.test(line)||(/10\s*%/.test(raw)&&/(aumento|estat|featured)/.test(line)))result.featuredPercent=10;
+  else if(pct&&/%/.test(raw)&&result.featuredPercent===null){const v=Number(pct[1]);if(v>=0&&v<=100)result.featuredPercent=v;}
+  const boost=raw.match(/^(?:b[oô]nus|boost)\s+do\s+evento\s*:\s*(.+)$/i);
+  if(boost){result.eventBoost=boost[1].trim().slice(0,70);trackSection=false;featureSection=false;continue;}
+  if(/^pilotos?\s+lend[aá]rios?\s*:/i.test(raw)){result.allowLegendary=/\b(?:permitidos?|sim|yes|allowed)\b/i.test(raw)&&!/n[aã]o\s+permitidos?/i.test(raw);trackSection=false;featureSection=false;continue;}
+  if(/^edi[cç][oõ]es\s+especiais?\s*:/i.test(raw)){result.allowSpecial=/\b(?:permitidas?|sim|yes|allowed)\b/i.test(raw)&&!/n[aã]o\s+permitidas?/i.test(raw);trackSection=false;featureSection=false;continue;}
+  if(/^(?:op[cç][oõ]es\s+de\s+pista|pistas?\s+(?:poss[ií]veis|dispon[ií]veis)|circuitos?\s+(?:poss[ií]veis|dispon[ií]veis))\s*:/i.test(raw)){trackSection=true;featureSection=false;continue;}
+  if(/^(?:os\s+itens\s+que\s+receber[aã]o|(?:itens|cartas|pilotos|componentes)\s+(?:com\s+)?(?:b[oô]nus|em\s+destaque)|featured assets)/i.test(raw)){featureSection=true;trackSection=false;continue;}
+  if(/^(?:categorias?|classifica[cç][aã]o|qualifying|opening|final|abertura|etapas?|restri[cç][oõ]es?)\s*:/i.test(raw)){trackSection=false;featureSection=false;}
+  if(trackSection){
+   const id=strictTrack(raw);
+   if(id){if(!seenTrack.has(id)){result.tracks.push(id);seenTrack.add(id);}else warnings.push('Pista repetida na lista: '+raw);}
+   else warnings.push('Linha '+(i+1)+': pista não reconhecida na lista do GP: '+raw.slice(0,80));
+   continue;
+  }
+  if(featureSection){
+   const label=raw.replace(/^[-*•]\s*/,'').split('(')[0].trim();
+   const d=normalizedKnown(drivers,label),p=normalizedKnown(parts,label);
+   if(d){const name=typeof d==='string'?d:d.name||d.label;if(!seenDriver.has(clean(name))){result.driverBoosts.push({key:clean(name).split(' ').pop(),label:name,rarity:'any'});seenDriver.add(clean(name));}}
+   else if(p){const name=typeof p==='string'?p:p.name||p.label;if(!seenPart.has(clean(name))){result.partBoosts.push(name);seenPart.add(clean(name));}}
+   else warnings.push('Linha '+(i+1)+': ativo destacado desconhecido: '+label.slice(0,80));
+  }
+ }
+ if(!result.tracks.length&&result.entries.length)result.tracks=[...new Set(result.entries.map(e=>e.trackId))];
+ if(!result.tracks.length)warnings.push('Nenhuma pista válida detectada na lista do GP.');
+ if(result.featuredPercent===null&&(result.driverBoosts.length||result.partBoosts.length))warnings.push('Percentual dos ativos destacados não encontrado.');
+ return result;
+}
+
+window.GBRPreGP=Object.freeze({parseEventBriefing,parseBriefing,resolve,buildPlan,identifyTrack,version:'1.0.0'});
 })();

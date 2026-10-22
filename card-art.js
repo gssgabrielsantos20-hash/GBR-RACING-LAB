@@ -149,7 +149,7 @@ async function saveRemote(item,kind,url,storagePath=null){await ensureAdmin();ur
  const {error}=await cloud.client.from('gbr_card_images').upsert(record,{onConflict:'card_key'});if(error)throw error;localClear([card_key]);await refreshRemote();return record;
 }
 async function deleteRemote(item,kind){await ensureAdmin();const key=overrideKey(item,kind);const {error}=await cloud.client.from('gbr_card_images').delete().eq('card_key',key);if(error)throw error;localClear([key]);await refreshRemote();}
-async function convertFile(file){if(!file||!/^image\/(?:jpeg|png|webp|heic|heif)$/i.test(file.type))throw Error('Selecione uma foto JPG, PNG ou WebP. Fotos HEIC precisam ser convertidas pelo iPhone.');
+async function convertFile(file){if(!file||!/^image\/(?:jpeg|png|webp|heic|heif)$/i.test(file.type))throw Error('Selecione uma foto JPG, PNG ou WebP. Fotos HEIC/HEIF podem precisar de conversão para JPG ou PNG antes de enviar.');
  if(file.size>16*1024*1024)throw Error('Imagem muito grande. Escolha uma foto de até 16 MB.');
  const src=URL.createObjectURL(file);try{const img=await new Promise((resolve,reject)=>{const v=new Image();v.onload=()=>resolve(v);v.onerror=()=>reject(Error('Não foi possível abrir a foto. Escolha JPG, PNG ou WebP.'));v.src=src;});
  const ratio=Math.min(1,760/Math.max(img.naturalWidth,img.naturalHeight));const canvas=document.createElement('canvas');canvas.width=Math.round(img.naturalWidth*ratio);canvas.height=Math.round(img.naturalHeight*ratio);const ctx=canvas.getContext('2d');if(!ctx)throw Error('Seu navegador não suporta preparar esta imagem.');ctx.drawImage(img,0,0,canvas.width,canvas.height);

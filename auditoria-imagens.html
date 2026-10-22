@@ -18,10 +18,10 @@ input,select,button{font:inherit;border:1px solid #456974;border-radius:10px;bac
 .card form{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.card .url{width:100%;font-size:13px;min-width:0}.card .addphoto{width:100%}.actions{display:flex;gap:7px;flex-wrap:wrap}.alert{font-size:13px;color:var(--muted);margin:14px 0}
 #notice{white-space:pre-wrap}.hide{display:none!important}.tool-actions{display:flex;gap:8px;flex-wrap:wrap}.tool-actions button{flex:1 1 180px}
 @media(max-width:600px){main{padding:17px 12px 40px}.stats{gap:5px}.stat{padding:8px}.stat strong{font-size:21px}.card{padding:11px;grid-template-columns:55px 1fr}.card .art{width:55px;height:60px}}
-</style>
+</style><link rel="stylesheet" href="gbr-theme.css?v=20261020darkonly1"><link rel="stylesheet" href="gbr-rebrand.css?v=20261020ux1"><script src="gbr-theme.js?v=20261020darkonly1"></script>
 <script src="config.js"></script><script src="legendary-drivers.js?v=20261016gbr5510"></script><script src="catalog.js?v=20261016gbr5510"></script><script src="card-art.js?v=20261017gbr5510final"></script><script src="supabase-sdk-loader.js?v=20261017gbr5514b"></script><script defer src="auditoria-imagens.js?v=20261017gbr5514b"></script>
-</head><body><main>
-<a href="./">← Voltar ao GBR Racing Lab</a>
+</head><body class="gbr-audit-page"><main><section class="gbr-ux-audit-banner" aria-label="Como usar a biblioteca"><div><small>GBR RACING LAB · CATÁLOGO VISUAL</small><strong>Imagens certas, cartas fáceis de encontrar.</strong><p>Localize peças e pilotos, confira as imagens disponíveis e publique somente arquivos autorizados para sua academia.</p></div><ol class="gbr-ux-audit-steps"><li>01 · Busque a carta</li><li>02 · Verifique a imagem</li><li>03 · Atualize com autorização</li></ol></section>
+<a href="./">← Voltar ao GBR Racing Lab</a><div class="gbr-audit-theme-picker"><span>Aparência: Escuro (fixo)</span></div>
 <p class="overline">GBR RACING LAB / CATÁLOGO DA ACADEMIA</p>
 <h1>Biblioteca Visual <span style="color:var(--aqua)">5.4</span></h1>
 <p class="lead">Publique a foto de uma carta uma única vez e ela será exibida nos outros aparelhos da academia. Só administradores podem alterar imagens; os demais usuários podem consultar.</p>
@@ -29,8 +29,8 @@ input,select,button{font:inherit;border:1px solid #456974;border-radius:10px;bac
 <div class="stats"><div class="stat"><strong id="countAll">—</strong><small>Cartas listadas</small></div><div class="stat"><strong id="countShared">—</strong><small>Fotos compartilhadas</small></div><div class="stat"><strong id="countMissing">—</strong><small>Sem referência</small></div></div>
 <div id="adminTools" class="hide">
 <div class="tool-actions"><button id="migrate" class="primary">↑ Enviar URLs locais para a nuvem</button><button id="refresh">↻ Sincronizar agora</button><button id="export">↓ Exportar mapeamento JSON</button><label style="flex:1 1 180px;font-size:13px">Importar JSON antigo <input id="import" type="file" accept="application/json,.json"></label></div>
-<p class="alert">Para adicionar foto, escolha um arquivo da galeria do iPhone. O aplicativo reduz a imagem antes de enviar. Cadastre apenas artes que você tem direito de utilizar. A publicação é visível aos integrantes e a URL do arquivo é pública.</p>
+<p class="alert">Para adicionar foto, escolha um arquivo da galeria do celular. O aplicativo reduz a imagem antes de enviar. Cadastre apenas artes que você tem direito de utilizar. A publicação é visível aos integrantes e a URL do arquivo é pública.</p>
 </div>
-<div class="toolbar"><select id="kind" aria-label="Tipo"><option value="all">Pilotos e peças</option><option value="drivers">Pilotos</option><option value="parts">Peças</option></select><select id="filter" aria-label="Estado"><option value="all">Todas as imagens</option><option value="missing">Sem referência</option><option value="shared">Publicadas na academia</option><option value="local">Somente neste iPhone</option><option value="broken">Erro no carregamento</option></select><input id="search" class="search" placeholder="Buscar piloto ou peça" aria-label="Buscar cartas"><button id="check">Verificar fotos</button></div>
+<div class="toolbar"><select id="kind" aria-label="Tipo"><option value="all">Pilotos e peças</option><option value="drivers">Pilotos</option><option value="parts">Peças</option></select><select id="filter" aria-label="Estado"><option value="all">Todas as imagens</option><option value="missing">Sem referência</option><option value="shared">Publicadas na academia</option><option value="local">Somente neste dispositivo</option><option value="broken">Erro no carregamento</option></select><input id="search" class="search" placeholder="Buscar piloto ou peça" aria-label="Buscar cartas"><button id="check">Verificar fotos</button></div>
 <p id="notice" class="alert" role="status"></p><div id="items" class="grid"></div>
 </main></body></html>

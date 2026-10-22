@@ -5,7 +5,12 @@
 (()=>{
 'use strict';
 const EVENTS=[
- {id:'us-grand-prix-2026',name:'Grande Prêmio dos Estados Unidos',label:'GP dos Estados Unidos',kind:'GP oficial / Austin',starts:'2026-10-21',ends:'2026-10-25',image:'assets/events/us-gp-2026.png',color:'blue',description:'O desafio de Austin e suas mudanças de direção exige um setup bem equilibrado.',eventBoost:'Eagle',allowLegendary:false,allowSpecial:true,driverBoosts:[{key:'bearman',label:'Oliver Bearman',rarity:'any'},{key:'bortoleto',label:'Gabriel Bortoleto',rarity:'any'}],partBoosts:['Fracture','Motion Link V2','Tailwind'],tracks:['sakhir','hungaroring','madrid','austin','baku','barcelona','sao-paulo']}
+ {id:'us-grand-prix-2026',name:'Grande Prêmio dos Estados Unidos',label:'GP dos Estados Unidos',kind:'GP oficial / Austin',starts:'2026-10-21',ends:'2026-10-25',image:'assets/events/us-gp-2026.png',color:'blue',description:'O desafio de Austin e suas mudanças de direção exige um setup bem equilibrado.',eventBoost:'Eagle',allowLegendary:false,allowSpecial:true,driverBoosts:[{key:'bearman',label:'Oliver Bearman',rarity:'any'},{key:'bortoleto',label:'Gabriel Bortoleto',rarity:'any'}],partBoosts:['Fracture','Motion Link V2','Tailwind'],tracks:['sakhir','hungaroring','madrid','austin','baku','barcelona','sao-paulo'],
+  source:'https://www.allclash.com/f1-clash-unites-states-grand-prix-2026-guide-junior-challenger-contender-champion/',verified:'20/10/2026',
+  scheduleProvenance:'Referência externa de 20/10/2026; confirme no F1 Clash antes de correr',
+  qualifying:[{track:'austin',laps:6,rain:0},{track:'sakhir',laps:8,rain:0},{track:'hungaroring',laps:9,rain:100},{track:'madrid',laps:5,rain:0}],
+  rounds:[{track:'austin',laps:6,rain:0},{track:'baku',laps:7,rain:0},{track:'sakhir',laps:8,rain:0},{track:'barcelona',laps:10,rain:0},
+   {track:'hungaroring',laps:9,rain:100},{track:'sao-paulo',laps:9,rain:0},{track:'madrid',laps:5,rain:0},{track:'austin',laps:6,rain:0}]}
 ];
 const CATEGORIES=[
  {id:'junior',label:'Júnior',series:3,description:'Séries 1 a 3'},
@@ -40,26 +45,46 @@ function isAllowedDriver(d,event,category){
  if(d.rarity==='Special'&&!event.allowSpecial)return false;
  return true;
 }
-function withBonus(item,keys,featured){
- const x={...item,eventFeatured:featured,eventBoostPercentage:featured?10:0};
- keys.forEach(k=>x[k]=featured?n(item[k])*1.1:n(item[k]));
+function withBonus(item,keys,featured,percentage=10){
+ const pct=Number.isFinite(Number(percentage))?Math.max(0,Math.min(100,Number(percentage))):10;
+ const x={...item,eventFeatured:featured,eventBoostPercentage:featured?pct:0};
+ keys.forEach(k=>x[k]=featured?n(item[k])*(1+pct/100):n(item[k]));
  return x;
 }
-function boostedPart(part,event){return withBonus(part,CAR_KEYS,bonusInEffect(event)&&isFeaturedPart(part,event))}
-function boostedDriver(driver,event){return withBonus(driver,DRIVER_KEYS,bonusInEffect(event)&&isFeaturedDriver(driver,event))}
+function bonusForPlanning(event){return eventStatus(event)!=='Encerrado'}
+function boostedPart(part,event,forPlan=false){return withBonus(part,CAR_KEYS,(forPlan?bonusForPlanning(event):bonusInEffect(event))&&isFeaturedPart(part,event),event.featuredPercent??10)}
+function boostedDriver(driver,event,forPlan=false){return withBonus(driver,DRIVER_KEYS,(forPlan?bonusForPlanning(event):bonusInEffect(event))&&isFeaturedDriver(driver,event),event.featuredPercent??10)}
 function driverIdentity(d){const pieces=norm(d?.name).split(' ');return pieces[pieces.length-1]||'';}
 function driverScore(d,focus){
  return n(d[focus])*.65+DRIVER_KEYS.reduce((total,k)=>total+n(d[k])*.07,0)
 }
 function computeSetup(event=getEvent(),category=getCategory(),trackId=selectedTrackId,garage=getGarage()){
  const track=getTrack(trackId);if(!track||!event.tracks.includes(track.id))return null;
+ const preview=window.GBRPreGPUI?.eventFor?.(event.id)||null;
+ if(preview&&preview.tracks?.includes(track.id))event={...event,
+  allowLegendary:event.allowLegendary&&preview.allowLegendary!==false,
+  allowSpecial:event.allowSpecial&&preview.allowSpecial!==false,
+  featuredPercent:preview.featuredPercent??10,
+  driverBoosts:preview.driverBoosts?.length?preview.driverBoosts:event.driverBoosts,
+  partBoosts:preview.partBoosts?.length?preview.partBoosts:event.partBoosts};
+ const selectedRoundData=currentRace(event);
+ // A prova selecionada, e não apenas a lista de pistas possíveis, é a fonte de voltas e clima do GP.
+ // Não atribua a outros GPs ou Duelos as informações desta edição do evento.
+ const report=window.GBRPreGPUI?.raceFor?.(event.id,category.id,trackId,selectedStage,selectedRound)||
+  (selectedRoundData?.track===trackId?{
+   trackId,categoryId:category.id,stage:selectedStage,round:selectedRound,
+   laps:Number.isInteger(selectedRoundData.laps)?selectedRoundData.laps:null,
+   weather:selectedRoundData.rain===100?'wet':selectedRoundData.rain===0?'dry':null,
+   rain:selectedRoundData.rain??null,mode:'gp',source:event.scheduleProvenance||'sem fonte verificada',
+   carFocus:null,driverFocus:null
+  }:null);
  const priority=window.GBRCore?.TRACK_SERIES?.[category.series]?.[track.id];
- const car=priority?.[1]||track.car;
- const driver=priority?.[0]||track.driver;
+ const car=report?.carFocus||priority?.[1]||track.car;
+ const driver=report?.driverFocus||priority?.[0]||track.driver;
  const weights=window.GBRCore?.trackWeights?.(car)||{speed:30,corner:30,power:25,qualifying:15};
  const maxSeries=category.series;
  const required=['Suspensão','Motor','Asa traseira','Asa dianteira','Freios','Câmbio',...(maxSeries>3?['Bateria']:[])];
- const candidates=garage.parts.filter(p=>p?.owned&&n(p.level)>0&&n(p.series)<=maxSeries).map(p=>boostedPart(p,event));
+ const candidates=garage.parts.filter(p=>p?.owned&&n(p.level)>0&&n(p.series)<=maxSeries).map(p=>boostedPart(p,event,true));
  const chosen=required.map(cat=>{
    const options=candidates.filter(p=>p.category===cat);
    options.sort((a,b)=>scorePart(b)-scorePart(a));
@@ -68,7 +93,7 @@ function computeSetup(event=getEvent(),category=getCategory(),trackId=selectedTr
  function scorePart(p){return CAR_KEYS.reduce((total,k)=>total+n(p[k])*n(weights[k]),0)/100}
  const totals={speed:0,corner:0,power:0,qualifying:0,pit:0};
  for(const p of chosen){for(const k of Object.keys(totals)){totals[k]+=n(p[k])}}
- const drivers=garage.drivers.filter(d=>isAllowedDriver(d,event,category)).map(d=>boostedDriver(d,event));
+ const drivers=garage.drivers.filter(d=>isAllowedDriver(d,event,category)).map(d=>boostedDriver(d,event,true));
  drivers.sort((a,b)=>driverScore(b,driver)-driverScore(a,driver));
  const driverPair=[];
  for(const d of drivers){
@@ -78,10 +103,10 @@ function computeSetup(event=getEvent(),category=getCategory(),trackId=selectedTr
  }
  const adjustedDrivers=[driverPair[0]||null,driverPair[1]||null];
  const featuredCount=chosen.filter(p=>p.eventFeatured).length+adjustedDrivers.filter(d=>d?.eventFeatured).length;
- const weather=currentRace(event)?.rain===100?'wet':currentRace(event)?.rain===0?'dry':garage.trackPlans?.[maxSeries+':'+track.id]?.weather||'dry';
+ const weather=report?.weather||(selectedRoundData?.rain===100?'wet':selectedRoundData?.rain===0?'dry':garage.trackPlans?.[maxSeries+':'+track.id]?.weather||'dry');
  const boosts=window.GBRBoosts?.recommend?.({track,car,driver,weather})||[];
  const complete=chosen.length===required.length&&adjustedDrivers.every(Boolean);
- return {event,category,track,carFocus:car,driverFocus:driver,carWeights:weights,parts:chosen,totals,required,drivers:adjustedDrivers,featuredCount,boosts,complete,weather,bonusInEffect:bonusInEffect(event),round:currentRace(event)?selectedRound:null};
+ return {event,category,track,carFocus:car,driverFocus:driver,carWeights:weights,parts:chosen,totals,required,drivers:adjustedDrivers,featuredCount,boosts,complete,weather,bonusInEffect:bonusInEffect(event),bonusProjected:!bonusInEffect(event)&&bonusForPlanning(event),round:currentRace(event)?selectedRound:null,reportContext:report};
 }
 function eventStatus(event){
  const today=new Date();const todayText=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
@@ -101,7 +126,7 @@ function eventCardsHtml(){return EVENTS.map(e=>`<button type="button" class="gp-
 function categoryHtml(){return CATEGORIES.map(t=>`<button type="button" class="gp-tier ${t.id===selectedCategoryId?'selected':''}" data-gp-category="${esc(t.id)}" aria-pressed="${String(t.id===selectedCategoryId)}"><strong>${esc(t.label)}</strong><small>${esc(t.description)}</small></button>`).join('')}
 function currentRounds(event){return selectedStage==='qualifying'?event.qualifying:event.rounds}
 function currentRace(event=getEvent()){return currentRounds(event)?.[selectedRound-1]||null}
-function tracksHtml(event){const rounds=currentRounds(event);const entries=rounds||event.tracks.map(track=>({track,rain:null}));return entries.map((race,i)=>{const id=race.track,t=getTrack(id),selected=rounds?selectedRound===i+1:selectedTrackId===id;return `<button type="button" data-gp-track="${esc(id)}" ${rounds?'data-gp-round="'+(i+1)+'"':''} class="gp-circuit ${selected?'selected':''}" aria-pressed="${String(selected)}"><span class="gp-circuit-index">${String(i+1).padStart(2,'0')}</span><span class="gp-circuit-text"><strong>${esc(t?.name||id)}</strong><small>${esc(t?.country||'Circuito não encontrado')}${race.rain===100?' · ☔ Chuva 100%':race.rain===0?' · ☀ Seco 0%':''}</small></span><span aria-hidden="true">↗</span></button>`}).join('')}
+function tracksHtml(event){const rounds=currentRounds(event);const entries=rounds||event.tracks.map(track=>({track,rain:null}));return entries.map((race,i)=>{const id=race.track,t=getTrack(id),selected=rounds?selectedRound===i+1:selectedTrackId===id;return `<button type="button" data-gp-track="${esc(id)}" ${rounds?'data-gp-round="'+(i+1)+'"':''} class="gp-circuit ${selected?'selected':''}" aria-pressed="${String(selected)}"><span class="gp-circuit-index">${String(i+1).padStart(2,'0')}</span><span class="gp-circuit-text"><strong>${esc(t?.name||id)}</strong><small>${esc(t?.country||'Circuito não encontrado')}${Number.isInteger(race.laps)?' · '+race.laps+' voltas':''}${race.rain===100?' · ☔ Chuva 100%':race.rain===0?' · ☀ Chuva 0%':''}</small></span><span aria-hidden="true">↗</span></button>`}).join('')}
 
 function findFeaturedPart(name){
  const parts=(getGarage().parts||[]).filter(p=>norm(p.name)===norm(name));
@@ -148,8 +173,8 @@ function pilotHtml(p,index){return `<div class="gp-result-pilot"><span>PILOTO ${
 function resultHtml(result){if(!result)return '<p class="gp-empty">Selecione uma pista válida.</p>';
  const carLabel=window.GBRCore?.TRACK_CAR?.[result.carFocus]||result.carFocus;
  const driverLabel=window.GBRCore?.TRACK_DRIVER?.[result.driverFocus]||result.driverFocus;
- return `<div class="gp-result-head"><div><span class="kicker">SETUP GP • EXCLUSIVO DA SUA GARAGEM ${result.round?'• CORRIDA '+result.round:''}</span><h3>${esc(result.track.name)}</h3><p>Carro: <b>${esc(carLabel)}</b> · Pilotos: <b>${esc(driverLabel)}</b> · Série máxima ${result.category.series}</p></div><span class="gp-result-bonus">${result.featuredCount} item(ns) com +10%</span></div>
- <p class="gp-result-disclaimer">${result.round?'Prova '+result.round+' · ':''}${result.weather==='wet'?'☔ Chuva confirmada na ficha do evento':'☀ Referência de pista seca ou condição manual'} · ${result.bonusInEffect?'Bônus temporário ativo':'Bônus temporário não aplicado fora do período do GP'}</p>
+ return `<div class="gp-result-head"><div><span class="kicker">SETUP GP • EXCLUSIVO DA SUA GARAGEM ${result.round?'• CORRIDA '+result.round:''}</span><h3>${esc(result.track.name)}</h3><p>Carro: <b>${esc(carLabel)}</b> · Pilotos: <b>${esc(driverLabel)}</b> · Série máxima ${result.category.series}</p></div><span class="gp-result-bonus">${result.featuredCount} item(ns) com +10% ${result.bonusProjected?'(PREVISTO)':''}</span></div>
+ <p class="gp-result-disclaimer">${result.round?'Prova '+result.round+' · ':''}${result.weather==='wet'?'☔ 100% de chuva no calendário de referência':'☀ Calendário de referência ou condição manual — confirme no jogo'} · ${result.bonusInEffect?'Bônus temporário ativo':result.bonusProjected?'Bônus de +10% projetado para a corrida, ainda não ativo':'Evento encerrado; bônus não aplicado'}</p>
  <div class="gp-result-metrics">${statRow('Velocidade',result.totals.speed)}${statRow('Curvas',result.totals.corner)}${statRow('Potência',result.totals.power)}${statRow('Classificação',result.totals.qualifying)}</div>
  <h4>Carro · ${result.parts.length}/${result.required.length} peças</h4><div class="gp-result-parts">${result.parts.map(partHtml).join('')||'<p>Nenhuma peça cadastrada para essa categoria.</p>'}</div>
  <h4>Dupla de pilotos</h4><div class="gp-result-pilots">${result.drivers.map(pilotHtml).join('')}</div>
@@ -179,15 +204,16 @@ function render(){const host=$('gbrEventHub');if(!host)return;
  <div class="panel gp-panel"><span class="kicker">01 / FILTRO DE DIFICULDADE</span><h3>Em qual categoria você corre?</h3><div class="gp-categories" role="group" aria-label="Categoria do evento">${categoryHtml()}</div><p class="gp-category-foot">Na categoria <b>${esc(tier.label)}</b> entram cartas das séries 1 a ${tier.series}. Pilotos proibidos no evento nunca entram na recomendação, mesmo se estiverem na garagem.</p></div>
  <div class="panel gp-panel"><div class="gp-panel-title"><div><span class="kicker">02 / CALENDÁRIO DO EVENTO</span><h3>${event.rounds?'Corridas por etapa':'Circuitos anunciados'}</h3></div><span>${event.rounds?currentRounds(event).length+' corridas / '+event.tracks.length+' pistas únicas':event.tracks.length+' circuitos possíveis'}</span></div>
  ${event.rounds?`<div class="gp-stages" role="group" aria-label="Etapa da competição"><button type="button" data-gp-stage="qualifying" class="${selectedStage==='qualifying'?'selected':''}">Classificação · 4 provas</button><button type="button" data-gp-stage="final" class="${selectedStage==='final'?'selected':''}">Abertura / Final · 8 provas</button></div>`:''}
- <div class="gp-circuit-grid" role="group" aria-label="Pistas possíveis neste evento">${tracksHtml(event)}</div><p class="gp-note">${event.rounds?'Calendário por rodada e probabilidade de chuva publicados pelo AllClash; verificado em 16/10/2026. A classificação e as rodadas de abertura/final têm listas diferentes.':'Somente os circuitos possíveis foram fornecidos para este evento; ordem, chuva e voltas ainda não confirmadas.'}</p></div>
- <div class="panel gp-panel"><div class="gp-panel-title"><div><span class="kicker">03 / CARTAS EM DESTAQUE</span><h3>Bônus de +10%</h3></div><span>Base: dados da sua garagem</span></div><div class="gp-featured-grid">${featuredHtml(event)}</div><p class="gp-note">O bônus só entra no cálculo enquanto o evento está em andamento; antes e depois do período, é meramente informativo e não altera a garagem. O bônus <strong>${esc(event.eventBoost)}</strong> é indicado separadamente; seu efeito exato não foi presumido.</p></div>
- <details class="gp-briefing"><summary><span>◈ Ficha técnica e confiabilidade dos dados</span><span class="gp-briefing-more">VER DETALHES</span></summary><div class="gp-briefing-body"><p><strong>Informações cadastradas:</strong> datas, pistas possíveis, cartas com +10%, boost anunciado e regras de raridade, conforme os anúncios enviados.</p>${event.source?`<p><strong>Calendário:</strong> <a href="${esc(event.source)}" target="_blank" rel="noopener noreferrer">AllClash</a>, verificação em ${esc(event.verified)}. Oito corridas e sete circuitos únicos.</p>`:''}<p><strong>Informações ainda não confirmadas:</strong> ${event.rounds?'número de voltas e desgaste de pneus de todas as corridas':'ordem das corridas, número de voltas e clima'}, desgaste na sua garagem e efeito numérico do boost. O aplicativo não inventa esses valores.</p><p><strong>Origem:</strong> anúncios fornecidos pelo usuário. Pacotes gráficos Unity encontrados no Android.zip foram analisados separadamente; eles não demonstram que estas regras estejam codificadas neles.</p></div></details>
+ <div class="gp-circuit-grid" role="group" aria-label="Pistas possíveis neste evento">${tracksHtml(event)}</div><p class="gp-note">${event.rounds?'Calendário externo consultado em 20/10/2026: voltas e probabilidade de chuva. Confira alterações diretamente no F1 Clash. Classificação e abertura/final têm ordens diferentes; GP e Duelos não compartilham clima/voltas.':'Somente os circuitos possíveis foram fornecidos para este evento; ordem, chuva e voltas ainda não confirmadas.'}</p></div>
+ <div class="panel gp-panel"><div class="gp-panel-title"><div><span class="kicker">03 / CARTAS EM DESTAQUE</span><h3>Bônus de +10%</h3></div><span>Base: dados da sua garagem</span></div><div class="gp-featured-grid">${featuredHtml(event)}</div><p class="gp-note">Na análise pré-GP, bônus futuros são projetados para as corridas; o bônus só fica efetivamente ativo durante o período do evento. A garagem original nunca é modificada. O bônus <strong>${esc(event.eventBoost)}</strong> é indicado separadamente; seu efeito exato não foi presumido.</p></div>
+ <details class="gp-briefing"><summary><span>◈ Ficha técnica e confiabilidade dos dados</span><span class="gp-briefing-more">VER DETALHES</span></summary><div class="gp-briefing-body"><p><strong>Informações cadastradas:</strong> datas, pistas possíveis, cartas com +10%, boost anunciado e regras de raridade, conforme os anúncios enviados.</p>${event.source?`<p><strong>Calendário:</strong> <a href="${esc(event.source)}" target="_blank" rel="noopener noreferrer">AllClash</a>, verificação em ${esc(event.verified)}. Oito corridas e sete circuitos únicos.</p>`:''}<p><strong>Informações ainda não confirmadas:</strong> ${event.rounds?'durabilidade de pneus de cada piloto, clima efetivo durante a corrida e efeitos dos Boosts':'ordem das corridas, número de voltas e clima'}, desgaste na sua garagem e efeito numérico do boost. O aplicativo não inventa esses valores.</p><p><strong>Origem:</strong> anúncios fornecidos pelo usuário. Pacotes gráficos Unity encontrados no Android.zip foram analisados separadamente; eles não demonstram que estas regras estejam codificadas neles.</p></div></details>
  <div class="panel gp-panel gp-result-panel"><span class="kicker">04 / MONTADOR DO EVENTO</span><div id="gbrGpResult" aria-live="polite"></div></div>`;
  host.querySelectorAll('[data-gp-select]').forEach(b=>b.onclick=()=>{selectedEventId=b.dataset.gpSelect;selectedRound=1;selectedStage='final';selectedTrackId=currentRace(getEvent())?.track||getEvent().tracks[0];render()});
  host.querySelectorAll('[data-gp-category]').forEach(b=>b.onclick=()=>{selectedCategoryId=b.dataset.gpCategory;render()});
  host.querySelectorAll('[data-gp-stage]').forEach(b=>b.onclick=()=>{selectedStage=b.dataset.gpStage;selectedRound=1;selectedTrackId=currentRace(getEvent())?.track||getEvent().tracks[0];render()});
  host.querySelectorAll('[data-gp-track]').forEach(b=>b.onclick=()=>{selectedTrackId=b.dataset.gpTrack;if(b.dataset.gpRound)selectedRound=Number(b.dataset.gpRound);render();if(window.innerWidth<821)$('gbrGpResult')?.scrollIntoView({behavior:'smooth',block:'start'})});
  refreshResult();
+ window.GBRPreGPUI?.mount?.();
 }
 function openEvents(){if(window.tab)window.tab('event');else document.querySelector('#nav [data-tab="event"]')?.click();changeView('events');if(window.innerWidth<=820)document.getElementById('mobileMoreClose')?.click()}
 function makeNav(){const trackSection=$('event');if(!trackSection)return;
@@ -207,6 +233,6 @@ function makeNav(){const trackSection=$('event');if(!trackSection)return;
  const originalSet=window.F1App.setGarage;
  window.F1App.setGarage=function(next){const out=originalSet.apply(this,arguments);if(section==='events')render();return out};
 }
-window.GBREvents={all:EVENTS,categories:CATEGORIES,computeSetup,isFeaturedDriver,isFeaturedPart,isAllowedDriver,boostedDriver,boostedPart,open:openEvents,showLibrary:()=>changeView('library'),getState:()=>({selectedEventId,selectedCategoryId,selectedTrackId}),select:(eventId,categoryId,trackId)=>{if(EVENTS.some(e=>e.id===eventId))selectedEventId=eventId;if(CATEGORIES.some(t=>t.id===categoryId))selectedCategoryId=categoryId;if(trackId&&getEvent().tracks.includes(trackId))selectedTrackId=trackId;else if(!getEvent().tracks.includes(selectedTrackId))selectedTrackId=getEvent().tracks[0];render()}};
+window.GBREvents={all:EVENTS,categories:CATEGORIES,computeSetup,bonusForPlanning,isFeaturedDriver,isFeaturedPart,isAllowedDriver,boostedDriver,boostedPart,open:openEvents,showLibrary:()=>changeView('library'),getState:()=>({selectedEventId,selectedCategoryId,selectedTrackId,selectedStage,selectedRound}),select:(eventId,categoryId,trackId)=>{if(EVENTS.some(e=>e.id===eventId))selectedEventId=eventId;if(CATEGORIES.some(t=>t.id===categoryId))selectedCategoryId=categoryId;if(trackId&&getEvent().tracks.includes(trackId))selectedTrackId=trackId;else if(!getEvent().tracks.includes(selectedTrackId))selectedTrackId=getEvent().tracks[0];render()}};
 makeNav();
 })();

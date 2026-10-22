@@ -3,8 +3,16 @@
  const $=id=>document.getElementById(id);
  const COLORS=['cyan','red','orange','blue'];
  const ICONS={parts:'<svg viewBox="0 0 24 24"><path d="M10 2h4l1 3 2 1 3-1 2 4-2 2v3l2 2-2 4-3-1-2 1-1 3h-4l-1-3-2-1-3 1-2-4 2-2v-3L2 9l2-4 3 1 2-1z"/><circle cx="12" cy="12" r="4"/></svg>',drivers:'<svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 18 0v5l-4 3H7l-4-3z"/><path d="M5 13h14M8 20v-5h8v5"/></svg>',fav:'<svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg>',teams:'<svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="3"/><path d="M4 21v-3a8 8 0 0 1 16 0v3H4M3 8a3 3 0 0 0-1 6M21 8a3 3 0 0 1 1 6"/></svg>',builder:'<svg viewBox="0 0 24 24"><path d="M4 6h16l-1.6 3.5H5.6z"/><path d="M8 9.5V18M16 9.5V18M5 18h14"/></svg>',duel:'<svg viewBox="0 0 24 24"><path d="M20 3.5L8.5 15"/><path d="M6.2 12.7l4.6 4.6"/><path d="M8.5 15l-3 3"/><path d="M4 3.5L15.5 15"/><path d="M13.2 17.3l4.6-4.6"/><path d="M15.5 15l3 3"/></svg>',chests:'<svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="1.25"/><path d="M5.5 6.6v10.8M8.75 6.6v10.8M12 6.6v10.8M15.25 6.6v10.8M18.5 6.6v10.8"/></svg>'};
+ // Dashboard also uses the same approved Brand Kit icons as the navigation.
+ // Icon families for peças/pilotos remain unchanged by explicit product decision.
+ const BRAND=Object.freeze({fav:'meus-setups',teams:'equipes',builder:'montador',duel:'duelos',chests:'baus',history:'dados'});
+ function iconHTML(type){
+  const brand=BRAND[type];if(!brand)return ICONS[type]||'';
+  const theme=document.documentElement.getAttribute('data-theme')==='light'?'icons-light':'icons';
+  return '<img class="gbr-dashboard-brand-icon" data-gbr-theme-icon="'+brand+'" src="assets/gbr-brand/'+theme+'/'+brand+'.svg" alt="" aria-hidden="true">';
+ }
  const go=target=>{if(target==='event'){window.GBREvents?.open?.();return;}if(typeof window.tab==='function')window.tab(target);else document.querySelector('#nav [data-tab="'+target+'"]')?.click();};
- const statTemplate=(label,value,type,detail)=>`<div class="stat telemetry-stat"><span class="telemetry-stat-icon" aria-hidden="true">${ICONS[type]}</span><small>${label}</small><b>${Math.max(0,Number(value)||0)}</b><span class="telemetry-stat-detail">${detail}</span></div>`;
+ const statTemplate=(label,value,type,detail)=>`<div class="stat telemetry-stat"><span class="telemetry-stat-icon" aria-hidden="true">${iconHTML(type)}</span><small>${label}</small><b>${Math.max(0,Number(value)||0)}</b><span class="telemetry-stat-detail">${detail}</span></div>`;
  function renderEvent(){
   const events=window.GBREvents?.all||[];
   if(!events.length){$('dashGpName').textContent='Consulte os Eventos GP';return;}
@@ -45,7 +53,7 @@
    const title=document.createElement('span');title.className='telemetry-team-name';title.textContent=item.name;
    head.append(num,title);
    const body=document.createElement('div');body.className='telemetry-shortcut-body';
-   const icon=document.createElement('span');icon.className='telemetry-shortcut-icon';icon.setAttribute('aria-hidden','true');icon.innerHTML=ICONS[item.icon]||'';
+   const icon=document.createElement('span');icon.className='telemetry-shortcut-icon';icon.setAttribute('aria-hidden','true');icon.innerHTML=iconHTML(item.icon);
    const copy=document.createElement('div');copy.className='telemetry-shortcut-copy';
    const strong=document.createElement('strong');strong.textContent=item.name;
    const small=document.createElement('small');small.textContent=item.detail;
@@ -60,7 +68,10 @@
  }
  function activityRow(icon,title,detail){
   const row=document.createElement('div');row.className='telemetry-activity-row';
-  const ico=document.createElement('span');ico.className='telemetry-activity-icon';ico.textContent=icon;ico.setAttribute('aria-hidden','true');
+  const ico=document.createElement('span');ico.className='telemetry-activity-icon';ico.setAttribute('aria-hidden','true');
+  if(icon==='★'||icon==='☆')ico.innerHTML=iconHTML('fav');
+  else if(icon==='▤')ico.innerHTML=iconHTML('history');
+  else ico.textContent=icon;
   const copy=document.createElement('div');copy.className='telemetry-activity-copy';
   const b=document.createElement('strong');b.textContent=title;
   const s=document.createElement('small');s.textContent=detail;

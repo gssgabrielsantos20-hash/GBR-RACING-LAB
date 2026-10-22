@@ -32,3 +32,9 @@
 .gbr-intel-track-stats{display:block;font-size:.69rem;line-height:1.45;font-weight:500;opacity:.83;overflow-wrap:anywhere}
 .gbr-intel-track-link:has(.gbr-intel-track-stats){min-height:88px}
 @media(max-width:700px){.gbr-intel-track-link:has(.gbr-intel-track-stats){min-height:104px;padding:10px 8px}}
+/* Engenheiro de Duelos: resumo exclusivo da rotação (sem dependência do GP). */
+#gbrDuelEngineer{grid-column:1/-1;min-width:0;overflow-wrap:anywhere}
+#gbrDuelEngineer h2{margin:5px 0 10px}
+#gbrDuelEngineer h3{margin:16px 0 6px;font-size:14px;color:#e5fffc}
+#gbrDuelEngineer ol,#gbrDuelEngineer ul{display:grid;gap:6px;padding-left:20px}
+#gbrDuelEngineer li{line-height:1.45}

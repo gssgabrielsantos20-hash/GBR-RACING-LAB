@@ -1,5 +1,5 @@
 /* GBR Racing Lab 5.5.9 — menu premium de setups favoritos.
-   Mantém o domínio 5.5.7/5.5.8, melhora a visualização no iPhone/PC e preserva o limite pessoal de 8 favoritos. */
+   Mantém o domínio 5.5.7/5.5.8, melhora a visualização no celular (iOS/Android)/PC e preserva o limite pessoal de 8 favoritos. */
 (()=>{
 'use strict';
 const model=window.GBRFavoriteModel;
@@ -153,7 +153,7 @@ function stageHtml(rec){
    <div class="fav-premium-banner-copy">
     <div class="fav-premium-kicker">${esc(trackName(rec))} · atualizado em ${esc(formatDate(rec))}</div>
     <h2>${esc(rec.name||'Setup sem nome')}</h2>
-    <p>Composição salva na sua garagem pessoal. Mistura livre de peças e pilotos de qualquer série, pronta para consulta rápida no iPhone ou no PC.</p>
+    <p>Composição salva na sua garagem pessoal. Mistura livre de peças e pilotos de qualquer série, pronta para consulta rápida no celular (iOS ou Android) ou no PC.</p>
    </div>
    <div class="fav-premium-banner-art" aria-hidden="true">
     <div class="fav-premium-car-mark">GBR FAVORITO</div>

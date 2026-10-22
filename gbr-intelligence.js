@@ -100,6 +100,13 @@ function rotationEntry(series,trackId,asOf=localDay()){
  if(asOf<ROTATION_START||asOf>ROTATION_END)return null;
  return SERIES_ROTATIONS[Number(series)]?.rotation.find(row=>row.id===trackId)||null;
 }
+function duelContext(series,trackId,asOf=localDay()){
+ const row=SERIES_ROTATIONS[Number(series)]?.rotation.find(r=>r.id===trackId);
+ if(!row||asOf>ROTATION_END)return null;
+ const phase=asOf<ROTATION_START?'prevista':'vigente';
+ return {...row,series:Number(series),mode:'duel',phase,periodStart:ROTATION_START,periodEnd:ROTATION_END,
+  source:'Tabela de rotação 21/10–03/11/2026 fornecida pelo responsável'};
+}
 function priorityFor(series,trackId,asOf=localDay()){
  const row=rotationEntry(series,trackId,asOf);
  return row?[row.driver,row.car]:null;
@@ -147,6 +154,6 @@ function mount(){const duel=$('duel'),garageEl=$('garage');if(!duel||!garageEl)r
  refresh();
 }
 function refresh(){const s=Number($('duelSeries')?.value||12),r=$('gbrDuelRotationBody');if(r)r.innerHTML=(SERIES_ROTATIONS[s]||PREVIOUS_SERIES_ROTATIONS[s])?rotationHTML(s):`<p class="muted mini">As rotações verificadas disponíveis nesta atualização são as das Séries 10, 11 e 12. Para a Série ${s}, consulte a rotação atual no jogo antes de usar a recomendação.</p>`;window.GBRFavorites?.renderGarageSpotlight?.('gbrGarageFavoritesBody')}
-window.GBRIntelligence=Object.freeze({refresh,rotations:SERIES_ROTATIONS,previousRotations:PREVIOUS_SERIES_ROTATIONS,rotationEntry,priorityFor,listNewSeries,rotationPeriodStatus,source:"Tabela fornecida pelo responsável: 21/10–03/11/2026",updated:SERIES_ROTATIONS[12].updated});
+window.GBRIntelligence=Object.freeze({refresh,rotations:SERIES_ROTATIONS,previousRotations:PREVIOUS_SERIES_ROTATIONS,rotationEntry,duelContext,priorityFor,listNewSeries,rotationPeriodStatus,source:"Tabela fornecida pelo responsável: 21/10–03/11/2026",updated:SERIES_ROTATIONS[12].updated});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 })();

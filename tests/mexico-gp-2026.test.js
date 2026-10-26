@@ -1,0 +1,41 @@
+/* GP do Mexico 2026 — regressao do calendario e das cartas em destaque. */
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const vm=require('node:vm');
+const root=path.join(__dirname,'..');
+const source=fs.readFileSync(path.join(root,'events-gp.js'),'utf8');
+const window={F1App:{getGarage:()=>({parts:[],drivers:[],trackPlans:{}})}};
+const ctx={window,document:{getElementById:()=>null,querySelector:()=>null,querySelectorAll:()=>[]},console,Date};
+vm.createContext(ctx);
+vm.runInContext(source,ctx,{filename:'events-gp.js'});
+const gp=window.GBREvents.all.find(e=>e.id==='mexico-grand-prix-2026');
+assert.ok(gp,'Evento GP do Mexico cadastrado');
+assert.equal(gp.starts,'2026-10-28');
+assert.equal(gp.ends,'2026-11-01');
+assert.equal(gp.eventBoost,'Caveira');
+assert.equal(gp.allowLegendary,false);
+assert.equal(gp.allowSpecial,true);
+assert.deepEqual(Array.from(gp.partBoosts),['The Reverse','Power Grid','Laminar']);
+assert.equal(gp.qualifying.length,4);
+assert.equal(gp.rounds.length,8);
+assert.equal(gp.sponsor.contendor.cards,'Lawson épico · Nv. 5+');
+assert.equal(gp.sponsor.contendor.final,'+5 pontos de corrida');
+assert.match(gp.sponsor.campeao.cards,/Coleção Exclusiva/);
+assert.deepEqual(Array.from(gp.rounds,x=>x.track),['mexico','monaco','zandvoort','sakhir','sao-paulo','suzuka','spielberg','mexico']);
+assert.deepEqual(Array.from(gp.qualifying,x=>x.track),['mexico','zandvoort','sao-paulo','spielberg']);
+assert.equal(gp.qualifying.find(x=>x.track==='sao-paulo').rain,100);
+assert.equal(gp.rounds.find(x=>x.track==='sao-paulo').rain,100);
+assert.equal(gp.rounds.find(x=>x.track==='spielberg').laps,10);
+assert.equal(new Set(Array.from(gp.tracks)).size,7);
+for(const name of ['Leclerc','Lawson']){
+ assert.equal(window.GBREvents.isFeaturedDriver({name,rarity:'Epic'},gp),true);
+ assert.equal(window.GBREvents.isFeaturedDriver({name,rarity:'Rare'},gp),true);
+}
+for(const name of ['The Reverse','Power Grid','Laminar'])assert.equal(window.GBREvents.isFeaturedPart({name},gp),true);
+assert.ok(fs.existsSync(path.join(root,gp.image)),'Banner local deve existir');
+const dashboard=fs.readFileSync(path.join(root,'dashboard-telemetry.js'),'utf8');
+assert.ok(dashboard.includes('(?:png|svg)'),'Dashboard deve permitir banner SVG local');
+assert.ok(window.GBREvents.all.some(e=>e.id==='us-grand-prix-2026'),'Preservar GP anterior');
+console.log('OK: Mexico GP, 4 corridas da classificatoria, 8 da abertura/final, бонус e banner, sem regressao do GP dos EUA.');

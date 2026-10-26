@@ -24,7 +24,7 @@
   $('dashGpBoost').textContent=chosen.eventBoost?'Boost: '+chosen.eventBoost:'Informações do evento';
   const img=$('dashGpImage');
   const image=String(chosen.image||'');
-  if(/^assets\/events\/[a-z0-9/-]+\.png$/.test(image))img.setAttribute('src',image);
+  if(/^assets\/events\/[a-z0-9/-]+\.(?:png|svg)$/.test(image))img.setAttribute('src',image);
   img.alt='Arte de '+String(chosen.label||chosen.name||'evento GP');
   for(const id of ['dashGpOpen','dashGpDetails']){$(id).onclick=()=>{go('event');window.GBREvents?.select?.(chosen.id);};}
  }

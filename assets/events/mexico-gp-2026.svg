@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="t d">
+<title id="t">Grande Prêmio da Cidade do México 2026</title><desc id="d">Banner em verde, branco e vermelho, para o evento de 28 de outubro a 1 de novembro.</desc>
+<rect width="1200" height="560" fill="#f7f7f2"/>
+<path d="M0 0h1200v112H0z" fill="#075c3c"/><path d="M0 448h1200v112H0z" fill="#c81e28"/>
+<path d="M0 112h1200v336H0z" fill="#f7f7f2"/>
+<path d="M880 112h320v336H710z" fill="#075c3c" opacity=".08"/>
+<path d="M800 448l240-336h160L960 448z" fill="#c81e28" opacity=".10"/>
+<rect x="58" y="156" width="14" height="244" fill="#d62028"/>
+<text x="104" y="205" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700" fill="#116344">FORMULA 1 / EVENTO DE GP</text>
+<text x="104" y="275" font-family="Arial,Helvetica,sans-serif" font-size="59" font-weight="900" fill="#191919">GRAN PREMIO DE</text>
+<text x="104" y="344" font-family="Arial,Helvetica,sans-serif" font-size="59" font-weight="900" fill="#191919">LA CIUDAD DE MEXICO</text>
+<text x="108" y="393" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="600" fill="#525252">28 OCT - 01 NOV 2026</text>
+<text x="1160" y="500" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" fill="#ffffff">GBR RACING LAB</text>
+</svg>

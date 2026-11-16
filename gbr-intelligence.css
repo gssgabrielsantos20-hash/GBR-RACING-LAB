@@ -6,7 +6,7 @@
 .gbr-intel-status strong{font-size:.89rem}
 .gbr-intel-status small{opacity:.76;font-size:.75rem}
 .gbr-intel-rotation{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}
-/* Atalhos de rotação — Série 10/11/12, teclado e toque no iPhone */
+/* Atalhos de rotação — Séries 9/10/11/12, teclado e toque no iPhone */
 .gbr-intel-track-link{appearance:none;width:100%;min-width:0;min-height:45px;padding:10px 13px;border:1px solid rgba(120,235,218,.10);border-radius:10px;background:rgba(255,255,255,.055);color:inherit;text-align:center;font-size:.79rem;font-weight:700;line-height:1.35;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;touch-action:manipulation;transition:border-color .15s,background-color .15s,transform .15s}
 .gbr-intel-track-link:hover{background:rgba(22,206,184,.14);border-color:rgba(120,235,218,.56)}
 .gbr-intel-track-link:active{transform:scale(.985)}
@@ -32,3 +32,12 @@
 .gbr-intel-track-stats{display:block;font-size:.69rem;line-height:1.45;font-weight:500;opacity:.83;overflow-wrap:anywhere}
 .gbr-intel-track-link:has(.gbr-intel-track-stats){min-height:88px}
 @media(max-width:700px){.gbr-intel-track-link:has(.gbr-intel-track-stats){min-height:104px;padding:10px 8px}}
+/* Engenheiro de Duelos: resumo exclusivo da rotação (sem dependência do GP). */
+#gbrDuelEngineer{grid-column:1/-1;min-width:0;overflow-wrap:anywhere}
+#gbrDuelEngineer h2{margin:5px 0 10px}
+#gbrDuelEngineer h3{margin:16px 0 6px;font-size:14px;color:#e5fffc}
+#gbrDuelEngineer ol,#gbrDuelEngineer ul{display:grid;gap:6px;padding-left:20px}
+#gbrDuelEngineer li{line-height:1.45}
+
+/* Série destacada também no layout compacto dos Duelos. */
+.gbr-intel-series-heading{margin:13px 0 7px;font-size:1rem;color:#d8fff7}

@@ -1,0 +1,1939 @@
+{
+  "stats": {
+    "parts": 53,
+    "drivers": 111,
+    "partsNoImage": 0,
+    "driversNoImage": 1,
+    "partsMissingLevels": 7,
+    "driversMissingLevels": 45,
+    "dupParts": 0,
+    "dupDrivers": 0
+  },
+  "partsNoImage": [],
+  "driversNoImage": [
+    {
+      "key": "Legendary|Rubens Barrichello",
+      "name": "Rubens Barrichello",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "",
+        "origin": "none"
+      }
+    }
+  ],
+  "partsLowLevels": [
+    {
+      "name": "Adrenaline",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 1,
+      "category": "Bateria",
+      "image": {
+        "url": "assets/new-parts-20261022/adrenaline.webp",
+        "origin": "reference"
+      },
+      "refImage": "assets/new-parts-20261022/adrenaline.webp"
+    },
+    {
+      "name": "Eco Cell+",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 1,
+      "category": "Bateria",
+      "image": {
+        "url": "assets/new-parts-20261022/eco-cell-plus.webp",
+        "origin": "reference"
+      },
+      "refImage": "assets/new-parts-20261022/eco-cell-plus.webp"
+    },
+    {
+      "name": "Thunderbolt",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 1,
+      "category": "Bateria",
+      "image": {
+        "url": "assets/new-parts-20261022/thunderbolt.webp",
+        "origin": "reference"
+      },
+      "refImage": "assets/new-parts-20261022/thunderbolt.webp"
+    },
+    {
+      "name": "The Singularity",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 1,
+      "category": "Motor",
+      "image": {
+        "url": "assets/new-parts-20261022/the-singularity.webp",
+        "origin": "reference"
+      },
+      "refImage": "assets/new-parts-20261022/the-singularity.webp"
+    },
+    {
+      "name": "Flex XXL",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 1,
+      "category": "Asa dianteira",
+      "image": {
+        "url": "assets/new-parts-20261022/flex-xxl.webp",
+        "origin": "reference"
+      },
+      "refImage": "assets/new-parts-20261022/flex-xxl.webp"
+    },
+    {
+      "name": "The Reverse",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 1,
+      "category": "Asa traseira",
+      "image": {
+        "url": "assets/new-parts-20261022/the-reverse.webp",
+        "origin": "reference"
+      },
+      "refImage": "assets/new-parts-20261022/the-reverse.webp"
+    },
+    {
+      "name": "Control",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 1,
+      "category": "Freios",
+      "image": {
+        "url": "assets/new-parts-20261022/control.webp",
+        "origin": "reference"
+      },
+      "refImage": "assets/new-parts-20261022/control.webp"
+    }
+  ],
+  "driverDuplicates": [],
+  "partDuplicates": [],
+  "parts": [
+    {
+      "name": "Power Grid",
+      "rarity": "Common",
+      "series": 7,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-battery-power-grid.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Anchor",
+      "rarity": "Common",
+      "series": 1,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-brakes-anchor.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Flow 2K",
+      "rarity": "Common",
+      "series": 2,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-brakes-flow-2k.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Aegis",
+      "rarity": "Common",
+      "series": 4,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-brakes-aegis.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Bedrock",
+      "rarity": "Common",
+      "series": 3,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-engine-bedrock.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Velocity",
+      "rarity": "Common",
+      "series": 5,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-engine-velocity.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Wind Guard",
+      "rarity": "Common",
+      "series": 1,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-frontwing-wind-guard.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Laminar",
+      "rarity": "Common",
+      "series": 3,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-frontwing-laminar.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Scythe",
+      "rarity": "Common",
+      "series": 5,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-frontwing-scythe.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Cadence",
+      "rarity": "Common",
+      "series": 1,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-gearbox-cadence.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Flow Logic",
+      "rarity": "Common",
+      "series": 2,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-gearbox-flow-logic.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Tailwind",
+      "rarity": "Common",
+      "series": 2,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-rearwing-tailwind.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Air Channel",
+      "rarity": "Common",
+      "series": 3,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-rearwing-air-channel.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Vibe Lift",
+      "rarity": "Common",
+      "series": 5,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-rearwing-vibe-lift.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Shockwave",
+      "rarity": "Common",
+      "series": 1,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-suspension-shockwave.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Jumpstart",
+      "rarity": "Common",
+      "series": 2,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-suspension-jumpstart.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Stability Unit",
+      "rarity": "Common",
+      "series": 4,
+      "levelCount": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-suspension-stability-unit.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Charge Core",
+      "rarity": "Epic",
+      "series": 4,
+      "levelCount": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-battery-charge-core.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Pressure Point",
+      "rarity": "Epic",
+      "series": 10,
+      "levelCount": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-brakes-pressure-point.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Stabilix",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-brakes-stabilix.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Tempest",
+      "rarity": "Epic",
+      "series": 1,
+      "levelCount": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-engine-tempest.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Overdrive",
+      "rarity": "Epic",
+      "series": 11,
+      "levelCount": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-engine-overdrive.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Flashpoint",
+      "rarity": "Epic",
+      "series": 6,
+      "levelCount": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-frontwing-flashpoint.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Loose Fit",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-frontwing-loose-fit.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Stratos",
+      "rarity": "Epic",
+      "series": 3,
+      "levelCount": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-gearbox-stratos.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Powerbox",
+      "rarity": "Epic",
+      "series": 11,
+      "levelCount": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-gearbox-powerbox.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Downforce",
+      "rarity": "Epic",
+      "series": 9,
+      "levelCount": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-rearwing-downforce.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Dominus",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-rearwing-dominus.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Curver 3.0",
+      "rarity": "Epic",
+      "series": 7,
+      "levelCount": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-suspension-curver-3-0.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Bounce",
+      "rarity": "Epic",
+      "series": 11,
+      "levelCount": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-suspension-bounce.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Energy Reserve",
+      "rarity": "Rare",
+      "series": 9,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-battery-energy-reserve.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Spare Pack",
+      "rarity": "Rare",
+      "series": 11,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-battery-spare-pack.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Scramble",
+      "rarity": "Rare",
+      "series": 6,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-brakes-scramble.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Aura Lock",
+      "rarity": "Rare",
+      "series": 8,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-brakes-aura-lock.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Axis 3000",
+      "rarity": "Rare",
+      "series": 6,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-engine-axis-3000.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "DriveOS",
+      "rarity": "Rare",
+      "series": 8,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-engine-driveos.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Hotfix",
+      "rarity": "Rare",
+      "series": 10,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-engine-hotfix.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Zephyr",
+      "rarity": "Rare",
+      "series": 2,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-frontwing-zephyr.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Leading Edge",
+      "rarity": "Rare",
+      "series": 9,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-frontwing-leading-edge.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Shift X",
+      "rarity": "Rare",
+      "series": 6,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-gearbox-shift-x.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Lockdown",
+      "rarity": "Rare",
+      "series": 8,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-gearbox-lockdown.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Fracture",
+      "rarity": "Rare",
+      "series": 10,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-gearbox-fracture.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Wobble",
+      "rarity": "Rare",
+      "series": 1,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-rearwing-wobble.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Impact",
+      "rarity": "Rare",
+      "series": 7,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-rearwing-impact.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Equilibrium",
+      "rarity": "Rare",
+      "series": 5,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-suspension-equilibrium.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Motion Link V2",
+      "rarity": "Rare",
+      "series": 9,
+      "levelCount": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-suspension-motion-link-v2.jpg",
+        "origin": "reference"
+      },
+      "refImage": ""
+    },
+    {
+      "name": "Adrenaline",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 1,
+      "category": "Bateria",
+      "image": {
+        "url": "assets/new-parts-20261022/adrenaline.webp",
+        "origin": "reference"
+      },
+      "refImage": "assets/new-parts-20261022/adrenaline.webp"
+    },
+    {
+      "name": "Eco Cell+",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 1,
+      "category": "Bateria",
+      "image": {
+        "url": "assets/new-parts-20261022/eco-cell-plus.webp",
+        "origin": "reference"
+      },
+      "refImage": "assets/new-parts-20261022/eco-cell-plus.webp"
+    },
+    {
+      "name": "Thunderbolt",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 1,
+      "category": "Bateria",
+      "image": {
+        "url": "assets/new-parts-20261022/thunderbolt.webp",
+        "origin": "reference"
+      },
+      "refImage": "assets/new-parts-20261022/thunderbolt.webp"
+    },
+    {
+      "name": "The Singularity",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 1,
+      "category": "Motor",
+      "image": {
+        "url": "assets/new-parts-20261022/the-singularity.webp",
+        "origin": "reference"
+      },
+      "refImage": "assets/new-parts-20261022/the-singularity.webp"
+    },
+    {
+      "name": "Flex XXL",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 1,
+      "category": "Asa dianteira",
+      "image": {
+        "url": "assets/new-parts-20261022/flex-xxl.webp",
+        "origin": "reference"
+      },
+      "refImage": "assets/new-parts-20261022/flex-xxl.webp"
+    },
+    {
+      "name": "The Reverse",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 1,
+      "category": "Asa traseira",
+      "image": {
+        "url": "assets/new-parts-20261022/the-reverse.webp",
+        "origin": "reference"
+      },
+      "refImage": "assets/new-parts-20261022/the-reverse.webp"
+    },
+    {
+      "name": "Control",
+      "rarity": "Epic",
+      "series": 12,
+      "levelCount": 1,
+      "category": "Freios",
+      "image": {
+        "url": "assets/new-parts-20261022/control.webp",
+        "origin": "reference"
+      },
+      "refImage": "assets/new-parts-20261022/control.webp"
+    }
+  ],
+  "drivers": [
+    {
+      "key": "Common|Bottas",
+      "name": "Bottas",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-bottas-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Colapinto",
+      "name": "Colapinto",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-colapinto-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Lindblad",
+      "name": "Lindblad",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-lindblad-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Bortoleto",
+      "name": "Bortoleto",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-bortoleto-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Gasly",
+      "name": "Gasly",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-gasly-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Ocon",
+      "name": "Ocon",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-ocon-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Stroll",
+      "name": "Stroll",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-stroll-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Bearman",
+      "name": "Bearman",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-bearman-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Hadjar",
+      "name": "Hadjar",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-hadjar-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Hulkenberg",
+      "name": "Hulkenberg",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-hulkenberg-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Lawson",
+      "name": "Lawson",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-lawson-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Albon",
+      "name": "Albon",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-albon-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Alonso",
+      "name": "Alonso",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-alonso-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Antonelli",
+      "name": "Antonelli",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-antonelli-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Perez",
+      "name": "Perez",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-perez-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Sainz",
+      "name": "Sainz",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-sainz-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Hamilton",
+      "name": "Hamilton",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-hamilton-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Leclerc",
+      "name": "Leclerc",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-leclerc-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Piastri",
+      "name": "Piastri",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-piastri-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Russell",
+      "name": "Russell",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-russell-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Verstappen",
+      "name": "Verstappen",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-verstappen-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Common|Norris",
+      "name": "Norris",
+      "rarity": "Common",
+      "edition": "",
+      "levels": 11,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-norris-common.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Gasly",
+      "name": "Gasly",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-gasly-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Lindblad",
+      "name": "Lindblad",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-lindblad-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Bottas",
+      "name": "Bottas",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-bottas-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Colapinto",
+      "name": "Colapinto",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-colapinto-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Lawson",
+      "name": "Lawson",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-lawson-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Albon",
+      "name": "Albon",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-albon-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Bortoleto",
+      "name": "Bortoleto",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-bortoleto-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Hulkenberg",
+      "name": "Hulkenberg",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-hulkenberg-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Ocon",
+      "name": "Ocon",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-ocon-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Perez",
+      "name": "Perez",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-perez-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Stroll",
+      "name": "Stroll",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-stroll-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Alonso",
+      "name": "Alonso",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-alonso-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Antonelli",
+      "name": "Antonelli",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-antonelli-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Bearman",
+      "name": "Bearman",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-bearman-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Hadjar",
+      "name": "Hadjar",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-hadjar-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Sainz",
+      "name": "Sainz",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-sainz-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Hamilton",
+      "name": "Hamilton",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-hamilton-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Leclerc",
+      "name": "Leclerc",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-leclerc-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Norris",
+      "name": "Norris",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-norris-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Piastri",
+      "name": "Piastri",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-piastri-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Russell",
+      "name": "Russell",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-russell-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Epic|Verstappen",
+      "name": "Verstappen",
+      "rarity": "Epic",
+      "edition": "",
+      "levels": 8,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-verstappen-epic.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Bortoleto",
+      "name": "Bortoleto",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-bortoleto-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Bottas",
+      "name": "Bottas",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-bottas-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Colapinto",
+      "name": "Colapinto",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-colapinto-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Gasly",
+      "name": "Gasly",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-gasly-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Lindblad",
+      "name": "Lindblad",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-lindblad-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Stroll",
+      "name": "Stroll",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-stroll-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Bearman",
+      "name": "Bearman",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-bearman-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Hadjar",
+      "name": "Hadjar",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-hadjar-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Hulkenberg",
+      "name": "Hulkenberg",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-hulkenberg-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Lawson",
+      "name": "Lawson",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-lawson-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Ocon",
+      "name": "Ocon",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-ocon-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Albon",
+      "name": "Albon",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-albon-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Alonso",
+      "name": "Alonso",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-alonso-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Antonelli",
+      "name": "Antonelli",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-antonelli-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Perez",
+      "name": "Perez",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-perez-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Sainz",
+      "name": "Sainz",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-sainz-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Hamilton",
+      "name": "Hamilton",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-hamilton-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Leclerc",
+      "name": "Leclerc",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-leclerc-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Norris",
+      "name": "Norris",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-norris-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Piastri",
+      "name": "Piastri",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-piastri-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Russell",
+      "name": "Russell",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-russell-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Rare|Verstappen",
+      "name": "Verstappen",
+      "rarity": "Rare",
+      "edition": "",
+      "levels": 9,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-verstappen-rare.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Fisichella",
+      "name": "Fisichella",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-fisichella-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|McLaren",
+      "name": "McLaren",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-mclaren-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Gilles Villeneuve",
+      "name": "Gilles Villeneuve",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-gvilleneuve-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Webber",
+      "name": "Webber",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-webber-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Berger",
+      "name": "Berger",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-berger-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Massa",
+      "name": "Massa",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-massa-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Coulthard",
+      "name": "Coulthard",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-coulthard-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Rindt",
+      "name": "Rindt",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-rindt-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Hunt",
+      "name": "Hunt",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-hunt-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Jacques Villeneuve",
+      "name": "Jacques Villeneuve",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-villeneuve-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Andretti",
+      "name": "Andretti",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-andretti-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Rubens Barrichello",
+      "name": "Rubens Barrichello",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "",
+        "origin": "none"
+      }
+    },
+    {
+      "key": "Legendary|Button",
+      "name": "Button",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-button-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Damon Hill",
+      "name": "Damon Hill",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-dhill-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Mansell",
+      "name": "Mansell",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-mansell-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Graham Hill",
+      "name": "Graham Hill",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-ghill-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Fittipaldi",
+      "name": "Fittipaldi",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-fittipaldi-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Lauda",
+      "name": "Lauda",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-lauda-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Brabham",
+      "name": "Brabham",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-brabham-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Fangio",
+      "name": "Fangio",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-fangio-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Prost",
+      "name": "Prost",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-prost-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Schumacher",
+      "name": "Schumacher",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-schumacher-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Legendary|Senna",
+      "name": "Senna",
+      "rarity": "Legendary",
+      "edition": "",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-senna-legendary.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-standard|Piastri",
+      "name": "Piastri",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-piastri-paddock-picks.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-turbo|Piastri",
+      "name": "Piastri",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock: Turbo",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-piastri-paddock-picks-turbo.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-standard|Bortoleto",
+      "name": "Bortoleto",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-bortoleto-paddock-picks.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-turbo|Bortoleto",
+      "name": "Bortoleto",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock: Turbo",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-bortoleto-paddock-picks-turbo.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-standard|Gasly",
+      "name": "Gasly",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-gasly-paddock-picks.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-turbo|Gasly",
+      "name": "Gasly",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock: Turbo",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-gasly-paddock-picks-turbo.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-standard|Bearman",
+      "name": "Bearman",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-bearman-paddock-picks.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-turbo|Bearman",
+      "name": "Bearman",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock: Turbo",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-bearman-paddock-picks-turbo.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-standard|Colapinto",
+      "name": "Colapinto",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-colapinto-paddock-picks.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-turbo|Colapinto",
+      "name": "Colapinto",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock: Turbo",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-colapinto-paddock-picks-turbo.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-standard|Antonelli",
+      "name": "Antonelli",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-antonelli-paddock-picks.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-turbo|Antonelli",
+      "name": "Antonelli",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock: Turbo",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-antonelli-paddock-picks-turbo.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-standard|Hadjar",
+      "name": "Hadjar",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-hadjar-paddock-picks.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-turbo|Hadjar",
+      "name": "Hadjar",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock: Turbo",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-hadjar-paddock-picks-turbo.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-standard|Lindblad",
+      "name": "Lindblad",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-lindblad-paddock-picks.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|paddock-turbo|Lindblad",
+      "name": "Lindblad",
+      "rarity": "Special",
+      "edition": "Escolhas do Paddock: Turbo",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-lindblad-paddock-picks-turbo.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|green|Verstappen",
+      "name": "Verstappen",
+      "rarity": "Special",
+      "edition": "Edições Especiais",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-verstappen-signature-stars.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|green|Leclerc",
+      "name": "Leclerc",
+      "rarity": "Special",
+      "edition": "Edições Especiais",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-leclerc-signature-stars.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|green|Lawson",
+      "name": "Lawson",
+      "rarity": "Special",
+      "edition": "Edições Especiais",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-lawson-signature-stars.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|green|Hadjar",
+      "name": "Hadjar",
+      "rarity": "Special",
+      "edition": "Edições Especiais",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-hadjar-signature-stars.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|green|Piastri",
+      "name": "Piastri",
+      "rarity": "Special",
+      "edition": "Edições Especiais",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-piastri-signature-stars.jpg",
+        "origin": "reference"
+      }
+    },
+    {
+      "key": "Special|green|Sainz",
+      "name": "Sainz",
+      "rarity": "Special",
+      "edition": "Edições Especiais",
+      "levels": 0,
+      "image": {
+        "url": "https://www.allclash.com/wp-content/uploads/2026/04/f1clash-driver-sainz-signature-stars.jpg",
+        "origin": "reference"
+      }
+    }
+  ],
+  "auditDate": "2026-10-29",
+  "sourceBasis": "last deployed ZIP + Hutch official blog + AllClash public image manifest + player-supplied event posters",
+  "imageVerification": "Reference URLs observed embedded in AllClash HTML, not all independently HTTP status-tested",
+  "missingImageMeaning": "no public reference present in code or locally assigned; user Supabase library cannot be audited without user session",
+  "knownPending": [
+    "Rubens Barrichello Legendary image",
+    "S12 7 new cards levels 2-8",
+    "45 nonstandard driver cards without verified levels",
+    "Azzaw video content could not be fetched"
+  ]
+}

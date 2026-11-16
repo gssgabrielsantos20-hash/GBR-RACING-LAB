@@ -1,0 +1,380 @@
+/* GBR Racing Lab · PR #9 integrated onto October 20 visual preview.
+   Dark appearance retains original CSS; light overrides explicit and never invert photos. */
+.gbr-settings-trigger{display:flex;align-items:center;justify-content:flex-start;gap:10px;width:100%;min-height:44px;padding:11px 12px;border:1px solid #2f5a60;border-radius:9px;background:#10252e;color:#d5f5f1;font:700 12px 'Oxanium',system-ui,sans-serif}
+.gbr-settings-trigger svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8}
+.gbr-settings-trigger:hover,.gbr-settings-trigger:focus-visible{outline-offset:2px;border-color:#00b4aa;color:#03dfcf}
+.gbr-settings-trigger .gbr-theme-state{margin-left:auto;font-size:10px;color:#a0c6c9}
+.gbr-settings-trigger-login{width:auto;min-width:66px;padding:8px;justify-content:center;font-size:11px}
+#mobileMorePanel button.gbr-more-settings{display:flex;align-items:center}
+#mobileMorePanel button.gbr-more-settings>span{display:grid;place-items:center}
+#mobileMorePanel button.gbr-more-settings svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8}
+.gbr-settings-dialog{--settings-surface:#101c28;--settings-ink:#edfaff;--settings-muted:#a5bdc8;--settings-border:#326070;--settings-field:#112a36;color:var(--settings-ink);background:var(--settings-surface);border:1px solid var(--settings-border);border-radius:18px;width:min(94vw,480px);max-height:min(80vh,650px);padding:0;box-shadow:0 30px 90px #0008;font-family:'Oxanium',system-ui,sans-serif}
+.gbr-settings-dialog::backdrop{background:rgba(0,7,16,.72);backdrop-filter:blur(5px)}
+.gbr-settings-dialog form{margin:0;padding:25px}
+.gbr-settings-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.gbr-settings-head h2{margin:8px 0;font-size:25px;color:var(--settings-ink)}
+.gbr-settings-eyebrow{font-size:10px;font-weight:800;letter-spacing:1.5px;color:#00aa9f}
+.gbr-settings-close{border:1px solid var(--settings-border);border-radius:8px;background:var(--settings-field);color:var(--settings-ink);font-size:20px;width:38px;height:38px}
+.gbr-settings-desc{font-size:13px;line-height:1.6;color:var(--settings-muted)}
+.gbr-theme-options{padding:0;margin:20px 0 10px;border:0;display:grid;gap:10px}
+.gbr-theme-options legend{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--settings-muted);margin-bottom:11px}
+.gbr-theme-option{display:flex;align-items:center;gap:12px;padding:15px;border:1px solid var(--settings-border);border-radius:11px;background:var(--settings-field);cursor:pointer;min-height:62px}
+.gbr-theme-option:has(input:checked){border-color:#008f88;box-shadow:inset 3px 0 #008f88}
+.gbr-theme-option input{accent-color:#008f88;flex:0 0 auto;width:18px;height:18px;margin:0}
+.gbr-theme-option span{display:flex;flex-direction:column;gap:3px}
+.gbr-theme-option strong{font-size:14px;color:var(--settings-ink)}
+.gbr-theme-option small{font-size:11px;color:var(--settings-muted)}
+.gbr-settings-note{color:var(--settings-muted);font-size:11px;line-height:1.5;margin-bottom:0}
+.gbr-audit-theme-picker{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0 2px;font-size:12px;font-weight:700}
+.gbr-audit-theme-picker select{min-height:38px}
+:root[data-theme="light"]{--bg:#f3f7fa;--rail:#f4f8fa;--panel:#fff;--panel2:#f0f6f8;--stroke:#cadce3;--text:#173744;--muted:#526a77;--red:#008f86;--red2:#006f68;color-scheme:light;background:#f3f7fa;color:#173744}
+html[data-theme="light"] body,html[data-theme="light"] .app-shell,html[data-theme="light"] .workspace{background:#f3f7fa!important;color:#173744!important}
+html[data-theme="light"] .rail{background:linear-gradient(180deg,#f4f8fa,#e9f2f5)!important;border-color:#ccdde4!important}
+html[data-theme="light"] .topbar{background:#ffffffef!important;border-color:#c9dce2!important;color:#173744!important}
+html[data-theme="light"] :is(.topbar-breadcrumb,.topbar-breadcrumb b,.topbar-right,.account-chip,.rail-brand strong){color:#173744!important}
+html[data-theme="light"] .rail-label,html[data-theme="light"] .rail-foot{color:#556e7c!important}
+html[data-theme="light"] .rail nav button:not(.active){color:#31515f!important}
+html[data-theme="light"] .rail nav button:not(.active) .nav-icon{color:#517784!important}
+html[data-theme="light"] .rail nav button.active,html[data-theme="light"] .mobile-nav button.active{background:#d4edea!important;color:#006b67!important;border-color:#a6d4ce!important;box-shadow:inset 3px 0 #007f79!important}
+html[data-theme="light"] .mobile-nav{background:#f8fbfcee!important;border-color:#bbd6dc!important;box-shadow:0 -7px 20px #17374412}
+html[data-theme="light"] .mobile-nav button{color:#416575!important}
+html[data-theme="light"] .mobile-more-panel{background:#edf5f8!important;border-color:#b4ccd4!important}
+html[data-theme="light"] .mobile-more-panel>button{background:#fff!important;border-color:#d0e0e5!important;color:#264955!important}
+html[data-theme="light"] .mobile-more-panel>button>small,html[data-theme="light"] .mobile-more-panel .more-title{color:#315866!important}
+html[data-theme="light"] .help-trigger,html[data-theme="light"] .small-button{background:#e7f3f2!important;border-color:#bddad8!important;color:#14645f!important}
+html[data-theme="light"] .gbr-settings-trigger{background:#e7f1f3!important;color:#245460!important;border-color:#bfdae0!important}
+html[data-theme="light"] .gbr-settings-trigger .gbr-theme-state{color:#49717b!important}
+html[data-theme="light"] .gbr-settings-dialog{--settings-surface:#fff;--settings-ink:#173744;--settings-muted:#526a77;--settings-border:#c5d8df;--settings-field:#f2f8fa}
+html[data-theme="light"] .access-gate{background:#f3f7fa!important;color:#173744!important}
+html[data-theme="light"] .gate-noise{background:radial-gradient(circle at 15% 35%,#e0f4f0,transparent 45%),linear-gradient(135deg,#f4f8fa,#e8f1f5)!important}
+html[data-theme="light"] :is(.gate-copy h1,.gate-metrics b,.auth-card h2){color:#18333f!important}
+html[data-theme="light"] :is(.gate-copy p,.auth-card p,.gate-metrics small){color:#4c6674!important}
+html[data-theme="light"] .auth-card{background:#fff!important;border-color:#cbdee5!important;color:#16303c!important}
+html[data-theme="light"] :is(.auth-links button,.field label){color:#006f6b!important}
+html[data-theme="light"] :is(.panel,.stat,.track,.track-part,.track-priority,.track-setup-metrics,.track-metric,.team-card,.team-panel,.info-panel,.side-feature,.gbr-backup-panel,.gbr-sheet-panel,.gbr-build-controls,.gbr-bld-driver,.gbr-part-chips>div,.gbr-saved-row,.gbr-boost-card,.gbr-notice,.rl-panel,.rl-highlights>div,.rl-driver-fieldset,.rl-driver-card,.rl-evidence,.fav-record,.fav-card,.fav-slot,.fav-editor,.fav-setup-card,.gp-panel,.gp-event-choice,.gp-event-status,.gp-circuit,.gp-tier,.gp-track-option,.gp-race-plan,.gp-circuit-index,.chest-entry,.chest-stat,.chest-next,.chest-pattern li,.chest-candidate,.chest-history-row,.telemetry-panel,.telemetry-team-card,.telemetry-shortcut,.telemetry-focus-card,.gbr-learning-panel,.help-dialog,.help-item,.help-step){background:#fff!important;border-color:#cbdde3!important;color:#173744!important;box-shadow:0 5px 22px #1737440c}
+html[data-theme="light"] :is(.panel p,.stat small,.small-note,.muted,.gp-note,.gp-event-choice small,.gp-tier small,.telemetry-panel p,.telemetry-panel small,.help-intro,.help-item p,.help-tip,.rl-panel p,.fav-record p,.fav-record small,.chest-next small,.track-source-note,.track-priority small){color:#49636f!important}
+html[data-theme="light"] :is(.panel h2,.panel h3,.panel h4,.gp-race-plan h3,.gp-race-plan h4,.section-heading h2,.page-head h1,.chest-head h1,.tracks-head h1,.help-dialog h2,.track-part b,.stat b,.rl-panel h2,.fav-record b){color:#173744!important}
+html[data-theme="light"] :is(.field input,.field select,.field textarea,.help-area-select,#helpSearch,.gp-pre-gp-textarea,.track-tyre-inputs input,.rl-panel input,.rl-panel select,.fav-editor input,.fav-editor select,.gbr-part-filters select){background:#fff!important;color:#173744!important;border-color:#99b8c4!important}
+html[data-theme="light"] :is(.btn,.small-button,.gp-action,.track-tile,.track-compare-row,.pill,.chest-number-control input){background:#edf5f8!important;border-color:#bcd6df!important;color:#17414d!important}
+html[data-theme="light"] :is(.btn.primary,.primary,.gbr-primary-btn){background:#00b3a7!important;border-color:#008e83!important;color:#042623!important}
+html[data-theme="light"] .help-overlay{background:rgba(232,240,246,.84)!important}
+html[data-theme="light"] .help-dialog-head{border-bottom-color:#d1e1e7!important}
+html[data-theme="light"] .hero:not(.telemetry-hero){background:radial-gradient(circle at 80% 40%,#d1f2ec,#f7fcff 75%)!important;border-color:#b8d8d5!important}
+html[data-theme="light"] #dashboard .telemetry-hero,html[data-theme="light"] #dashboard .telemetry-hero :is(h1,p,.eyebrow,.telemetry-hero-foot){color:#f6ffff!important} /* preserva foto do banner */
+html[data-theme="light"] #dashboard .telemetry-hero h1 em{color:#42fff1!important}
+html[data-theme="light"] :is(.track-map-visual,.track-map-panel,.track-compare-row,.gbr-ocr-status,.gp-sidebar-sub,.track-footnote){background:#edf5f8!important;color:#264955!important;border-color:#cbdee5!important}
+html[data-theme="light"] :is(.gbr-audit-page,.gbr-audit-page main){background:#f3f7fa!important;color:#173744!important}
+html[data-theme="light"] .gbr-audit-page :is(.card,.stat,.panel,.status){background:#fff!important;color:#173744!important;border-color:#cbdde3!important}
+html[data-theme="light"] .gbr-audit-page :is(input,select,button:not(.primary)){background:#fff!important;color:#173744!important;border-color:#adcbd5!important}
+html[data-theme="light"] .gbr-audit-page :is(.lead,.muted,small){color:#49636f!important}
+@media(max-width:820px){.gbr-settings-trigger{min-height:48px}.gbr-settings-dialog form{padding:18px}.gbr-theme-option{min-height:56px}}
+@media(prefers-reduced-motion:reduce){.gbr-settings-dialog *{transition:none!important}}
+
+/* Preserva a marca e os ícones da versão visual enviada, sem inversão de imagens. */
+.gbr-brand-emblem{clip-path:none!important;background:transparent!important;box-shadow:none!important}
+.gbr-brand-emblem img{display:block;width:47px;height:47px;object-fit:contain;border-radius:12px;box-shadow:0 8px 22px rgba(0,221,226,.13)}
+.brand-lockup{display:flex;align-items:center;gap:10px}
+.brand-lockup .brand-mark-image{display:block;width:36px;height:36px;border-radius:10px;object-fit:contain;box-shadow:0 8px 20px rgba(0,216,221,.15)}
+.brand-lockup .brand-meta{display:flex;flex-direction:column;line-height:1}
+.brand-lockup .brand-meta b{font:900 14px 'Barlow Condensed',Impact,sans-serif;letter-spacing:1px;color:var(--text,#f2ffff)}
+.brand-lockup .brand-meta small{margin-top:4px;font-size:9px;letter-spacing:1px;color:var(--muted,#a4b6bf);font-weight:800}
+.topbar-left{display:flex;align-items:center;gap:12px;min-width:0}
+:root[data-theme="light"] .brand-lockup .brand-meta b{color:#173744!important}
+:root[data-theme="light"] .brand-lockup .brand-meta small{color:#49636f!important}
+:root[data-theme="light"] .brand-mark-image,:root[data-theme="light"] .gbr-brand-emblem img{box-shadow:0 8px 22px rgba(0,137,158,.13)}
+@media(max-width:820px){
+ .topbar-left{gap:5px;flex:none}
+ .topbar-left .brand-lockup{display:flex}
+ .topbar-left .brand-meta b{font-size:13px}
+ .topbar-left .brand-meta small{display:none}
+ .topbar-left .brand-mark-image{width:33px;height:33px}
+ .topbar-breadcrumb{font-size:10px;letter-spacing:.6px}
+ .topbar-right{gap:6px}
+}
+@media(max-width:390px){.topbar-left .topbar-breadcrumb{display:none}.topbar-left .brand-meta small{display:none}}
+
+
+/* GBR Brand Kit integration 2026 */
+:root{
+  --gbr-brand-ink:#0B0B0F;
+  --gbr-brand-surface:#17232B;
+  --gbr-brand-accent:#00D2BE;
+  --gbr-brand-accent-hover:#62E8DB;
+  --gbr-brand-text:#F1F2F5;
+  --gbr-brand-muted:#A3BEC1;
+  --gbr-brand-outline:#2C454B;
+}
+html[data-theme='dark']{
+  --bg:#0B0B0F;
+  --rail:#10161c;
+  --panel:#17232B;
+  --panel2:#1b2a32;
+  --stroke:#2C454B;
+  --text:#F1F2F5;
+  --muted:#A3BEC1;
+  --red:#00D2BE;
+  --red2:#62E8DB;
+  --warn:#ffbf69;
+}
+html[data-theme='light']{
+  /* tema claro tecnico: sem branco puro dominante */
+  --bg:#DDE8EC;
+  --rail:#E6EEF1;
+  --panel:#F0F5F7;
+  --panel2:#E8F0F3;
+  --stroke:#9AB6BA;
+  --text:#102127;
+  --muted:#48666C;
+  --red:#00AFA0;
+  --red2:#00D2BE;
+  --warn:#a86d00;
+}
+html[data-theme='light'] body{background:
+  radial-gradient(circle at top right, rgba(0,210,190,.12), transparent 28%),
+  linear-gradient(180deg,#DDE8EC 0%,#E8EFF2 48%,#D8E5EA 100%);
+}
+html[data-theme='dark'] body{background:
+  radial-gradient(circle at top right, rgba(0,210,190,.10), transparent 24%),
+  linear-gradient(180deg,#0B0B0F 0%,#0E1116 100%);
+}
+html[data-theme='light'] .hero,
+html[data-theme='light'] .page-head,
+html[data-theme='light'] .featured-panel,
+html[data-theme='light'] .track-spotlight,
+html[data-theme='light'] .help-dialog,
+html[data-theme='light'] .auth-card,
+html[data-theme='light'] .track-map-panel,
+html[data-theme='light'] .telemetry-panel,
+html[data-theme='light'] .team-panel,
+html[data-theme='light'] .side-feature,
+html[data-theme='light'] .panel,
+html[data-theme='light'] .stat,
+html[data-theme='light'] .track-tile,
+html[data-theme='light'] .track-part,
+html[data-theme='light'] .track-driver-card,
+html[data-theme='light'] .track-priority,
+html[data-theme='light'] .track-metric,
+html[data-theme='light'] .track-compare-row,
+html[data-theme='light'] .chest-entry,
+html[data-theme='light'] .help-item,
+html[data-theme='light'] .fav-card,
+html[data-theme='light'] .fav-editor,
+html[data-theme='light'] .fav-print-wizard,
+html[data-theme='light'] .track-head,
+html[data-theme='light'] .track-footnote,
+html[data-theme='light'] .tablewrap,
+html[data-theme='light'] .telemetry-card,
+html[data-theme='light'] .telemetry-mini,
+html[data-theme='light'] .telemetry-focus-card,
+html[data-theme='light'] .telemetry-compact,
+html[data-theme='light'] .telemetry-event-list button{background:linear-gradient(180deg,#F1F5F7 0%,#E8F0F3 100%)!important;border-color:#9AB6BA!important;box-shadow:0 10px 24px rgba(23,35,43,.08)}
+html[data-theme='light'] .topbar{background:rgba(240,245,247,.92)!important;border-bottom:1px solid #9AB6BA!important;backdrop-filter:blur(10px)}
+html[data-theme='light'] .rail{background:linear-gradient(180deg,#E6EEF1 0%,#DFEAEE 100%)!important;border-right:1px solid #9AB6BA!important}
+html[data-theme='light'] .rail nav button.active{background:rgba(0,175,160,.10)!important;border-color:rgba(0,175,160,.35)!important;box-shadow:inset 3px 0 #00AFA0,0 8px 20px rgba(23,35,43,.06)}
+html[data-theme='light'] .btn.primary,
+html[data-theme='light'] .primary{background:linear-gradient(180deg,#00D2BE 0%,#00B8A9 100%)!important;border-color:#009E92!important;color:#082021!important}
+html[data-theme='light'] .btn,
+html[data-theme='light'] .small-button,
+html[data-theme='light'] select,
+html[data-theme='light'] input,
+html[data-theme='light'] textarea{border-color:#94B1B6!important}
+html[data-theme='light'] .field input,
+html[data-theme='light'] .field select,
+html[data-theme='light'] textarea,
+html[data-theme='light'] #helpSearch,
+html[data-theme='light'] .help-area-select{background:#F7FAFB!important;color:#102127!important}
+html[data-theme='light'] .theme-chip,
+html[data-theme='light'] .chip,
+html[data-theme='light'] .sync-status,
+html[data-theme='light'] .theme-switcher,
+html[data-theme='light'] .theme-compact-toggle{background:#F3F7F8!important;border-color:#99B6BB!important;color:#102127!important}
+html[data-theme='light'] .hero h1,
+html[data-theme='light'] .section-heading h2,
+html[data-theme='light'] .panel h2,
+html[data-theme='light'] .panel h3,
+html[data-theme='light'] .page-head h1,
+html[data-theme='light'] .auth-card h2,
+html[data-theme='light'] .track-spotlight h2,
+html[data-theme='light'] .topbar-breadcrumb b{color:#12313B!important}
+html[data-theme='light'] .eyebrow,
+html[data-theme='light'] .help-eyebrow,
+html[data-theme='light'] .kicker,
+html[data-theme='light'] .tinycaps,
+html[data-theme='light'] .nav-icon,
+html[data-theme='light'] .sync-led,
+html[data-theme='light'] .tracks-count span,
+html[data-theme='light'] .telemetry-section-meta span:first-child{color:#00AFA0!important}
+html[data-theme='light'] .topbar-breadcrumb,
+html[data-theme='light'] .panel p,
+html[data-theme='light'] .muted,
+html[data-theme='light'] .small-note,
+html[data-theme='light'] .rail-foot,
+html[data-theme='light'] .rail-label,
+html[data-theme='light'] .page-head p,
+html[data-theme='light'] .help-intro,
+html[data-theme='light'] .help-item p,
+html[data-theme='light'] .help-tip,
+html[data-theme='light'] .field label{color:#48666C!important}
+/* brand lockup */
+.gbr-header-brand{display:flex;align-items:center;gap:12px;min-width:0}
+.gbr-header-brand img{height:34px;width:auto;display:block}
+.gbr-header-brand--mobile img{height:28px}
+.gbr-theme-settings-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.gbr-appearance-card{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border:1px solid var(--stroke);border-radius:18px;background:var(--panel2)}
+.gbr-appearance-options{display:flex;gap:10px;flex-wrap:wrap}
+.gbr-appearance-btn{padding:10px 14px;border-radius:14px;border:1px solid var(--stroke);background:var(--panel);color:var(--text);font-weight:800;letter-spacing:.4px}
+.gbr-appearance-btn.active{background:linear-gradient(180deg,var(--red2),var(--red));color:#092022;border-color:var(--red)}
+.gbr-menu-icon-img,.gbr-tab-icon-img{width:20px;height:20px;display:inline-block;object-fit:contain;flex:none}
+.gbr-brand-signature{display:flex;align-items:center;gap:10px}
+.gbr-brand-signature img{height:24px;width:auto}
+@media(max-width:820px){
+  .gbr-header-brand{display:none}
+}
+
+
+.brand-lockup{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-lockup .brand-mark-image{display:block;height:36px;width:auto;max-width:min(56vw,320px)}
+html[data-theme='light'] .brand-lockup .brand-mark-image{filter:drop-shadow(0 1px 0 rgba(255,255,255,.35))}
+.rail-brand .brand-emblem img{width:34px;height:34px;display:block;object-fit:contain}
+.mobile-nav .nav-icon,.more-grid .nav-icon{display:inline-flex;align-items:center;justify-content:center}
+.gbr-settings-trigger span:first-child{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px}
+
+/* GBR Light Contrast Hotfix v2 (2026-10-20).
+   Applies ONLY to data-theme=light; preserve dark theme, photos, logos and game logic.
+   Brand kit: technical slate/light-steel surfaces + ink typography + turquoise signals.
+   Root cause: dark-page hardcoded foregrounds inherited by light cards, and a
+   late generic .hero background override erased the photo/banner contrast. */
+html[data-theme="light"] {
+  --bg: #dce8eb;
+  --rail: #e3edf0;
+  --panel: #edf3f5;
+  --panel2: #e5eef1;
+  --stroke: #a7c0c6;
+  --text: #102630;
+  --muted: #405a65;
+  --red: #007e75;
+  --red2: #00b7aa;
+  color-scheme: light;
+}
+html[data-theme="light"] :is(.workspace, .content, .tab) { color: #102630; }
+html[data-theme="light"] :is(.content-topline, .eyebrow, .kicker, .tinycaps, .fav-head .eyebrow, .rl-head .eyebrow) { color: #006c66 !important; }
+/* Keep race photography on a high-contrast dark island. Never invert the photo. */
+html[data-theme="light"] #dashboard .telemetry-hero {
+  background-color: #061521 !important;
+  background-image: linear-gradient(90deg,rgba(4,15,24,.99) 0%,rgba(4,15,24,.95) 30%,rgba(4,15,24,.78) 50%,rgba(4,15,24,.16) 82%),url('assets/telemetry/hero-sidecar.webp') !important;
+  background-size:100% 100%,cover !important;
+  background-position:center,right center !important;
+  border-bottom: 2px solid #008a82 !important;
+}
+html[data-theme="light"] #dashboard .telemetry-hero :is(.eyebrow,.hero-copy h1,.hero-copy p) { color:#f2fafb !important;text-shadow:0 2px 9px rgba(0,0,0,.72) !important; }
+html[data-theme="light"] #dashboard .telemetry-hero .eyebrow {color:#62e8db !important;}
+html[data-theme="light"] #dashboard .telemetry-hero h1 em {color:#37eddf !important;}
+html[data-theme="light"] #dashboard .telemetry-hero .btn.outline {background:rgba(4,19,30,.84) !important;color:#f2fafb !important;border-color:#6aafb4 !important;}
+html[data-theme="light"] #dashboard .telemetry-hero .btn.primary {color:#06272a !important;background:#00d2be !important;}
+/* Dashboard: restore ink labels over slate panels (computed color on dark used to be near-white). */
+html[data-theme="light"] #dashboard .stats-dashboard .stat {
+  background:linear-gradient(160deg,#edf5f6,#dbeaec) !important;
+  border:1px solid #9dbcc1 !important;
+}
+html[data-theme="light"] #dashboard .stats-dashboard .stat :is(b,small,.telemetry-stat-icon,.telemetry-stat-detail) { color:#12323c !important;text-shadow:none !important; }
+html[data-theme="light"] #dashboard .stats-dashboard .stat small { color:#395c68 !important; }
+html[data-theme="light"] #dashboard .stats-dashboard .stat .telemetry-stat-detail { color:#426773 !important; }
+html[data-theme="light"] #dashboard .telemetry-panel {background:linear-gradient(160deg,#edf4f5,#e1ecef) !important;border-color:#a1bbc2 !important;}
+html[data-theme="light"] #dashboard :is(.telemetry-panel-heading,.telemetry-event-bottom,.telemetry-activity-row,.telemetry-activity-actions,.telemetry-team-owner) {border-color:#b4cbd1 !important;}
+html[data-theme="light"] #dashboard :is(.telemetry-panel-heading h2,.telemetry-event-main h3,.telemetry-shortcut-copy strong,.telemetry-activity-copy strong,.telemetry-team-name,.telemetry-help summary,.telemetry-event-bottom,.telemetry-team-owner) {color:#102b36 !important;text-shadow:none !important;}
+html[data-theme="light"] #dashboard :is(.telemetry-event-main p,.telemetry-team-count,.telemetry-shortcut-copy small,.telemetry-activity-copy small,.telemetry-event-bottom span,.telemetry-team-owner #dashTeamText) {color:#496773 !important;}
+html[data-theme="light"] #dashboard :is(.telemetry-overline,.telemetry-panel-heading-text .telemetry-mini-icon,.telemetry-help summary span) {color:#006f68 !important;}
+html[data-theme="light"] #dashboard :is(.telemetry-event-bottom button,button.telemetry-text-button) {color:#006e68 !important;}
+html[data-theme="light"] #dashboard .telemetry-shortcut-card,
+html[data-theme="light"] #dashboard .telemetry-team-card,
+html[data-theme="light"] #dashboard .telemetry-activity-icon,
+html[data-theme="light"] #dashboard .telemetry-help {
+  background:linear-gradient(145deg,#f3f7f8,#e2edf0) !important;
+  border-color:#adc7cc !important;color:#102b36 !important;
+}
+html[data-theme="light"] #dashboard .telemetry-shortcut-icon {background:#172e37 !important;border-color:#264e55 !important;}
+html[data-theme="light"] #dashboard .telemetry-team-number {filter:brightness(.65);}
+html[data-theme="light"] #dashboard .telemetry-event-status {color:#f7ffff !important;}
+html[data-theme="light"] #dashboard .telemetry-event-status.is-soon {color:#fff0f4 !important;}
+/* Favorites: empty placeholders, counters and secondary labels were almost white-on-white. */
+html[data-theme="light"] #favorites :is(.fav-head p,.fav-note,.fav-empty p,.fav-library-card small,.fav-spot-head p) {color:#466470 !important;}
+html[data-theme="light"] #favorites :is(.fav-empty,.fav-slot,.fav-counter,.fav-spot-count,.fav-spot-empty) {background:linear-gradient(150deg,#eaf2f4,#dfecef) !important;color:#143440 !important;border-color:#9bbabf !important;}
+html[data-theme="light"] #favorites .fav-empty strong {color:#173741 !important;}
+html[data-theme="light"] #favorites :is(.fav-head h1,.fav-spot-head h2,.fav-library-head h3) {color:#12313b !important;}
+html[data-theme="light"] #favorites .fav-head h1 em {color:#006f67 !important;}
+html[data-theme="light"] #favorites .fav-counter {color:#007d74 !important;font-weight:900;}
+/* Race learning: labels, KPI figures, fields, nested evidence and notes. */
+html[data-theme="light"] #raceLearning :is(.rl-head p,.rl-muted,.rl-panel p,.rl-evidence,.rl-record small,.rl-record p,.rl-driver-hint,.rl-driver-ocr-note) {color:#45626d !important;}
+html[data-theme="light"] #raceLearning .rl-highlights>div,
+html[data-theme="light"] #raceLearning :is(.rl-driver-fieldset,.rl-driver-card,.rl-driver-card.rival,.rl-evidence,.rl-tyre-pilot,.rl-reference-panel,.rl-history .rl-verdict-inline) {
+  background:linear-gradient(160deg,#ecf3f5,#dfecef) !important;
+  border-color:#a9c0c5 !important;color:#12313b !important;
+}
+html[data-theme="light"] #raceLearning .rl-highlights :is(small,strong) {color:#143642 !important;}
+html[data-theme="light"] #raceLearning :is(.rl-head h1,.rl-panel h2,.rl-panel h3,.rl-driver-card h4,.rl-driver-fieldset legend,.rl-tyre-pilot h4,.rl-reference-panel h3,.rl-driver-history summary) {color:#15333d !important;}
+html[data-theme="light"] #raceLearning :is(.rl-field,.rl-metric-row label,.rl-metric-title,.rl-files label,.rl-panel li,.rl-driver-card label,.rl-driver-metric-row label,.rl-driver-metric-head,.rl-message,.rl-record .rl-driver-history,.rl-verdict-subtitle) {color:#355663 !important;}
+html[data-theme="light"] #raceLearning :is(input,select,textarea,.rl-driver-metric-row input,.rl-metric-row input,.rl-driver-card input,.rl-driver-card select) {background:#f5f9fa !important;color:#122e39 !important;border-color:#8aa9b2 !important;}
+html[data-theme="light"] #raceLearning input[data-ocr="suggested"] {background:#fff0c7 !important;color:#593e12 !important;border-color:#ad7f23 !important;}
+html[data-theme="light"] #raceLearning input[data-estimated="true"] {background:#fff2cc !important;color:#61400b !important;border:2px dashed #a6761e !important;}
+html[data-theme="light"] #raceLearning .rl-pit-estimate-note {color:#624111 !important;background:#fff2cf !important;border-left-color:#b1832b !important;}
+html[data-theme="light"] #raceLearning .rl-chip {color:#006f67 !important;border-color:#74b0ad !important;}
+/* Chests: restore KPI and table contrast without recoloring the chest images. */
+html[data-theme="light"] #chests :is(.chest-stat,.chest-next,.chest-entry,.chest-calibration,.chest-history-row,.chest-pattern li) {background:linear-gradient(180deg,#edf4f5,#e0ecee) !important;border-color:#a4c0c5 !important;color:#18323b !important;}
+html[data-theme="light"] #chests :is(.chest-stat b,.chest-next b,.chest-position-field strong,.chest-history-row b) {color:#0f303b !important;}
+html[data-theme="light"] #chests :is(.chest-stat span,.chest-next small,.chest-legend,.chest-history-row small,.chest-history-row span) {color:#45636c !important;}
+html[data-theme="light"] #chests :is(.chest-position-field strong,.chest-stat em,.chest-head em) {color:#00786f !important;}
+html[data-theme="light"] #chests .chest-map-header {color:#18333b !important;background:#cadce0 !important;}
+/* Generic secondary headings, data tables, help, event/duel views and form states. */
+html[data-theme="light"] :is(.tab h1,.tab h2,.tab h3,.tab h4,.tab h5,.tab label,.tab summary,.tab legend) {color:#18353f;}
+html[data-theme="light"] :is(.tab p,.tab li,.tab small,.tab dd,.tab dt,.tab td,.tab th,.tab caption) {color:#3c5964;}
+html[data-theme="light"] :is(.tab input:not([type="checkbox"]):not([type="radio"]),.tab select,.tab textarea) {color:#17333e !important;background-color:#f3f8f9 !important;border-color:#94b2bb !important;}
+html[data-theme="light"] :is(.tab input,.tab select,.tab textarea,.gbr-settings-dialog button,.tab button):focus-visible {outline:3px solid #007b74 !important;outline-offset:2px !important;}
+html[data-theme="light"] :is(.gp-panel,.gp-race-plan,.gp-track-option,.gp-tier,.gp-circuit,.gp-event-choice,.track-part,.track-priority,.track-setup-metrics,.team-card,.gbr-notice,.gbr-bld-driver,.gbr-part-chips>div) {color:#17333f !important;}
+html[data-theme="light"] :is(.gp-panel small,.gp-note,.gp-circuit-index,.track-source-note,.track-tile small) {color:#405f69 !important;}
+html[data-theme="light"] :is(.tab .btn.primary,.tab .primary,.gbr-settings-dialog .gbr-primary-btn) {background:#00b9ab !important;color:#092827 !important;border-color:#007d74 !important;}
+html[data-theme="light"] :is(.tab .btn:not(.primary),.gbr-settings-dialog button:not(.gbr-primary-btn)) {color:#173b45;border-color:#9ebdc5;}
+html[data-theme="light"] .gbr-settings-dialog {--settings-surface:#eaf2f4;--settings-field:#dfecef;--settings-ink:#142f39;--settings-muted:#405c67;--settings-border:#a3bfc5;}
+html[data-theme="light"] .gbr-settings-option:has(input:checked) {border-color:#007b74;}
+/* Preserve dark banners/photographs with white foregrounds where appropriate. */
+html[data-theme="light"] :is(.telemetry-event-picture,.fav-premium-banner,.fav-premium-score,.fav-premium-photo,.fav-premium-stat) :is(h2,h3,p,small,strong,b,span) {color:inherit;}
+/* Avoid global inversions of photos, card art or brand assets. */
+
+/* GBR icon integration: only icons allowed to change by design. */
+.gbr-menu-icon-img{display:block;width:21px;height:21px;object-fit:contain;flex:0 0 auto}
+#mobileNav .gbr-menu-icon-img{width:23px;height:23px}
+#mobileMorePanel .gbr-menu-icon-img{width:21px;height:21px}
+.gbr-dashboard-brand-icon{display:block;max-width:100%;width:24px;height:24px;object-fit:contain}
+.telemetry-stat-icon .gbr-dashboard-brand-icon{width:30px;height:30px}
+.telemetry-shortcut-icon .gbr-dashboard-brand-icon{width:27px;height:27px}
+.telemetry-activity-icon .gbr-dashboard-brand-icon{width:22px;height:22px}
+html[data-theme="light"] .gbr-menu-icon-img,html[data-theme="light"] .gbr-dashboard-brand-icon{filter:none}
+html[data-theme="dark"] .gbr-menu-icon-img,html[data-theme="dark"] .gbr-dashboard-brand-icon{filter:none}
+
+/* GBR Dark Depth 2026-10-20 | Only dark; background brighter than navigation/cards.
+   Visual-only reversible change. No selectors alter light assets, logos, forms or permissions. */
+html[data-theme="dark"]{
+  --bg:#112A37;
+  --rail:#091B27;
+  --panel:#122B38;
+  --panel2:#18333F;
+  --stroke:#2B5665;
+}
+html[data-theme="dark"] body{
+  background:linear-gradient(160deg,#173A4A 0%,#102A37 70%,#0B202D 100%);
+}
+html[data-theme="dark"] .workspace{
+  background:radial-gradient(ellipse at 42% 0%,rgba(37,91,109,.55),transparent 56%),linear-gradient(165deg,#173645 0%,#102B39 74%,#0E2531 100%);
+}
+html[data-theme="dark"] .rail{
+  background:linear-gradient(180deg,#071721 0%,#0A1C28 100%);
+  border-right-color:#285365;
+}
+html[data-theme="dark"] .topbar{
+  background:rgba(6,24,35,.96);
+  border-bottom-color:#2E5B69;
+}
+html[data-theme="dark"] .content{background:transparent;}
+html[data-theme="dark"] .rail nav button.active{box-shadow:inset 3px 0 #00D2BE,0 5px 17px rgba(0,210,190,.09);}
+@media (prefers-reduced-transparency:reduce){
+  html[data-theme="dark"] .topbar{background:#081B27;}
+}

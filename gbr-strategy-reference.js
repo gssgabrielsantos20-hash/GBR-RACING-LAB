@@ -19,7 +19,7 @@ const RACES=Object.freeze([
 function activeSeries(asOf){
  const now=new Date();
  const date=asOf?String(asOf).slice(0,10):`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
- return (window.GBRIntelligence?.listNewSeries?.()||[]).filter(r=>date>='2026-10-21'&&date<='2026-11-03');
+ return window.GBRIntelligence?.listNewSeries?.(date)||[];
 }
 // Data de revisão é apenas controle interno; não afirmar expiração oficial do evento.
 const MAX_AGE_DAYS=7;
@@ -27,11 +27,13 @@ function status(asOf,verifiedAt){
  const now=Date.parse(String(asOf).slice(0,10)+'T00:00:00Z'),then=Date.parse(verifiedAt+'T00:00:00Z');
  return Number.isFinite(now)&&now>=then&&now-then<=MAX_AGE_DAYS*86400000?'revisada':'revalidar';
 }
-function lookup({competition,series,trackId,totalLaps,context,asOf=new Date().toISOString()}={}){
+function lookup({competition,series,trackId,totalLaps,context,asOf=undefined}={}){
+ // Usar data local na mudança de rotação; a data UTC pode antecipar a virada no Brasil.
+ if(asOf==null){const day=new Date();asOf=`${day.getFullYear()}-${String(day.getMonth()+1).padStart(2,'0')}-${String(day.getDate()).padStart(2,'0')}`;}
  const mode=competition?.mode==='event'?'event':'series';
  if(mode==='series'){
   const meta=activeSeries(asOf).find(x=>x.series===Number(series)&&x.trackId===trackId);
-  return {status:'sem-estrategia',source:meta?'Tabela fornecida pelo responsável (21/10–03/11/2026)':SOURCES.series12, ...(meta?{laps:meta.laps}:{}),reason:'Número de voltas extraído da tabela 21/10–03/11; estratégias numéricas de pneus não foram verificadas. Confirme no jogo.'};
+  return {status:'sem-estrategia',source:meta?meta.source:SOURCES.series12, ...(meta?{laps:meta.laps}:{}),reason:'Número de voltas extraído da tabela vigente; estratégias numéricas de pneus não foram verificadas. Confirme no jogo.'};
  }
  const ref=RACES.find(x=>x.eventId===competition?.eventId&&x.category===competition?.category&&x.race===Number(competition?.race)&&x.trackId===trackId);
  if(!ref)return {status:'sem-estrategia',source:SOURCES.event,reason:'Nenhuma estratégia pública validada para esta categoria, etapa e pista.'};

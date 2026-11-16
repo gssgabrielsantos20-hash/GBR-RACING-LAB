@@ -1,0 +1,62 @@
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const vm=require('node:vm');
+const root=path.resolve(__dirname,'..');
+const read=p=>fs.readFileSync(path.join(root,p),'utf8');
+const html=read('auditoria-imagens.html');
+const main=read('index.html');
+const adminScript=read('auditoria-imagens.js');
+const sql=read('docs/sql-review/PROPOSTA_gbr_card_images_boosts_20261105.sql');
+const rollback=read('docs/sql-review/ROLLBACK_gbr_card_images_boosts_20261105.sql');
+assert.match(html,/value="boosts">Boosts/);
+assert.match(html,/gbr-boost-catalog\.js\?v=20261110boostimages2/);
+assert.match(html,/auditoria-imagens\.js\?v=20261110boostimages2/);
+assert.match(main,/auditoria-imagens\.html/);
+assert.match(main,/boosts-plus\.js\?v=20261110boosttrack1/);
+assert.match(read('boosts-plus.js'),/auditoria-imagens\.html\?kind=boosts/);
+assert.match(adminScript,/GBRBoostCatalog\?\.visualItems/);
+assert.doesNotMatch(adminScript,/hasRightForBoost|data-usage-right|Declaro que posso compartilhar/);
+assert.match(adminScript,/art\.saveRemote\(i,i.kind,url\)/);
+assert.match(adminScript,/art\.uploadRemote\(i,i.kind,file\)/);
+assert.doesNotMatch(adminScript,/runPreview\(k\)|runPublish\(k\)|data-publish-url|data-preview-url|Salvar neste aparelho|Compartilhar com academia/);
+assert.match(adminScript,/data-card-art/);
+assert.match(adminScript,/countReference/);
+assert.match(sql,/CHECK \(kind = ANY \(ARRAY\['drivers'::text,'parts'::text,'boosts'::text\]\)\)/);
+assert.match(sql,/ALTER POLICY gbr_art_upload_admin ON storage\.objects/);
+assert.match(sql,/AND am_i_academy_admin\(\)/);
+assert.match(rollback,/EXISTS\(SELECT 1 FROM public\.gbr_card_images WHERE kind = 'boosts'\)/);
+assert.match(rollback,/RAISE EXCEPTION/);
+assert(!sql.includes('DISABLE ROW LEVEL SECURITY'));
+assert(!sql.includes('GRANT '));
+assert(!sql.includes('service_role'));
+assert(!fs.existsSync(path.join(root,'assets/boosts-original')));
+
+// Executar a tela sem conta: ainda lista os boosts, mas não oferece publicação.
+const nodes=new Map();
+function node(id){if(!nodes.has(id))nodes.set(id,{value:id==='kind'?'all':id==='filter'?'all':'',textContent:'',innerHTML:'',onclick:null,className:'',style:{},classList:{toggle(){}},addEventListener(){},querySelectorAll(){return []}});return nodes.get(id)}
+const window={F1Reference:{parts:{'Anchor':{rarity:'Common'}},drivers:{}},location:{search:'?kind=boosts'},addEventListener(){}};
+const document={getElementById:node,querySelectorAll(){return []},addEventListener(){}};
+const mockArt={overrideKey:(i,k)=>k+'|'+i.name.toLowerCase()+'|'+(i.rarity||'')+'|'+(i.editionLabel||''),getSource:(i,k)=>k==='boosts'&&i.name==='Ballast'?{url:'https://academy.example.test/boosts/ballast.webp',origin:'shared'}:k==='boosts'&&i.imageReferenceUrl?{url:i.imageReferenceUrl,origin:'reference'}:{url:'',origin:'none'},isRemote:(i,k)=>k==='boosts'&&i.name==='Ballast',status:()=>({connected:false,admin:false}),overrides:()=>({}),isUnlicensedBoostReference:()=>false};
+window.GBRCardArt=mockArt;
+const ctx={window,document,console,URLSearchParams,URL};vm.createContext(ctx);
+vm.runInContext(read('gbr-boost-catalog.js'),ctx,{filename:'gbr-boost-catalog.js'});
+vm.runInContext(adminScript,ctx,{filename:'auditoria-imagens.js'});
+assert.equal(node('kind').value,'boosts');
+assert.equal(node('countAll').textContent,67);
+assert.equal(node('countReference').textContent,49);
+assert.equal(node('countShared').textContent,1);
+const inventory=node('items').innerHTML;
+for(const item of window.GBRBoostCatalog.visualItems){
+ assert(inventory.includes('<h3>'+item.name+'</h3>'),item.name+' ausente da biblioteca');
+ assert(inventory.includes('Boost'),item.name+' não identificado como Boost');
+}
+assert(!inventory.includes('data-upload='),'usuário anônimo não deve ver opção de upload');
+assert(!inventory.includes('boosts-original'));
+assert.equal((inventory.match(/data-card-art/g)||[]).length,50,'50 boosts com referência externa ou foto compartilhada aparecem com imagem');
+assert(inventory.includes('Imagem externa de referência (AllClash)'));
+assert(/img[^>]+src=\"https:\/\/academy\.example\.test\/boosts\/ballast\.webp/.test(inventory));
+assert(!inventory.includes('Ver imagem de referência no AllClash'));
+assert(/img[^>]+src="https:\/\/www\.allclash\.com\/wp-content\/uploads/.test(inventory),'referências externas confirmadas aparecem diretamente nos cartões');
+console.log('PASS biblioteca de boosts: 65 itens visuais, foto compartilhada Ballast, 50 imagens externas exibidas como referência, nenhum upload anônimo');

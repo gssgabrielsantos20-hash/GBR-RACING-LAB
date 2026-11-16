@@ -1,0 +1,19 @@
+{
+  "version": "2026-11-16-event-dates-worker-sync",
+  "generated_at": "2026-11-16",
+  "public_asset_count": 205,
+  "files": {
+    "events-gp.js": {
+      "sha256": "0811ea4a1ba19224d6b88117490eb68b6f2bb4e41106819702391ee7e396b0ed",
+      "bytes": 57093
+    },
+    "index.html": {
+      "sha256": "5e8c127bdf4e6c1ddba38825ff4c31ed369921eeabb96666c61ffc6b71bf0129",
+      "bytes": 73328
+    },
+    "_worker.js": {
+      "sha256": "315adc5500d6f355ead8b4c1de72936d17fa2f4faa85877ec8a199d4000135c1",
+      "bytes": 8505685
+    }
+  }
+}

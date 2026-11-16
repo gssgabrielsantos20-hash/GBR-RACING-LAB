@@ -1,7 +1,7 @@
 /* GBR Racing Lab 5.5.4 — Inteligência de duelos 2026, modo de leitura; nenhuma alteração no Supabase ou nas garagens. */
 (()=>{
 'use strict';
-const PREVIOUS_SERIES_ROTATIONS={
+const LEGACY_SERIES_ROTATIONS={
   10:{
     guide:'https://www.allclash.com/BEAT-SERIES-10-IN-F1-CLASH-BEST-CAR-SETUP-DRIVERS-PIT-STOP-STRATEGY-REC-BOOSTERS/',
     updated:'2026-09-23',
@@ -27,7 +27,7 @@ const PREVIOUS_SERIES_ROTATIONS={
     rotation:[{id:'monza',name:'Monza'},{id:'abu-dhabi',name:'Abu Dhabi'},{id:'singapore',name:'Singapura'},{id:'jeddah',name:'Jeddah'}]
   }
 };
-const SERIES_ROTATIONS={
+const PREVIOUS_SERIES_ROTATIONS={
   10:{
     guide:'https://www.allclash.com/BEAT-SERIES-10-IN-F1-CLASH-BEST-CAR-SETUP-DRIVERS-PIT-STOP-STRATEGY-REC-BOOSTERS/',
     updated:'2026-10-19',checked:'19/10/2026',label:'Duelos — Série 10',
@@ -62,6 +62,54 @@ const SERIES_ROTATIONS={
     ]
   }
 };
+// Gravação do jogo enviada em 04/11/2026: confirma circuito, voltas e focos.
+// O vídeo NÃO exibe clima: usar null, nunca converter para seco ou misto por inferência.
+// Série 9 troca a cada ~7 dias; as Séries 10–12 mostram ~14 dias no vídeo.
+const SERIES_ROTATIONS={
+ 9:{
+  updated:'2026-11-04',checked:'04/11/2026',label:'Duelos — Série 9',
+  notice:'Vídeo do jogo de 04/11/2026. Janela de 7 dias inferida do contador: verificar novamente em 11/11. Clima não informado no vídeo.',
+  rotation:[
+   {id:'barcelona',name:'Barcelona',driver:'tyreUse',car:'speed',weather:null,laps:7},
+   {id:'monza',name:'Monza',driver:'defending',car:'speed',weather:null,laps:4},
+   {id:'jeddah',name:'Jeddah',driver:'defending',car:'speed',weather:null,laps:6},
+   {id:'silverstone',name:'Silverstone',driver:'tyreUse',car:'speed',weather:null,laps:7}
+  ]
+ },
+ 10:{
+  guide:'https://www.allclash.com/BEAT-SERIES-10-IN-F1-CLASH-BEST-CAR-SETUP-DRIVERS-PIT-STOP-STRATEGY-REC-BOOSTERS/',
+  updated:'2026-11-04',checked:'04/11/2026',label:'Duelos — Série 10',
+  notice:'Rotação observada no vídeo de 04/11/2026. Janela de 14 dias inferida do contador; clima não informado no vídeo.',
+  rotation:[
+   {id:'baku',name:'Baku',driver:'tyreUse',car:'power',weather:null,laps:7},
+   {id:'mexico',name:'Cidade do México',driver:'tyreUse',car:'power',weather:null,laps:9},
+   {id:'barcelona',name:'Barcelona',driver:'tyreUse',car:'speed',weather:null,laps:10},
+   {id:'silverstone',name:'Silverstone',driver:'tyreUse',car:'speed',weather:null,laps:7}
+  ]
+ },
+ 11:{
+  guide:'https://www.allclash.com/beat-series-11-in-f1-clash-best-car-setup-drivers-pit-stop-strategy-rec-boosters/',
+  updated:'2026-11-04',checked:'04/11/2026',label:'Duelos — Série 11',
+  notice:'Rotação observada no vídeo de 04/11/2026. Janela de 14 dias inferida do contador; clima não informado no vídeo.',
+  rotation:[
+   {id:'miami',name:'Miami',driver:'overtaking',car:'speed',weather:null,laps:6},
+   {id:'las-vegas',name:'Las Vegas',driver:'overtaking',car:'speed',weather:null,laps:6},
+   {id:'spa',name:'Spa-Francorchamps',driver:'overtaking',car:'power',weather:null,laps:6},
+   {id:'hungaroring',name:'Hungaroring',driver:'overtaking',car:'corner',weather:null,laps:8}
+  ]
+ },
+ 12:{
+  guide:'https://www.allclash.com/beat-series-12-in-f1-clash-best-car-setup-drivers-pit-stop-strategy-rec-boosters/',
+  updated:'2026-11-04',checked:'04/11/2026',label:'Duelos — Série 12',
+  notice:'Rotação observada no vídeo de 04/11/2026. Janela de 14 dias inferida do contador; clima não informado no vídeo.',
+  rotation:[
+   {id:'montreal',name:'Montreal',driver:'raceStart',car:'power',weather:null,laps:8},
+   {id:'melbourne',name:'Melbourne',driver:'raceStart',car:'corner',weather:null,laps:9},
+   {id:'spielberg',name:'Spielberg',driver:'raceStart',car:'corner',weather:null,laps:7},
+   {id:'singapore',name:'Singapura',driver:'raceStart',car:'speed',weather:null,laps:6}
+  ]
+ }
+};
 const IDEAL=[
  {category:'Asa dianteira',ideal:'Loose Fit',alternative:'Flashpoint'},
  {category:'Freios',ideal:'Pressure Point',alternative:'Stabilix'},
@@ -77,43 +125,109 @@ const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLo
 function same(a,b){return norm(a)===norm(b)}
 function garage(){return window.F1App?.getGarage?.()||{parts:[],drivers:[]}}
 function formatDate(iso){const [y,m,d]=String(iso||'').split('-');return d&&m&&y?`${d}/${m}/${y}`:String(iso||'')}
-const PREVIOUS_ROTATION_START='2026-10-07';
-const PREVIOUS_ROTATION_END='2026-10-20';
-const ROTATION_START='2026-10-21';
-const ROTATION_END='2026-11-03';
-const STAT_DRIVER=Object.freeze({defending:'Defesa',tyreUse:'Gerenciamento de pneus',overtaking:'Ultrapassagem'});
+const LEGACY_ROTATION_START='2026-10-07';
+const LEGACY_ROTATION_END='2026-10-20';
+const PREVIOUS_ROTATION_START='2026-10-21';
+const PREVIOUS_ROTATION_END='2026-11-03';
+const ROTATION_START='2026-11-04';
+const ROTATION_END='2026-11-17';
+// Fim inferido da contagem regressiva no jogo; não reusar a janela de S10–S12 para S9.
+const SERIES_WINDOW_END=Object.freeze({9:'2026-11-10',10:ROTATION_END,11:ROTATION_END,12:ROTATION_END});
+const STAT_DRIVER=Object.freeze({defending:'Defesa',raceStart:'Largada',tyreUse:'Gerenciamento de pneus',overtaking:'Ultrapassagem'});
 const STAT_CAR=Object.freeze({power:'Unidade de potência',speed:'Velocidade',corner:'Curvas'});
 const STAT_WEATHER=Object.freeze({mixed:'Misto',dry:'Seco'});
 function localDay(now=new Date()){
  return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
 }
-function rotationPeriodStatus(today=localDay()){
- if(today<ROTATION_START){
-  const current=`${formatDate(PREVIOUS_ROTATION_START)} a ${formatDate(PREVIOUS_ROTATION_END)}`;
-  return {status:today<PREVIOUS_ROTATION_START?`Última rotação cadastrada: ${current}`:`Rotação vigente: ${current}`,upcoming:`Próxima rotação: ${formatDate(ROTATION_START)} a ${formatDate(ROTATION_END)} (tabela fornecida pelo responsável)`,past:true};
+// Nenhuma pista fora da sua janela própria entra nas recomendações do Montador/Engenheiro.
+function rotationAt(today=localDay()){
+ if(today>=ROTATION_START&&today<=ROTATION_END){
+  const rotations=Object.fromEntries(Object.entries(SERIES_ROTATIONS).filter(([series])=>today<=SERIES_WINDOW_END[series]));
+  return {rotations,start:ROTATION_START,end:ROTATION_END,source:'Vídeo do F1 Clash gravado em 04/11/2026; pista, voltas e atributos visíveis',phase:'vigente'};
  }
- const dates=`${formatDate(ROTATION_START)} a ${formatDate(ROTATION_END)}`;
- if(today>ROTATION_END)return {status:`Vigência encerrada: ${dates} · aguardando nova rotação`,upcoming:'Não utilize esta rotação como atual após o prazo indicado.',past:false};
- return {status:`Rotação vigente: ${dates}`,upcoming:'Dados da tabela fornecida pelo responsável; confirme eventuais mudanças no jogo.',past:false};
+ if(today>=PREVIOUS_ROTATION_START&&today<=PREVIOUS_ROTATION_END)
+  return {rotations:PREVIOUS_SERIES_ROTATIONS,start:PREVIOUS_ROTATION_START,end:PREVIOUS_ROTATION_END,source:'Tabela de rotação 21/10–03/11/2026 fornecida pelo responsável',phase:'vigente'};
+ // Dados 07–20/10 não trazem todos os metadados necessários ao engenheiro de Duelos.
+ return null;
+}
+function rotationPeriodStatus(today=localDay(),series=12){
+ const chosen=Number(series),active=rotationAt(today);
+ if(chosen===9&&today<ROTATION_START){
+  return {status:'Série 9: rotação anterior não verificada',upcoming:'Prévia: 04/11/2026 a 10/11/2026 (vídeo fornecido)',unverified:true};
+ }
+ if(chosen===9&&today> SERIES_WINDOW_END[9]&&today<=ROTATION_END){
+  return {status:'Vigência encerrada: 04/11/2026 a 10/11/2026 · Série 9',upcoming:'A Série 9 rotaciona antes de S10–S12. Consulte a nova lista no jogo; não usar estes circuitos como vigentes.',expired:true};
+ }
+ if(active&&active.rotations[chosen]){
+  const periodEnd=active.start===ROTATION_START?SERIES_WINDOW_END[chosen]:active.end;
+  const current=`${formatDate(active.start)} a ${formatDate(periodEnd)}`;
+  const upcoming=active.end===PREVIOUS_ROTATION_END?
+   `Próxima rotação prevista: ${formatDate(ROTATION_START)} a ${formatDate(SERIES_WINDOW_END[chosen]||ROTATION_END)} (vídeo do jogo)`:
+   'Pistas/voltas/atributos observados no jogo. Clima não confirmado; verifique no duelo.';
+  return {status:`Rotação vigente: ${current}`,upcoming,period:{...active,end:periodEnd}};
+ }
+ if(today<PREVIOUS_ROTATION_START){
+  const dates=`${formatDate(LEGACY_ROTATION_START)} a ${formatDate(LEGACY_ROTATION_END)}`;
+  return {status:today<LEGACY_ROTATION_START?`Última rotação cadastrada: ${dates}`:`Rotação vigente: ${dates}`,upcoming:`Próxima rotação arquivada: ${formatDate(PREVIOUS_ROTATION_START)} a ${formatDate(PREVIOUS_ROTATION_END)}`,legacy:true};
+ }
+ const end=SERIES_WINDOW_END[chosen]||ROTATION_END;
+ return {status:`Vigência encerrada: ${formatDate(ROTATION_START)} a ${formatDate(end)} · aguardando nova rotação`,upcoming:'Não utilizar as prioridades desta série como rotação vigente após o encerramento.',expired:true};
 }
 function rotationEntry(series,trackId,asOf=localDay()){
- if(asOf<ROTATION_START||asOf>ROTATION_END)return null;
- return SERIES_ROTATIONS[Number(series)]?.rotation.find(row=>row.id===trackId)||null;
+ return rotationAt(asOf)?.rotations[Number(series)]?.rotation.find(row=>row.id===trackId)||null;
+}
+function duelContext(series,trackId,asOf=localDay()){
+ const active=rotationAt(asOf),chosen=Number(series),row=active?.rotations[chosen]?.rotation.find(r=>r.id===trackId);
+ if(!row)return null;
+ const periodEnd=active.start===ROTATION_START?SERIES_WINDOW_END[chosen]:active.end;
+ return {...row,series:chosen,mode:'duel',phase:active.phase,periodStart:active.start,periodEnd,source:active.source};
 }
 function priorityFor(series,trackId,asOf=localDay()){
  const row=rotationEntry(series,trackId,asOf);
  return row?[row.driver,row.car]:null;
 }
-function listNewSeries(){return Object.entries(SERIES_ROTATIONS).flatMap(([series,v])=>v.rotation.map(r=>({series:Number(series),trackId:r.id,laps:r.laps,weather:r.weather,driver:r.driver,car:r.car})));}
-function rotationHTML(series){
- const period=rotationPeriodStatus();
- const info=(period.past?PREVIOUS_SERIES_ROTATIONS:SERIES_ROTATIONS)[series];
+function listNewSeries(asOf=localDay()){
+ const active=rotationAt(asOf);
+ if(!active)return [];
+ return Object.entries(active.rotations).flatMap(([series,v])=>v.rotation.map(r=>({series:Number(series),trackId:r.id,laps:r.laps,weather:r.weather,driver:r.driver,car:r.car,source:active.source})));
+}
+// O seletor mantém todas as pistas da biblioteca, mas prioriza as quatro da
+// rotação confirmada da série escolhida. Não classifica como vigente uma S9 vencida.
+let previousDuelSeries=null;
+let previousDuelDay=null;
+function syncDuelTrackOptions(series){
+ const select=$('duelTrack'),tracks=window.F1Tracks?.all;
+ if(!select||!Array.isArray(tracks)||!tracks.length)return;
+ const today=localDay();
+ if(previousDuelSeries===series&&previousDuelDay===today)return;
+ const changed=previousDuelSeries!==null&&previousDuelSeries!==series;
+ const chosen=select.value;
+ const rotation=rotationAt(today)?.rotations[series]?.rotation||[];
+ const inRotation=new Set(rotation.map(row=>row.id));
+ const options=rows=>rows.map(row=>`<option value="${esc(row.id)}">${esc(row.name)}</option>`).join('');
+ const current=rotation.length?`<optgroup label="Rotação vigente · Série ${series}">${options(rotation)}</optgroup>`:'';
+ const other=tracks.filter(row=>!inRotation.has(row.id));
+ select.innerHTML='<option value="">Sem pista específica</option>'+current+`<optgroup label="Outras pistas da biblioteca">${options(other)}</optgroup>`;
+ select.value=!changed&&tracks.some(row=>row.id===chosen)?chosen:'';
+ previousDuelSeries=series;previousDuelDay=today;
+}
+function rotationRowsHTML(info,series,preview=false){
  if(!info)return '';
- const summary=info.rotation.map((r,i)=>{
-  const details=r.laps?`<small class="gbr-intel-track-stats">${esc(STAT_DRIVER[r.driver])} · ${esc(STAT_CAR[r.car])} · ${esc(STAT_WEATHER[r.weather])} · ${r.laps} voltas</small>`:'';
-  return `<button type="button" class="gbr-intel-track-link" data-gbr-duel-track="${esc(r.id)}" data-gbr-duel-series="${series}" aria-label="Abrir ${esc(r.name)} na Biblioteca de Pistas, Série ${series}" title="Abrir análise de ${esc(r.name)}"><span class="gbr-intel-track-body"><b>${i+1}. ${esc(r.name)}</b>${details}</span><span class="gbr-intel-track-arrow" aria-hidden="true">↗</span></button>`;
+ return info.rotation.map((r,i)=>{
+  const details=r.laps?`<small class="gbr-intel-track-stats">${esc(STAT_DRIVER[r.driver])} · ${esc(STAT_CAR[r.car])} · ${esc(STAT_WEATHER[r.weather]||'Clima não informado')} · ${r.laps} voltas</small>`:'';
+  const body=`<span class="gbr-intel-track-body"><b>${i+1}. ${esc(r.name)}</b>${details}</span>`;
+  return preview?`<div class="gbr-intel-track-link" aria-label="Rotação não vigente: ${esc(r.name)}">${body}<small>Não vigente</small></div>`:
+   `<button type="button" class="gbr-intel-track-link" data-gbr-duel-track="${esc(r.id)}" data-gbr-duel-series="${series}" aria-label="Abrir ${esc(r.name)} na Biblioteca de Pistas, Série ${series}" title="Abrir análise de ${esc(r.name)}">${body}<span class="gbr-intel-track-arrow" aria-hidden="true">↗</span></button>`;
  }).join('');
- return `<div class="gbr-intel-status"><strong>${esc(period.status)}</strong><small>${esc(period.upcoming)}</small></div><div class="gbr-intel-rotation">${summary}</div><p class="muted mini">Esta é a lista da ${esc(info.label)}, não a lista completa de pistas nem o calendário dos GPs. ${esc(info.notice)} As voltas são referências do briefing, não estratégia de pit-stop.</p>`;
+}
+function rotationHTML(series,asOf=localDay()){
+ const period=rotationPeriodStatus(asOf,series);
+ const info=period.period?.rotations[series]||(period.legacy?LEGACY_SERIES_ROTATIONS[series]:SERIES_ROTATIONS[series]);
+ if(!info)return '';
+ const summary=period.unverified?'':rotationRowsHTML(info,series,Boolean(period.expired));
+ const upcoming=asOf>=PREVIOUS_ROTATION_START&&asOf<ROTATION_START?
+  `<div class="gbr-intel-status"><strong>Prévia da próxima rotação · ${formatDate(ROTATION_START)} a ${formatDate(SERIES_WINDOW_END[series]||ROTATION_END)}</strong><small>Disponível para planejamento, NÃO vigente até 04/11.</small></div><div class="gbr-intel-rotation">${rotationRowsHTML(SERIES_ROTATIONS[series],series,true)}</div>`:'';
+ return `<p class="gbr-intel-series-heading"><strong>Série ${series} · ${info.rotation.length} pistas</strong></p><div class="gbr-intel-status"><strong>${esc(period.status)}</strong><small>${esc(period.upcoming)}</small></div><div class="gbr-intel-rotation">${summary}</div><p class="muted mini">Esta é a lista da ${esc(info.label)}, não a lista completa de pistas nem o calendário dos GPs. ${esc(info.notice)} As voltas são referências observadas, não estratégia de pit-stop.</p>${upcoming}`;
 }
 function bestOwned(set,parts){return parts.find(p=>p.owned&&Number(p.level)>0&&set.some(n=>same(p.name,n)))||null}
 function comparisonHTML(){const parts=garage().parts||[];let ideal=0,alternative=0;
@@ -126,7 +240,7 @@ function comparisonHTML(){const parts=garage().parts||[];let ideal=0,alternative
 }
 function mount(){const duel=$('duel'),garageEl=$('garage');if(!duel||!garageEl)return;
  if(!$('gbrDuelRotation')){
-  const section=document.createElement('section');section.id='gbrDuelRotation';section.className='panel gbr-intel-card';section.innerHTML='<div class="kicker">ROTATIVIDADE / 2026</div><h2>Pistas dos duelos por série</h2><div id="gbrDuelRotationBody"></div>';
+  const section=document.createElement('section');section.id='gbrDuelRotation';section.className='panel gbr-intel-card';section.innerHTML='<div class="kicker">ROTATIVIDADE / 2026</div><h2>Pistas dos duelos por série</h2><p class="muted mini">Rotações verificadas: Séries 9, 10, 11 e 12. A Série 9 possui período próprio.</p><div id="gbrDuelRotationBody" aria-live="polite"></div>';
   duel.prepend(section);
  }
  if(!$('gbrGarageFavoritesSpotlight')){
@@ -145,8 +259,11 @@ function mount(){const duel=$('duel'),garageEl=$('garage');if(!duel||!garageEl)r
  $('addCard')?.addEventListener('click',()=>setTimeout(refresh,900));
  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refresh()});
  refresh();
+ // O app base carrega antes deste módulo; sincroniza a ficha inicial de Pistas
+ // assim que a rotação vigente fica disponível, sem alterar dados da garagem.
+ window.F1Tracks?.render?.();
 }
-function refresh(){const s=Number($('duelSeries')?.value||12),r=$('gbrDuelRotationBody');if(r)r.innerHTML=(SERIES_ROTATIONS[s]||PREVIOUS_SERIES_ROTATIONS[s])?rotationHTML(s):`<p class="muted mini">As rotações verificadas disponíveis nesta atualização são as das Séries 10, 11 e 12. Para a Série ${s}, consulte a rotação atual no jogo antes de usar a recomendação.</p>`;window.GBRFavorites?.renderGarageSpotlight?.('gbrGarageFavoritesBody')}
-window.GBRIntelligence=Object.freeze({refresh,rotations:SERIES_ROTATIONS,previousRotations:PREVIOUS_SERIES_ROTATIONS,rotationEntry,priorityFor,listNewSeries,rotationPeriodStatus,source:"Tabela fornecida pelo responsável: 21/10–03/11/2026",updated:SERIES_ROTATIONS[12].updated});
+function refresh(){const s=Number($('duelSeries')?.value||12),r=$('gbrDuelRotationBody');syncDuelTrackOptions(s);if(r)r.innerHTML=(SERIES_ROTATIONS[s]||PREVIOUS_SERIES_ROTATIONS[s])?rotationHTML(s):`<p class="muted mini">As rotações verificadas nesta atualização são das Séries 9, 10, 11 e 12. Para a Série ${s}, consulte a rotação atual no jogo antes de usar a recomendação.</p>`;window.GBRFavorites?.renderGarageSpotlight?.('gbrGarageFavoritesBody')}
+window.GBRIntelligence=Object.freeze({refresh,rotations:SERIES_ROTATIONS,previousRotations:PREVIOUS_SERIES_ROTATIONS,rotationAt,rotationEntry,duelContext,priorityFor,listNewSeries,rotationPeriodStatus,source:'Vídeo do jogo: 04/11/2026; Série 9 com janela diferente de 10–12',updated:SERIES_ROTATIONS[12].updated});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
 })();

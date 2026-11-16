@@ -12,11 +12,13 @@ function db(){return window.F1App.getGarage()}
 function availableDrivers(series){return db().drivers.filter(d=>d.owned&&value(d.level)>0&&value(d.series)<=series)}
 function selectedTrack(){const id=$('gbrBuildTrack')?.value;return window.F1Tracks?.all?.find(t=>t.id===id)||null}
 function selectedContext(){
- const track=selectedTrack();const series=value($('seriesLimit').value)||12;
- const override=track?core.TRACK_SERIES[series]?.[track.id]:null;
- const car=override?.[1]||track?.car||$('preset').value;
- const driver=override?.[0]||track?.driver||'overtaking';
- return {track,series,car,driver};
+ const track=selectedTrack(),series=value($('seriesLimit').value)||12;
+ const shared=track?window.F1Tracks?.resolveContext?.(track.id,series):null;
+ return shared||{track,series,car:track?.car||$('preset').value,driver:track?.driver||'overtaking',source:'manual'};
+}
+function knownWeather(track,series){
+ const raw=track?db().trackPlans?.[series+':'+track.id]?.weather:null;
+ return ['dry','wet','variable'].includes(raw)?raw:null;
 }
 function driverRank(d,focus){
  const basis=value(d[focus])*0.65;
@@ -57,9 +59,9 @@ function generateSnapshot(overrides){
  const pit=$('pitMode').value;
  const setup=priority?core.optimize(priority,series,pit):core.getCurrentSetup()||core.optimize(core.profiles[$('preset').value]||core.profiles.balanced,series,pit);
  const [driver1,driver2]=bestDriverPair(ctx);
- const weather=ctx.track?db().trackPlans?.[series+':'+ctx.track.id]?.weather||'dry':'dry';
+ const weather=knownWeather(ctx.track,series);
  const boosts=window.GBRBoosts?.recommend({track:ctx.track,car:ctx.car,driver:ctx.driver,weather})||[];
- return {title:'Setup GBR Racing Lab',track:ctx.track,series,carFocus:ctx.car,driverFocus:ctx.driver,pit,setup,drivers:[driver1,driver2],boosts,date:new Date().toISOString(),complete:setup.chosen.length===setup.required.length&&!!driver1&&!!driver2, ...overrides};
+ return {title:'Setup GBR Racing Lab',track:ctx.track,series,carFocus:ctx.car,driverFocus:ctx.driver,focusSource:ctx.source,weather,pit,setup,drivers:[driver1,driver2],boosts,date:new Date().toISOString(),complete:setup.chosen.length===setup.required.length&&!!driver1&&!!driver2, ...overrides};
 }
 function renderSaved(){
  const host=$('gbrSavedSetups');if(!host)return;
@@ -80,9 +82,9 @@ function restoreSaved(saved){
  const drivers=(saved.driverIds||[]).map(id=>garage.drivers.find(d=>d.id===id)||null);
  while(drivers.length<2)drivers.push(null);
  const carFocus=saved.carFocus||track?.car||'speed',driverFocus=saved.driverFocus||track?.driver||'overtaking';
- const weather=track?garage.trackPlans?.[(saved.series||12)+':'+track.id]?.weather||'dry':'dry';
+ const weather=knownWeather(track,saved.series||12);
  const boosts=window.GBRBoosts?.recommend({track,car:carFocus,driver:driverFocus,weather})||[];
- return {title:saved.name||'Setup salvo',track,series:saved.series||12,carFocus,driverFocus,setup:{chosen,totals,required},drivers,boosts,date:saved.date||new Date().toISOString(),complete:chosen.length>=6&&drivers.every(Boolean),fromSaved:true};
+ return {title:saved.name||'Setup salvo',track,series:saved.series||12,carFocus,driverFocus,weather,setup:{chosen,totals,required},drivers,boosts,date:saved.date||new Date().toISOString(),complete:chosen.length>=6&&drivers.every(Boolean),fromSaved:true};
 }
 function renderCurrent(){
  const host=$('gbrFullBuildOutput');if(!host)return;
@@ -91,7 +93,7 @@ function renderCurrent(){
  const s=lastSnapshot,ctx=selectedContext();
  const insight=ctx.track?window.GBRRecommendations?.evidence?.(db(),{series:ctx.series,trackId:ctx.track.id,baseWeights:core.trackWeights(ctx.car)}):null;
  const isExperiment=$('gbrBuildRecommendationMode')?.value==='gbr'&&insight?.hasExperiment&&$('gbrFollowTrack')?.checked;
- host.innerHTML=`<div class="panel gbr-full-panel"><div class="gbr-build-head"><div><div class="kicker">SEU SETUP COMPLETO</div><h2>Carro + dupla de pilotos</h2><p class="muted mini">${s.track?`Pista: ${esc(s.track.name)}`:'Selecione um circuito para adaptar automaticamente o conjunto à pista.'} · Série ${s.series} · Foco: ${esc(core.TRACK_CAR[s.carFocus]||'Personalizado')} / ${esc(core.TRACK_DRIVER[s.driverFocus]||'Equilibrado')}</p>${insight?`<p class="gbr-bld-learning">${esc(isExperiment?'TESTE GBR • '+insight.message:insight.message)}</p>`:''}</div><button id="gbrExportCurrent" class="btn primary" type="button">↓ EXPORTAR PNG</button></div>
+ host.innerHTML=`<div class="panel gbr-full-panel"><div class="gbr-build-head"><div><div class="kicker">SEU SETUP COMPLETO</div><h2>Carro + dupla de pilotos</h2><p class="muted mini">${s.track?`Pista: ${esc(s.track.name)}`:'Selecione um circuito para adaptar automaticamente o conjunto à pista.'} · Série ${s.series} · Foco: ${esc(core.TRACK_CAR[s.carFocus]||'Personalizado')} / ${esc(core.TRACK_DRIVER[s.driverFocus]||'Equilibrado')}</p>${insight?`<p class="gbr-bld-learning">${esc(isExperiment?'TESTE GBR • '+insight.message:insight.message)}</p>`:''}<p class="muted mini">${esc(ctx.source==='rotation'?'Focos da rotação vigente':ctx.source==='community'?'Focos da referência comunitária (não é rotação vigente)':'Focos indicativos ou manuais')} · ${esc(s.weather==='dry'?'Clima seco informado':s.weather==='wet'?'Chuva informada':s.weather==='variable'?'Clima variável informado':'Clima não informado; valide antes de planejar pneus')}</p></div><button id="gbrExportCurrent" class="btn primary" type="button">↓ EXPORTAR PNG</button></div>
  <div class="gbr-pilot-pair">${s.drivers.map(driverHTML).join('')}</div>
  <div class="gbr-build-sub"><b>Carro selecionado</b><span>${s.setup.chosen.length} de ${s.setup.required.length} posições preenchidas</span></div>
  <div class="gbr-part-chips">${s.setup.chosen.map(p=>`<div><small>${esc(p.category)}</small><b>${esc(p.name)}</b><span>Nível ${value(p.level)}</span></div>`).join('')||'<p class="muted mini">Cadastre peças na garagem antes de montar.</p>'}</div>
@@ -193,7 +195,7 @@ async function savePNG(s,share){
 function openPNG(s){
  if(previewModal)previewModal.remove();lastPNG=s;
  const canvas=drawCanvas(s);const dataURL=canvas.toDataURL('image/png');
- const dialog=document.createElement('div');dialog.className='gbr-png-modal';dialog.innerHTML=`<div class="gbr-png-back" data-close></div><section class="gbr-png-dialog" role="dialog" aria-modal="true" aria-label="Prévia do setup para salvar"><header><b>Prévia do PNG • ${esc(s.track?.name||'Meu setup')}</b><button type="button" data-close aria-label="Fechar">×</button></header><div class="gbr-png-scroll"><img src="${dataURL}" alt="Prévia do setup com carro, pilotos e boosts"><p>iPhone: use Compartilhar e escolha Salvar Imagem, quando disponível. PC: faça download do PNG.</p></div><footer><button type="button" id="gbrSharePng" class="btn primary">COMPARTILHAR / SALVAR</button><button type="button" id="gbrDownloadPng" class="btn outline">BAIXAR PNG</button></footer></section>`;
+ const dialog=document.createElement('div');dialog.className='gbr-png-modal';dialog.innerHTML=`<div class="gbr-png-back" data-close></div><section class="gbr-png-dialog" role="dialog" aria-modal="true" aria-label="Prévia do setup para salvar"><header><b>Prévia do PNG • ${esc(s.track?.name||'Meu setup')}</b><button type="button" data-close aria-label="Fechar">×</button></header><div class="gbr-png-scroll"><img src="${dataURL}" alt="Prévia do setup com carro, pilotos e boosts"><p>No celular (iOS ou Android), use Compartilhar ou Salvar imagem conforme as opções do navegador. No PC, faça download do PNG.</p></div><footer><button type="button" id="gbrSharePng" class="btn primary">COMPARTILHAR / SALVAR</button><button type="button" id="gbrDownloadPng" class="btn outline">BAIXAR PNG</button></footer></section>`;
  document.body.append(dialog);previewModal=dialog;document.body.classList.add('gbr-png-open');
  dialog.querySelectorAll('[data-close]').forEach(el=>el.onclick=()=>{dialog.remove();previewModal=null;document.body.classList.remove('gbr-png-open')});
  dialog.querySelector('#gbrSharePng').onclick=async()=>{try{await savePNG(s,true)}catch(e){alert('Falha ao exportar: '+e.message)}};

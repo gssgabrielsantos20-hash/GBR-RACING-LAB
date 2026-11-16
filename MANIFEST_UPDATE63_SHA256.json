@@ -1,0 +1,893 @@
+{
+  "release": "2026-10-26-Update63-Paddock-Signature",
+  "base": "GBR_RACING_LAB_GP_MEXICO_2026_SOMENTE_GP_IMPLANTAVEL.zip",
+  "public_assets": 173,
+  "changed": [
+    "index.html",
+    "special-editions.js",
+    "app.js",
+    "garage-plus.js",
+    "garage-plus.css",
+    "card-art.js",
+    "notices.js",
+    "_worker.js",
+    "RELATORIO_UPDATE63_EDICOES_ESPECIAIS.md"
+  ],
+  "files": {
+    "RELATORIO_UPDATE63_EDICOES_ESPECIAIS.md": {
+      "sha256": "1dea73ca3e49210dbeb995e8dad9e9ee6cd6851578dc26c2931c43c1662c129e",
+      "bytes": 5800,
+      "public": false
+    },
+    "_worker.js": {
+      "sha256": "6f6b68f30d2f70ac677399fe0edcca6858ca9ef7d09322c37d505eba30a0771a",
+      "bytes": 5381429,
+      "public": false
+    },
+    "app.js": {
+      "sha256": "94f9b444722cb801f16fe6829d523682d468e15f0eab1fb275c9cc0b20bb1c2a",
+      "bytes": 150966,
+      "public": true
+    },
+    "assets/apple-touch-icon.png": {
+      "sha256": "b4c40a3a68faad2b418f7b7eaac0144a30f72b660926592b6d2674df96abeec1",
+      "bytes": 8328,
+      "public": true
+    },
+    "assets/brand-mark.png": {
+      "sha256": "9160984fb57a57fac788c3b2b2a69e4c9a7d82b8889593de2e0fec2e288fe938",
+      "bytes": 15396,
+      "public": true
+    },
+    "assets/brand-mark.svg": {
+      "sha256": "9ddd51a802868aad27357f0e8ccc6a9d96c4a8fc91e0c54921328cc4bc2da2bf",
+      "bytes": 616,
+      "public": true
+    },
+    "assets/chests/dourado.png": {
+      "sha256": "c678d6dedf650fd76bc45edcf535a7fc99c6c516fa864bd10b97747ae8502817",
+      "bytes": 172809,
+      "public": true
+    },
+    "assets/chests/lendario.png": {
+      "sha256": "218a7e657f2cf27dabc911ad4b2540865ee0c7b0a790fb9b5d6091ad951fceed",
+      "bytes": 133422,
+      "public": true
+    },
+    "assets/chests/platina.png": {
+      "sha256": "52b775a387ef0b6f104fc6fe03f2e72f87c40a1955ddfbf544bed04ea244afd0",
+      "bytes": 143164,
+      "public": true
+    },
+    "assets/chests/verde.png": {
+      "sha256": "5bb03738af7e5a66abdcefb99f6d65d1e76c54e7155c7747cdfa822e2cfe15b6",
+      "bytes": 138694,
+      "public": true
+    },
+    "assets/events/featured/us-grand-prix-2026-fracture.webp": {
+      "sha256": "c326de82969ef9fadc8dc6dc060804cdbc7f74162cd8f748de3e372839958d25",
+      "bytes": 4366,
+      "public": true
+    },
+    "assets/events/featured/us-grand-prix-2026-gabriel-bortoleto.webp": {
+      "sha256": "17ef5744c1ca7dca5ff47e34178de5bffdd27380e3cd67c6c5149621134238e6",
+      "bytes": 4698,
+      "public": true
+    },
+    "assets/events/featured/us-grand-prix-2026-motion-link-v2.webp": {
+      "sha256": "a2cb93d2b34e2c5906781a940fc361a0ad0aebc90373ff293e8465aad0535969",
+      "bytes": 4396,
+      "public": true
+    },
+    "assets/events/featured/us-grand-prix-2026-oliver-bearman.webp": {
+      "sha256": "9d95a1b3966c7ce2b0d817ec8ca818e25ca4f316843364dc078cc43efe222f92",
+      "bytes": 5058,
+      "public": true
+    },
+    "assets/events/featured/us-grand-prix-2026-tailwind.webp": {
+      "sha256": "91aea1cedc105678b8f6f35c4bf41687fde9f2c47ff87ca0b05b5d41f5bf3148",
+      "bytes": 3522,
+      "public": true
+    },
+    "assets/events/mexico-gp-2026.png": {
+      "sha256": "8875f2c0b109b077833ab0edf37ce6f51ad84604c8cf9bc28632f72c6fef988d",
+      "bytes": 906495,
+      "public": true
+    },
+    "assets/events/us-gp-2026.png": {
+      "sha256": "f7b44e2b7eae6aaf5f848d062e276d6f74a92e3996e7e37f50e53b8b20eab54a",
+      "bytes": 1540685,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/asa-dianteira.svg": {
+      "sha256": "f4d59c566dce2f6d6c0ca9bb8bf5d563c79c91745070b8cdadb628a1cf16f709",
+      "bytes": 379,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/asa-traseira.svg": {
+      "sha256": "f86fec603f928f3f9b421b3ab009c0a36ed3314dac3959a306931df2429f7e16",
+      "bytes": 375,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/avisos.svg": {
+      "sha256": "7b7b483f3396eccf5e53f30c4b9d0a5c050c9e6f80552c16e36c6bed821be065",
+      "bytes": 431,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/bateria.svg": {
+      "sha256": "169c9d72ecd1ba03f2dbeb3dcbef02411ce6233db8b44506590780fab58c010f",
+      "bytes": 410,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/baus.svg": {
+      "sha256": "eca60c8157d41cef95f631ea65c100eb3b2f5162c71f7ad4c5e5a0ce7d487a7e",
+      "bytes": 409,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/boosts.svg": {
+      "sha256": "fdc405084b89585c2b6800cfa7705eaf3b156857faaded7de815725bc7c428f8",
+      "bytes": 362,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/cambio.svg": {
+      "sha256": "ecec629a2b1ce2d08c05d139632d5d95ac4eedb36e9db84279f55cc23fa317be",
+      "bytes": 383,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/classificacao.svg": {
+      "sha256": "6b8f28a82a4af7b42373ad8e4e13413f753fcec751b7e170e58e86e2c6c1c941",
+      "bytes": 395,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/clima.svg": {
+      "sha256": "eb94e6c092624af2636d60b89c05641d354103e56d88c5cf988fac988e7d38cf",
+      "bytes": 448,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/comparativo.svg": {
+      "sha256": "cb3bb1d8378ee14ade2b8059d99c13805f3ea8acdc348fca4bb83705a281a44c",
+      "bytes": 394,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/curvas.svg": {
+      "sha256": "8c06130a31eda0b3c46f1190f8c379093bf4598cd25e11678c99bbc97e167fca",
+      "bytes": 424,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/dados.svg": {
+      "sha256": "ee840ab1ec23531169325b24db31e1e6f4930b6bc5f53ec4318a73ca8d36dbde",
+      "bytes": 472,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/defesa.svg": {
+      "sha256": "3914aeefc1d30e25dc3639ffdb493cc7a0ed53d9f0b26de63d28f379e825127e",
+      "bytes": 382,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/duelos.svg": {
+      "sha256": "54305f670f3e6d9c256dd71cdb7da4712e692d7b8e1ed42be424f9a381901823",
+      "bytes": 430,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/equipes.svg": {
+      "sha256": "ede4b7b1b56bcb837af2475b7f454bf40bda1f0cbfdc245f5586ae6d2c3705c8",
+      "bytes": 539,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/freios.svg": {
+      "sha256": "c3057f1718b7c17d6b8e495caa98db693a63cb4fed216387308c23c55431266b",
+      "bytes": 446,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/garagem.svg": {
+      "sha256": "137744dabf65107c99d1cd13b3f3792c4d8e7920b140c1ffa7153915b048b0f2",
+      "bytes": 391,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/inteligencia.svg": {
+      "sha256": "7b59977beeb02b68aed907d0b1edd51889e83cfa76d266ae7c008604c17fbd5a",
+      "bytes": 595,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/meus-setups.svg": {
+      "sha256": "6c01b8f8cc86d9b0f9b699c798758215983284afd8b3bccad65658db946009d1",
+      "bytes": 476,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/montador.svg": {
+      "sha256": "b28491baa13753c30aab80e475097a96e55f6821759dbe5e51a6919723a2b181",
+      "bytes": 476,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/motor.svg": {
+      "sha256": "0bd8143545c3c20f01963da5ec6542fbea6e727ca6f9b26034c89ad43cddac88",
+      "bytes": 389,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/painel.svg": {
+      "sha256": "fbe3417dbff847ed94917d6785b266b18804468a4242360b3efacf357830263f",
+      "bytes": 459,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/pit-stop.svg": {
+      "sha256": "bd5b5786a9564b73ec266bfe185b60f15f1f750eb3a749f26ae02313f9a5054c",
+      "bytes": 425,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/pneus.svg": {
+      "sha256": "16725c76032bbc1ba61d25aad8123c46e934b6a9f1b30776378411c0fcb5ab23",
+      "bytes": 418,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/potencia.svg": {
+      "sha256": "e597d07bb579e1ab62112caf17908284a5896ae796e5ddcd32f2cfc2601b677d",
+      "bytes": 365,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/suspensao.svg": {
+      "sha256": "35c48a920d0720f71fd142ed15a9596fa8f107193cf636beb4684399a8a63fee",
+      "bytes": 385,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/ultrapassagem.svg": {
+      "sha256": "f4610214020b1695f64b4abaa44b9123ad0056aaaec292bc155d2dee975612ae",
+      "bytes": 373,
+      "public": true
+    },
+    "assets/gbr-brand/icons-light/velocidade.svg": {
+      "sha256": "dd875203ce7c1f80f284118419bdc1ddb113a3e5ceb91d514992e0b8f31b6bcd",
+      "bytes": 436,
+      "public": true
+    },
+    "assets/gbr-brand/icons/asa-dianteira.svg": {
+      "sha256": "f21fe8946fd1ec92631385d34e5606b9af324e60c4327aaef7e5c6ceed0891d3",
+      "bytes": 379,
+      "public": true
+    },
+    "assets/gbr-brand/icons/asa-traseira.svg": {
+      "sha256": "7f82c3e01219bb3c9894bdd68a77b726d317821a1bd94260a547127bb6f0136c",
+      "bytes": 375,
+      "public": true
+    },
+    "assets/gbr-brand/icons/avisos.svg": {
+      "sha256": "4d0c59d3c77b012741fd4a37299c339dca06703e2b3386050e81780c41011d0f",
+      "bytes": 431,
+      "public": true
+    },
+    "assets/gbr-brand/icons/bateria.svg": {
+      "sha256": "d46ffb604c9597c4e7551c6963c60234b3e6ca520d531c670bd1d6703e123339",
+      "bytes": 410,
+      "public": true
+    },
+    "assets/gbr-brand/icons/baus.svg": {
+      "sha256": "e0aba6e5e28f8b3aaca37192249d471f99875160e55d74dd332abf523cb33b5e",
+      "bytes": 409,
+      "public": true
+    },
+    "assets/gbr-brand/icons/boosts.svg": {
+      "sha256": "925ff8c44fd7959f3664c5fd6dcf5b4b93f33a327c7e51b89c085476dfab5537",
+      "bytes": 362,
+      "public": true
+    },
+    "assets/gbr-brand/icons/cambio.svg": {
+      "sha256": "cb71e49d5a6830aa59b507a512981d5727d0eecdc705beb7533542e87135a33a",
+      "bytes": 383,
+      "public": true
+    },
+    "assets/gbr-brand/icons/classificacao.svg": {
+      "sha256": "9348ca3927421d57b59d7efc702523e7e41014843d9c2b451b42eedb9227bb01",
+      "bytes": 395,
+      "public": true
+    },
+    "assets/gbr-brand/icons/clima.svg": {
+      "sha256": "56ff7e951d95242b340602629c7dc914e8f1ca0b101e6042b6e79e4f8a1f5eed",
+      "bytes": 448,
+      "public": true
+    },
+    "assets/gbr-brand/icons/comparativo.svg": {
+      "sha256": "9fa9ddb63b008642f83c94add4ccc073ddd9fd1f799ad1d6509301bc865a0a4f",
+      "bytes": 394,
+      "public": true
+    },
+    "assets/gbr-brand/icons/curvas.svg": {
+      "sha256": "c3890135dd8b7a103b4951ac1df57b601200e404f3ce2e5afdd37ffed008687a",
+      "bytes": 424,
+      "public": true
+    },
+    "assets/gbr-brand/icons/dados.svg": {
+      "sha256": "2a8a5763193ee57391ea4a767372a202e8ab10f38e1fe89cff4efeac15676260",
+      "bytes": 472,
+      "public": true
+    },
+    "assets/gbr-brand/icons/defesa.svg": {
+      "sha256": "190a07563bef78deb9edfc785565a95261e1bb59dae505f907cbef6848d3525c",
+      "bytes": 382,
+      "public": true
+    },
+    "assets/gbr-brand/icons/duelos.svg": {
+      "sha256": "e2a2f284ec0379343a5407c586ede0bc7c0ba362962f6124ea13cec94a609374",
+      "bytes": 430,
+      "public": true
+    },
+    "assets/gbr-brand/icons/equipes.svg": {
+      "sha256": "f1d81abb8f5d2f24f72a89232f6f5dab935e08ac8b37c3ade350449addb60e58",
+      "bytes": 539,
+      "public": true
+    },
+    "assets/gbr-brand/icons/eventos.svg": {
+      "sha256": "4334c3eba65d97a45f2aa784eb677f90ae5fb7aed08ec4dabcfe567bb23483a9",
+      "bytes": 377,
+      "public": true
+    },
+    "assets/gbr-brand/icons/freios.svg": {
+      "sha256": "57a8eee083ae7659e55f7f7ddb267c93981bd6ea641a7a14b4436d0bbb9beaaa",
+      "bytes": 446,
+      "public": true
+    },
+    "assets/gbr-brand/icons/garagem.svg": {
+      "sha256": "63558b8dfc4fdebf80af9c44a5f1a640f41725609406e322f1ac4c3c94273e64",
+      "bytes": 391,
+      "public": true
+    },
+    "assets/gbr-brand/icons/inteligencia.svg": {
+      "sha256": "ab36bf00ef326c922ecd3d02d5b735239cf4459d5b152932fe8eb77497fa4a8f",
+      "bytes": 595,
+      "public": true
+    },
+    "assets/gbr-brand/icons/meus-setups.svg": {
+      "sha256": "40f3139a1f947d1c1322b028125691b4cd8d2383553abc45800aef781ff3d5ba",
+      "bytes": 476,
+      "public": true
+    },
+    "assets/gbr-brand/icons/montador.svg": {
+      "sha256": "b12845125b0518cf329f3dfc3494ab180c6a9188ed65e5a90d0655519f4b4ca2",
+      "bytes": 476,
+      "public": true
+    },
+    "assets/gbr-brand/icons/motor.svg": {
+      "sha256": "dcea5413d08087fe2fd8dee0f50a3b6bbc77742f4302c5f724cc4f117bd0595a",
+      "bytes": 389,
+      "public": true
+    },
+    "assets/gbr-brand/icons/painel.svg": {
+      "sha256": "e17d47c8dd1f56b7ea116c7ce5a2c522d95dbeae35cd9b3d841e5486199613b8",
+      "bytes": 459,
+      "public": true
+    },
+    "assets/gbr-brand/icons/pecas.svg": {
+      "sha256": "58651980ffad36041eee3941dc74242db816c662b4b47af89b68c24cd0cef6d4",
+      "bytes": 464,
+      "public": true
+    },
+    "assets/gbr-brand/icons/pilotos.svg": {
+      "sha256": "1c5e9cb45c5f5e74c66043ad077ce803e2909fc3d1eaa31b485fd91e5ea7b8d7",
+      "bytes": 396,
+      "public": true
+    },
+    "assets/gbr-brand/icons/pistas.svg": {
+      "sha256": "e1f6238aa58d0396f615971fa94e79f451a5261c81cb77be8d63ca8446c572ea",
+      "bytes": 482,
+      "public": true
+    },
+    "assets/gbr-brand/icons/pit-stop.svg": {
+      "sha256": "0f886d5dbf9a4845ea83aa8536f12607ea62014c7bb3b7dae36d1f9c1f0ad5fe",
+      "bytes": 425,
+      "public": true
+    },
+    "assets/gbr-brand/icons/pneus.svg": {
+      "sha256": "619eac096f4db1861595b5cf7f94aa0a53b48c212e95967d419a351a63ecb881",
+      "bytes": 418,
+      "public": true
+    },
+    "assets/gbr-brand/icons/potencia.svg": {
+      "sha256": "c142f049a70d9e8e84c62d0ebb9ed1e26f410dca344b332f58c4ce4532b2bb7b",
+      "bytes": 365,
+      "public": true
+    },
+    "assets/gbr-brand/icons/suspensao.svg": {
+      "sha256": "552589810cd22a7594f5f3b2512c508b22ccde5eff50a1f2c3e198090de354c2",
+      "bytes": 385,
+      "public": true
+    },
+    "assets/gbr-brand/icons/ultrapassagem.svg": {
+      "sha256": "523fe668d6305c6190b92ae03aeac0ecfebdbb9a7eb05e9d50d2481306e8cfd2",
+      "bytes": 373,
+      "public": true
+    },
+    "assets/gbr-brand/icons/velocidade.svg": {
+      "sha256": "1535ef06bf4bfba5fb0340d6c196cce973bbc4518d418b090711155ec9a7e5e6",
+      "bytes": 436,
+      "public": true
+    },
+    "assets/gbr-brand/logos/logo-horizontal-claro-transparente.svg": {
+      "sha256": "5e918e23de2fa5b5a1408172bbe3447c09d7f10478c44f6da6f00936d2b84339",
+      "bytes": 20073,
+      "public": true
+    },
+    "assets/gbr-brand/logos/logo-horizontal-fundo-claro.svg": {
+      "sha256": "53a07c0f4dfeff6102fa851e7f53ce28ea4461cbf84c16bd85ed42387402070d",
+      "bytes": 20184,
+      "public": true
+    },
+    "assets/gbr-brand/logos/logo-horizontal-fundo-escuro.svg": {
+      "sha256": "7fe4cf8e3f11d907a7c600c5de3e46c583f52d1109ef2049ba6c1b6755d5aa07",
+      "bytes": 20184,
+      "public": true
+    },
+    "assets/gbr-brand/logos/logo-horizontal-transparente.svg": {
+      "sha256": "ccf2af652fc5d69d3fe32855e18685f0087706e5b7690a19f9003e47fba48bed",
+      "bytes": 20128,
+      "public": true
+    },
+    "assets/gbr-brand/logos/logo-vertical-escuro.svg": {
+      "sha256": "4677e4ed26ce14aa53901b40e283265506eb49b887cead15f072234ad51c4e1c",
+      "bytes": 21777,
+      "public": true
+    },
+    "assets/gbr-brand/logos/simbolo-escuro.svg": {
+      "sha256": "eb3a6f9a0396d3c6fa99e8d28cb86c6cc5a3050999418063bb3d90a4f1228571",
+      "bytes": 771,
+      "public": true
+    },
+    "assets/gbr-brand/logos/simbolo-monocromatico.svg": {
+      "sha256": "4292f37054008663e8f2d18e793650b5bfa3289597ac818e36e648271f6fb035",
+      "bytes": 616,
+      "public": true
+    },
+    "assets/gbr-brand/logos/simbolo-transparente.svg": {
+      "sha256": "9ddd51a802868aad27357f0e8ccc6a9d96c4a8fc91e0c54921328cc4bc2da2bf",
+      "bytes": 616,
+      "public": true
+    },
+    "assets/gbr-brand/sprite-currentColor.svg": {
+      "sha256": "373b32db886d19ab2f3c21503bfc62a32e27cf0da8f3bdfa2b5b194981e2db65",
+      "bytes": 9113,
+      "public": true
+    },
+    "assets/icon-192.png": {
+      "sha256": "1a8af52264b9e60e576f79bde3055f740d7f2f8f98ba2b3d6daaa4e8ff3ed689",
+      "bytes": 8832,
+      "public": true
+    },
+    "assets/icon-512.png": {
+      "sha256": "b3d6cd236ec619c9143ef8dcd3471caea55d6e289bb0652e4507a3c752b21178",
+      "bytes": 23991,
+      "public": true
+    },
+    "assets/icon-maskable-512.png": {
+      "sha256": "cd8a3049fd15e535d0b69891bd6f5a573de7f7b0da3a8f0dabee2a8835e51680",
+      "bytes": 6706,
+      "public": true
+    },
+    "assets/icon.svg": {
+      "sha256": "eb3a6f9a0396d3c6fa99e8d28cb86c6cc5a3050999418063bb3d90a4f1228571",
+      "bytes": 771,
+      "public": true
+    },
+    "assets/manual-gbr-racing-lab-2026.pdf": {
+      "sha256": "c7872ae7b62509022f2939f669afc6d0e34fdef9ae1570748e6b863a59d5eacd",
+      "bytes": 55883,
+      "public": true
+    },
+    "assets/navigation/baus_container.svg": {
+      "sha256": "599fb5bbef7298d38dcdbc37a7108403fabf643f21cf27665d44622c457a1bc5",
+      "bytes": 358,
+      "public": true
+    },
+    "assets/navigation/baus_origem_recebida.svg": {
+      "sha256": "3c8c8c6f7071697d415cab14a6ca2e8160abb793f94a8b0f5e9155059de93fe0",
+      "bytes": 404,
+      "public": true
+    },
+    "assets/navigation/duelos.svg": {
+      "sha256": "0f5013c4e6321338c3faa664df2df56515c7d312e40d950599a96a55e26e5df3",
+      "bytes": 454,
+      "public": true
+    },
+    "assets/navigation/equipes.svg": {
+      "sha256": "a83d63e947f6bdf3c97d51225881c61e56208a43d383a4ed9fc5d3cc8f320795",
+      "bytes": 343,
+      "public": true
+    },
+    "assets/navigation/garagem.svg": {
+      "sha256": "bb477e7b8f531de84bac926b7197aba9256a19d194f51b48ae1218634544fa30",
+      "bytes": 270,
+      "public": true
+    },
+    "assets/navigation/montador.svg": {
+      "sha256": "ff40cf38b6c1058e7f546510bcc023ee81c81c5a77b333041db741a85151d277",
+      "bytes": 262,
+      "public": true
+    },
+    "assets/navigation/painel.svg": {
+      "sha256": "d16d3ba7591803243fe6466691593de7f44d1bf36b3f5218d66c00efbe6aac4b",
+      "bytes": 352,
+      "public": true
+    },
+    "assets/navigation/pistas.svg": {
+      "sha256": "3550934d8522bdd160a438c00725aa89f338fca4f53e688e0202ad02cf915792",
+      "bytes": 306,
+      "public": true
+    },
+    "assets/new-parts-20261022/adrenaline.webp": {
+      "sha256": "f1ff56739b62459e5cb7d56ce840d01e134c46de68ffb9095c92b4932f1b40a7",
+      "bytes": 24800,
+      "public": true
+    },
+    "assets/new-parts-20261022/control.webp": {
+      "sha256": "e12169c3669b5175827081233faa1f3bbab90ceaf0ec9f9567827c245b32c62e",
+      "bytes": 15514,
+      "public": true
+    },
+    "assets/new-parts-20261022/eco-cell-plus.webp": {
+      "sha256": "6e40d5ae976c057ade94de5fd7f9513e3da4c2689fcfb6d20e27de4d956603e0",
+      "bytes": 20158,
+      "public": true
+    },
+    "assets/new-parts-20261022/flex-xxl.webp": {
+      "sha256": "bd2c68d0b1c48d068ad87968fc157b88606d057c7343c4e3fb459652ddc65f5e",
+      "bytes": 14782,
+      "public": true
+    },
+    "assets/new-parts-20261022/the-reverse.webp": {
+      "sha256": "589f5741ccce7eebb6bd6f24dc28bd3ffd0489bb4e71cad495c86fbbf69282a1",
+      "bytes": 16316,
+      "public": true
+    },
+    "assets/new-parts-20261022/the-singularity.webp": {
+      "sha256": "02dabca06c9560c1ffaf813ece8250bcfcdfab44f98f43b7ccb344d20bfd5fe0",
+      "bytes": 22386,
+      "public": true
+    },
+    "assets/new-parts-20261022/thunderbolt.webp": {
+      "sha256": "09b4f3a433aa1c4b3713ce7c9bc312ae9a1a8de5893ac40bebc5292b207ba9b9",
+      "bytes": 33274,
+      "public": true
+    },
+    "assets/og-brand-1200x630.png": {
+      "sha256": "9c6b2ae9deb9aefab5fdc52b53fb121fd6e4693d6d9cb1a205f72d2332b85c6d",
+      "bytes": 28907,
+      "public": true
+    },
+    "assets/og-brand.svg": {
+      "sha256": "49113745982bf7149bf40f97ea5346729a90eaeca315f0217d3102680edb292a",
+      "bytes": 19844,
+      "public": true
+    },
+    "assets/telemetry/hero-racer.webp": {
+      "sha256": "0590a4cbc589ea9adb69c3a8c6db1c19d48d4b3494f3430198197c6f80e243ed",
+      "bytes": 64760,
+      "public": true
+    },
+    "assets/telemetry/hero-sidecar.webp": {
+      "sha256": "6b4732727a5ae70b51fd43e6a080c744920efc552102bfd8502e2f306c469f37",
+      "bytes": 89222,
+      "public": true
+    },
+    "assets/telemetry/team-blue.webp": {
+      "sha256": "718f47d1b901f7b78d1503706385a2cb1058f5a220ee4c7341dea4ef9db47fc1",
+      "bytes": 3960,
+      "public": true
+    },
+    "assets/telemetry/team-cyan.webp": {
+      "sha256": "93cd561b38e103a9ba3716ad5fa6cd5535fee5702ab92a08fbb4201b4ed7d769",
+      "bytes": 4508,
+      "public": true
+    },
+    "assets/telemetry/team-orange.webp": {
+      "sha256": "051cf061f8f2b7bbb889b06a0a5d2ceaf4723098455719f23bbea14119e3dcad",
+      "bytes": 3508,
+      "public": true
+    },
+    "assets/telemetry/team-red.webp": {
+      "sha256": "8f2e5719086789eeb5687c508ff0fd401bab6c66fe644c6bfcdc92bd4c1e80d0",
+      "bytes": 4654,
+      "public": true
+    },
+    "auditoria-imagens.html": {
+      "sha256": "9125a06bace75a4b5d46a0fb1cd6ec1ae4071e62b8eba99db4e36e7ab878b642",
+      "bytes": 6791,
+      "public": true
+    },
+    "auditoria-imagens.js": {
+      "sha256": "4e21fea1f108dbeb8f9c3337d9d34c4389dc509b144b7415dcca2be90a246f98",
+      "bytes": 10456,
+      "public": true
+    },
+    "boosts-plus.css": {
+      "sha256": "a6348b8891a66c6609c771ff02b67e1f07fe1a7a115fa9437f615947c8e490f6",
+      "bytes": 1812,
+      "public": true
+    },
+    "boosts-plus.js": {
+      "sha256": "fff715d45839bfd3cf49217064fe6ee5355d586f7cfa90817509fe3d3e5fc0a0",
+      "bytes": 8192,
+      "public": true
+    },
+    "builder-plus.css": {
+      "sha256": "f1547bfb667cad2b58e7ba67454bf199b84fc612b42c1140c0339ca12a9f2327",
+      "bytes": 5822,
+      "public": true
+    },
+    "builder-plus.js": {
+      "sha256": "61ff335f9c22cfaaa70a5523a74e2e6489d50e8185a01a43d0e1b3537e8e9c01",
+      "bytes": 20382,
+      "public": true
+    },
+    "card-art.css": {
+      "sha256": "eea92b6b63b219b4b6bcec2ba033e4edf85cc18ae64462fa0d4ded4f338610a3",
+      "bytes": 1895,
+      "public": true
+    },
+    "card-art.js": {
+      "sha256": "70158652ae9b6102747bc49d40877fca02542192d3f2a7d3d4767411e327bd2f",
+      "bytes": 16740,
+      "public": true
+    },
+    "catalog.js": {
+      "sha256": "180e1a2a2d6c1d05da11efafb2a1956142085e4664f94a1f49f3bf01ad437f2b",
+      "bytes": 39474,
+      "public": true
+    },
+    "chests.js": {
+      "sha256": "a54d00818be6c7e8435276ab3f7d6a56e8744fa442dc5ed906ff581345bb5a6c",
+      "bytes": 17647,
+      "public": true
+    },
+    "cloud.js": {
+      "sha256": "4644dfe55d97a97df7e03801d6b02069614a213da448ca6d4b99526f7fd590da",
+      "bytes": 28865,
+      "public": true
+    },
+    "config.js": {
+      "sha256": "28407787ba20c8c2cb22fd4bf1f1e8608e0bb63f6af6bbd076c9d8ded0e61374",
+      "bytes": 325,
+      "public": true
+    },
+    "dashboard-telemetry.css": {
+      "sha256": "8492d6df23a9cea32110c1965fa9fc98d9a667ad5da8ff1efd79b90a0e6621fb",
+      "bytes": 15051,
+      "public": true
+    },
+    "dashboard-telemetry.js": {
+      "sha256": "afa40fd2a96a3552fc34c63ebc3331fbe3f9362b1dc4d9edfe5f85ee9f0e4f60",
+      "bytes": 9025,
+      "public": true
+    },
+    "events-gp.css": {
+      "sha256": "6da0373a260ae7a7bee72fdcffdaf0af5b60013b9053e100885ff3a8f78c7197",
+      "bytes": 17411,
+      "public": true
+    },
+    "events-gp.js": {
+      "sha256": "2deb73c7b688f4be6837a8d2f96bcba9beb6c0a9f46955eede74beb0eaa1ad06",
+      "bytes": 35890,
+      "public": true
+    },
+    "f1-racing.css": {
+      "sha256": "9981eebfda31a346a0a7f1e3fe73a9d64d63122ae857423aa9818d3f222687b3",
+      "bytes": 9249,
+      "public": true
+    },
+    "f1-racing.js": {
+      "sha256": "1a636284b4137b4c51b9d00a927890b934ab2d52ff0b4568e6213ff4316accfc",
+      "bytes": 692,
+      "public": true
+    },
+    "favorites-model.js": {
+      "sha256": "d64110e4d199b068ab8cdb7d40a3024cb2894b4a86fbf95ee6ff4d8e01ba05d6",
+      "bytes": 3514,
+      "public": true
+    },
+    "favorites.css": {
+      "sha256": "fcdbbfca4f15534b2d56d4afff1df777014a63d62add010e5ea4a91c0c152ea6",
+      "bytes": 19223,
+      "public": true
+    },
+    "favorites.js": {
+      "sha256": "623ddf7bbfd5c97dd289160e907cf283f3499249aed20f73fd8ae59639ed5ca5",
+      "bytes": 21164,
+      "public": true
+    },
+    "garage-plus.css": {
+      "sha256": "42083cd804d26e9fb3e1fe3ede2fdfccfc39c046d416fa685d27ab4d9e1be39b",
+      "bytes": 6141,
+      "public": true
+    },
+    "garage-plus.js": {
+      "sha256": "6c1fad0ad08249928d6ad03eb68c33b16b473be204ac5308e61b17b15412b767",
+      "bytes": 23193,
+      "public": true
+    },
+    "gbr-driver-report-references.js": {
+      "sha256": "ed55336e8f4b8e54d9366e7344980396de34003d9afd69c77a102b8ae3ed5459",
+      "bytes": 586,
+      "public": true
+    },
+    "gbr-duel-engineer.js": {
+      "sha256": "7a6ba33629aff8d3ffa83ad195a7167701d13f4cb03a5e67cca8a0293046ff91",
+      "bytes": 6984,
+      "public": true
+    },
+    "gbr-intelligence.css": {
+      "sha256": "5cc1bef72c37b2373bc4647c0bfa01a0e89f513312bd787e0c35e9957b5f27ad",
+      "bytes": 3740,
+      "public": true
+    },
+    "gbr-intelligence.js": {
+      "sha256": "9d15a0d66a736d97fe94473dfb3ebacca80ad4cab27524c275da0139f509d659",
+      "bytes": 12352,
+      "public": true
+    },
+    "gbr-learning-model.js": {
+      "sha256": "af3eb455b07ff3b288c882d0a623511cbbb1ee8096cdff296c3ea25623b89cd5",
+      "bytes": 21673,
+      "public": true
+    },
+    "gbr-learning-ocr.js": {
+      "sha256": "368032904704afce2986239e1ecfcb06f092b96194a8da4aab308922477fccf9",
+      "bytes": 13851,
+      "public": true
+    },
+    "gbr-learning-ui.js": {
+      "sha256": "ac56e3580ed4877ee9beefb18472113fc833752fd34e315fc14ec70edff09d6f",
+      "bytes": 40508,
+      "public": true
+    },
+    "gbr-learning.css": {
+      "sha256": "4cf28aafc8da79d8a0ea62062b1d2e782392914e8221de7df4aff3dc27ce2ffd",
+      "bytes": 9445,
+      "public": true
+    },
+    "gbr-pit-estimate.js": {
+      "sha256": "2767b32bd9cbba63def668845ff90b8f1c178e73702d876542dd7d14e9f0695e",
+      "bytes": 4896,
+      "public": true
+    },
+    "gbr-pre-gp-engine.js": {
+      "sha256": "0825df87f36bca9a669884c3c61d0b9f4cc499f90af1285e75f5f58c8b2308b2",
+      "bytes": 13094,
+      "public": true
+    },
+    "gbr-pre-gp-ui.js": {
+      "sha256": "275e6c59d970849ec5a2dd1cc9c0643f6c6520518b688bbf9ad6b1d266f666fa",
+      "bytes": 3958,
+      "public": true
+    },
+    "gbr-race-verdict.js": {
+      "sha256": "410c4d49e0c0e06f0f7c74cdda6390556b7532f23da92a9630fec81495029e4f",
+      "bytes": 5698,
+      "public": true
+    },
+    "gbr-rebrand.css": {
+      "sha256": "834c0368de16369e0e6421710fe2d90713f01ddeb6f1c6af091535ede724a80f",
+      "bytes": 12467,
+      "public": true
+    },
+    "gbr-rebrand.js": {
+      "sha256": "b346a4d4a75f2d51191c630506ea4569ca24e6a764fa34d60b34e78eb1436723",
+      "bytes": 11463,
+      "public": true
+    },
+    "gbr-recommendation-engine.js": {
+      "sha256": "f0580dbc951ee6cc1cbe0bd305276c490d49df708db00b2956a0cf83d3e49ef8",
+      "bytes": 5914,
+      "public": true
+    },
+    "gbr-recommendation.css": {
+      "sha256": "ee388a8bd4b06482f78cc2d5fbd122321b7fdb9a4adc1598116d3cc8c7eb35cc",
+      "bytes": 1100,
+      "public": true
+    },
+    "gbr-strategy-reference.js": {
+      "sha256": "3b9a4459f59bbfc6285408d2bf0f90b59e9a927527f69cb0279ebd16b3212ccc",
+      "bytes": 4694,
+      "public": true
+    },
+    "gbr-theme.css": {
+      "sha256": "4695727c4df433eb66e155f2926edd51aea97d96eb230014bc9fcc85b2a1864c",
+      "bytes": 30714,
+      "public": true
+    },
+    "gbr-theme.js": {
+      "sha256": "e1b2b7f40682c264dbe220422b70b82bea9ca21110b96ac09506dbf2b0b0ac08",
+      "bytes": 2849,
+      "public": true
+    },
+    "index.html": {
+      "sha256": "f7a1a2a4ef997f44c65c8e12cd5f3fca4db1361d43b5725df789aa7336682ee0",
+      "bytes": 60609,
+      "public": true
+    },
+    "legendary-drivers.js": {
+      "sha256": "3f6ecc2e757afc136427d70117056de4c28eda10a7c4f632ed947eb826615931",
+      "bytes": 5444,
+      "public": true
+    },
+    "manifest.webmanifest": {
+      "sha256": "dcd3f67065cc5ae402f819eea0b48850529ace4a783a42e9a3e3a4511675cd9f",
+      "bytes": 642,
+      "public": true
+    },
+    "mobile-premium.css": {
+      "sha256": "2ccec71955c044d6cd5b6d75fc27f5849df2579ec32435300f5b79ca0784af3e",
+      "bytes": 15271,
+      "public": true
+    },
+    "mobile-premium.js": {
+      "sha256": "f1348397410d97714533b69b630f02c4dca193406e69bf079028856f9f4fcaa6",
+      "bytes": 27145,
+      "public": true
+    },
+    "navigation-icons.css": {
+      "sha256": "ee61111ba7d581f42472281554eb47907e58f20175ff4b6827fac00f367a9c6c",
+      "bytes": 879,
+      "public": true
+    },
+    "navigation-icons.js": {
+      "sha256": "2067d122bf54bbca2b5956fe6a571ab32483330810dd1d44a5aba133e99fbff2",
+      "bytes": 6105,
+      "public": true
+    },
+    "notices.css": {
+      "sha256": "c6a448a35bbfb2f97922353dba25be73047e6880bfcdfb40224ef1b32d457b16",
+      "bytes": 2569,
+      "public": true
+    },
+    "notices.js": {
+      "sha256": "3abfc080259f9ae62d6fc9d1478f2c0aa3d5d8349fcc466ad249a063b9f21653",
+      "bytes": 12491,
+      "public": true
+    },
+    "oxanium-theme.css": {
+      "sha256": "17eca2bba2b8f68dcf3d979b7771d57323fd88c5ca54ad10379d7fb482f10e96",
+      "bytes": 1935,
+      "public": true
+    },
+    "race.css": {
+      "sha256": "964ef43481db9dd342f5aa06af1b14d4538e585a4f3f88807abc14f3174377fd",
+      "bytes": 36224,
+      "public": true
+    },
+    "setup-print-import.js": {
+      "sha256": "14e62c9e91644bb4ed5ebcf778e46c4678af877bf0ed359afe135975a837cf02",
+      "bytes": 8525,
+      "public": true
+    },
+    "setup-print-parser.js": {
+      "sha256": "e452f9c84898c6490194b50a0f6910e16d3b36d742497ec753e489689adf9b5b",
+      "bytes": 3036,
+      "public": true
+    },
+    "setup-print-ui.css": {
+      "sha256": "57fbde9f1300ae46f90d38e13a8a51a93681eb87b18090f80d7a192e546a032a",
+      "bytes": 3929,
+      "public": true
+    },
+    "special-editions.js": {
+      "sha256": "dac542600fb804e3afe6ef04f079650fd1d5c28a762f3aa78cddd7d6a3373b12",
+      "bytes": 1565,
+      "public": true
+    },
+    "supabase-sdk-loader.js": {
+      "sha256": "691a2d1d3ba77bec31c7fb02ddb86fc26670aaa85ce558a8a2f28e4aeab2ca85",
+      "bytes": 3040,
+      "public": true
+    },
+    "sw.js": {
+      "sha256": "58612f9069e602a1f02d87915def6066363c216a8240ec7b4523eee5a7755bd1",
+      "bytes": 467,
+      "public": true
+    },
+    "telemetry-theme.css": {
+      "sha256": "1db8a7220dd5772988afa00146cc76af700a8e842949768c769e99df4cc7a212",
+      "bytes": 8839,
+      "public": true
+    },
+    "ui-compact-5512.css": {
+      "sha256": "e5881a56fa712cbd0f0ce5012eb72d03e9447096af3184e14979e78688b2ea5b",
+      "bytes": 2768,
+      "public": true
+    }
+  }
+}

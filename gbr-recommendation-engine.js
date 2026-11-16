@@ -69,5 +69,27 @@ function sameSnapshot(stored,candidate){
  return stored.parts.length===candidate.chosen.length&&stored.drivers.length===candidate.drivers.length&&
  stored.parts.every((p,i)=>canon(p,'parts')===canon(candidate.chosen[i],'parts'))&&stored.drivers.every((d,i)=>canon(d,'drivers')===canon(candidate.drivers[i],'drivers'));
 }
-window.GBRRecommendations=Object.freeze({CAR,LABEL,evidence,candidates,eligibleFavorite,normalizedWeights,sameSnapshot});
+// Alternativas de pilotos para o GP, sem alterar o otimizador já validado.
+// O perfil observado só habilita comparação após amostra suficiente por categoria/série.
+function podiumPairs(garage,category,event,summary){
+ if(!category||!event||event.rulesConfirmed===false||!summary?.adequate)return {eligible:false,pairs:[],reason:'Aguardando regras confirmadas e amostra mínima de observações da mesma categoria/série.'};
+ const weights={
+  grid:{qualifying:0.45,raceStart:0.35,defending:0.1,tyreUse:0.1},
+  recovery:{overtaking:0.5,defending:0.2,tyreUse:0.2,raceStart:0.1},
+  consistency:{tyreUse:0.45,defending:0.3,overtaking:0.15,qualifying:0.1}
+ };
+ const allowed=window.GBREvents?.isAllowedDriver;
+ const available=(Array.isArray(garage?.drivers)?garage.drivers:[]).filter(d=>typeof allowed==='function'?allowed(d,event,category):
+  d?.owned&&Number(d.level)>0&&Number(d.series)<=Number(category.series)&&
+  (event.allowLegendary===true||d.rarity!=='Legendary')&&(event.allowSpecial===true||d.rarity!=='Special'));
+ const normName=x=>String(x||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+ const pairs=Object.entries(weights).map(([profile,weight])=>{
+  const ordered=available.map(d=>({driver:d,score:Object.entries(weight).reduce((total,[k,v])=>total+(Number(d[k])||0)*v,0)})).sort((a,b)=>b.score-a.score||String(a.driver.name).localeCompare(String(b.driver.name),'pt-BR'));
+  const picks=[];for(const item of ordered){if(picks.every(prev=>normName(prev.driver.name)!==normName(item.driver.name)))picks.push(item);if(picks.length===2)break}
+  return {profile,drivers:picks.map(x=>({id:x.driver.id,name:x.driver.name,rarity:x.driver.rarity,level:x.driver.level,score:Math.round(x.score*10)/10})),complete:picks.length===2};
+ });
+ return {eligible:pairs.every(p=>p.complete),pairs,reason:'Ranking exploratório de atributos de pilotos próprios. Use as peças e bônus do Engenheiro de GP; não é simulação de tempos nem garantia de pódio.'};
+}
+
+window.GBRRecommendations=Object.freeze({CAR,LABEL,evidence,candidates,eligibleFavorite,normalizedWeights,sameSnapshot,podiumPairs});
 })();

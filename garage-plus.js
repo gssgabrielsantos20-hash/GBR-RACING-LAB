@@ -4,22 +4,20 @@
 const $=id=>document.getElementById(id),safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 const fields={drivers:[['overtaking','Ultrapassagem'],['defending','Defesa'],['qualifying','Qualificação'],['raceStart','Início de corrida'],['tyreUse','Gerenciamento de pneus']],parts:[['speed','Velocidade'],['corner','Curvas'],['power','Unidade de potência'],['qualifying','Classificação'],['pit','Pit stop (segundos)']]};
-const rarities=[['Common','Comum'],['Rare','Rara'],['Epic','Épica'],['Legendary','Lendário'],['Special','Escolhas do Paddock / Edição especial']];
+const rarities=[['Common','Comum'],['Rare','Rara'],['Epic','Épica'],['Legendary','Lendário'],['Special','Edição especial']];
 const categories=['Suspensão','Motor','Asa traseira','Asa dianteira','Freios','Câmbio','Bateria'];
 let view=null,selectedFile=null,filePreviewUrl=null,ocrText='',busy=false;
 // Identidade da carta: a variante/edição é parte da chave. Cartas do mesmo piloto
 // com títulos de edição diferentes devem coexistir, sem sobrescrita.
 const editionKey = value=>norm(value).replace(/[^a-z0-9]+/g,' ').trim();
-const sameCard=(existing,next,kind)=>norm(existing.name)===norm(next.name)&&existing.rarity===next.rarity&&(kind!=='drivers'||editionKey(existing.editionLabel)===editionKey(next.editionLabel));
+const sameCard=(existing,next,kind)=>norm(existing.name)===norm(next.name)&&existing.rarity===next.rarity&&(kind!=='drivers'||window.GBRSpecialEditions?.equivalentEdition?.(existing.editionLabel,next.editionLabel));
 function extractEdition(text){
  const raw=String(text||'');
- // Captura título e modificador mesmo com quebra de linha do OCR.
- const found=raw.match(/ESCOLHAS\s+DO\s+PADDOCK\s*(?::|[-–—])?\s*(TURBO|[A-ZÀ-Ú][A-ZÀ-Ú0-9 -]{1,35})?/i);
- if(!found)return '';
- const suffix=(found[1]||'').replace(/\s+/g,' ').trim();
- if(/^TURBO/i.test(suffix))return 'ESCOLHAS DO PADDOCK: TURBO';
- if(suffix && !/^(?:ESTAT|DISPON|COLET|ULTRAP|DEFESA|QUALIF|EVENTO|GERENC|IN[IÍ]CIO|ATRIB)/i.test(suffix))return ('ESCOLHAS DO PADDOCK: '+suffix).slice(0,70);
- return 'ESCOLHAS DO PADDOCK';
+ // Collection labels (Paddock/Turbo/green) are not interchangeable.
+ if(/ESCOLHAS\s+DO\s+PADDOCK|PADDOCK\s+PICKS/i.test(raw))
+  return /(?:ESCOLHAS\s+DO\s+PADDOCK|PADDOCK\s+PICKS)\s*(?::|[-–—])?\s*(?:TURBO(?:\s+CHARGED)?)/i.test(raw)?'Escolhas do Paddock: Turbo':'Escolhas do Paddock';
+ if(/SIGNATURE\s+COLLECTION|COLE[CÇ][AÃ]O\s+SIGNATURE|EDI[CÇ][OÕ]ES\s+ESPECIAIS/i.test(raw))return 'Edições Especiais';
+ return '';
 }
 function alertMsg(message){let el=$('toast');if(!el)return;el.textContent=message;el.classList.remove('hide');clearTimeout(alertMsg.timer);alertMsg.timer=setTimeout(()=>el.classList.add('hide'),3300)}
 function empty(kind){let obj={name:'',rarity:'Common',owned:true,level:1,series:1,progressCurrent:0,progressMax:0,importedByPrint:false};(fields[kind]||[]).forEach(([k])=>obj[k]=0);if(kind==='parts')obj.category='Motor';else obj.editionLabel='';return obj;}
@@ -47,7 +45,7 @@ function parseOCR(text,forced){
    const words=segment.filter(x=>!rejected.test(x)&&/[a-záàãéêíóôõúç]{3}/i.test(x)&&x.length<42);
    data.name=words.slice(-2).join(' ').trim().slice(0,60);
  }
- if(/edi..o especial|\bespecial\b|escolhas do paddock/i.test(normal))data.rarity='Special';
+ if(/edi..o especial|\bespecial\b|escolhas do paddock|signature\s+collection|cole[cç][aã]o\s+signature|edi[cç][oõ]es\s+especiais/i.test(normal))data.rarity='Special';
  else if(/lend.rio|legendary|legend.rio/i.test(normal))data.rarity='Legendary';
  else if(/\b.pic[ao]?\b|\bepic\b/i.test(normal))data.rarity='Epic';
  else if(/\brar[ao]\b|\brare\b/i.test(normal))data.rarity='Rare';
@@ -124,12 +122,61 @@ function showEditor(kind,initial,meta={}){
  if(!view)openModal();const box=view.querySelector('.gbr-sheet-body');const isDriver=kind==='drivers';const item={...empty(kind),...(initial||{})};const hasScreenshot=!!meta.sourceScreenshot;
  const preview=hasScreenshot&&filePreviewUrl?`<div class="gbr-original-preview"><img src="${safe(filePreviewUrl)}" alt="Print original do jogo usado na leitura"><div><b>Conferência do print</b><small>Confira o original e corrija os campos ao lado. Esta foto não será salva na garagem.</small></div></div>`:'';
  const fieldRows=fields[kind].map(([key,label])=>`<label class="field gbr-edit-stat"><span>${safe(label)}</span><input name="${safe(key)}" inputmode="decimal" type="number" min="0" max="9999" step="${key==='pit'?'0.01':'1'}" value="${Number(item[key]||0)}" required></label>`).join('');
- box.innerHTML=`${preview}<form id="gbrQuickForm" class="gbr-quick-form"><p class="gbr-review-note">${meta.id?'Editando carta existente. Os demais dados serão preservados.':'Confira as informações. A leitura por imagem pode errar números e nomes.'}</p><div class="gbr-form-grid"><label class="field gbr-span2">Nome ${isDriver?'do piloto':'da peça'}<input name="name" maxlength="80" required value="${safe(item.name)}" placeholder="Nome como aparece no jogo"></label><label class="field">Raridade<select name="rarity">${rarities.filter(([v])=>isDriver||!['Legendary','Special'].includes(v)).map(([v,t])=>`<option value="${v}" ${v===item.rarity?'selected':''}>${t}</option>`).join('')}</select></label><label class="field">Nível<input type="number" name="level" min="0" max="99" value="${Number(item.level)||0}" required></label><label class="field">Série<input type="number" name="series" min="1" max="12" value="${Number(item.series)||1}" required></label>${isDriver?`<label class="field gbr-span2">Edição / subtítulo<input name="editionLabel" maxlength="70" placeholder="Ex.: Escolhas do Paddock" value="${safe(item.editionLabel||'')}"></label>`:`<label class="field">Categoria<select name="category">${categories.map(c=>`<option ${item.category===c?'selected':''}>${c}</option>`).join('')}</select></label>`}<label class="field">Cartas atuais<input type="number" name="progressCurrent" min="0" value="${Number(item.progressCurrent)||0}"></label><label class="field">Próximo upgrade<input type="number" name="progressMax" min="0" value="${Number(item.progressMax)||0}"></label></div><h3>Estatísticas ${isDriver?'do piloto':'da peça'}</h3><div class="gbr-stat-grid">${fieldRows}</div><label class="gbr-own"><input name="owned" type="checkbox" ${item.owned?'checked':''}> <span>Possuo esta ${isDriver?'carta de piloto':'peça'}</span></label><div class="gbr-btnbar"><button type="button" class="btn outline" id="gbrEditBack">Voltar</button><button type="submit" class="btn primary">${meta.id?'Salvar alterações':'Adicionar à minha garagem'}</button></div></form>`;
+ box.innerHTML=`${preview}<form id="gbrQuickForm" class="gbr-quick-form"><p class="gbr-review-note">${meta.id?'Editando carta existente. Os demais dados serão preservados.':'Confira as informações. A leitura por imagem pode errar números e nomes.'}</p><div class="gbr-form-grid"><label class="field gbr-span2">Nome ${isDriver?'do piloto':'da peça'}<input name="name" maxlength="80" required value="${safe(item.name)}" placeholder="Nome como aparece no jogo"></label><label class="field">Raridade<select name="rarity">${rarities.filter(([v])=>isDriver||!['Legendary','Special'].includes(v)).map(([v,t])=>`<option value="${v}" ${v===item.rarity?'selected':''}>${t}</option>`).join('')}</select></label><label class="field">Nível<input type="number" name="level" min="0" max="99" value="${Number(item.level)||0}" required></label><label class="field">Série<input type="number" name="series" min="1" max="12" value="${Number(item.series)||1}" required></label>${isDriver?`<label class="field gbr-span2">Coleção especial<select name="editionGroup" id="gbrQuickEditionGroup"><option value="">Sem seleção</option>${(window.GBRSpecialEditions?.collections||[]).map(g=>`<option value="${safe(g.id)}" ${window.GBRSpecialEditions?.groupOf?.(item)===g.id?'selected':''}>${safe(g.label)}</option>`).join('')}</select></label><label class="field gbr-span2">Edição / subtítulo<input name="editionLabel" maxlength="70" placeholder="Escolha a coleção acima ou informe o título da carta" value="${safe(item.editionLabel||'')}"></label>`:`<label class="field">Categoria<select name="category">${categories.map(c=>`<option ${item.category===c?'selected':''}>${c}</option>`).join('')}</select></label>`}<label class="field">Cartas atuais<input type="number" name="progressCurrent" min="0" value="${Number(item.progressCurrent)||0}"></label><label class="field">Próximo upgrade<input type="number" name="progressMax" min="0" value="${Number(item.progressMax)||0}"></label></div><h3>Estatísticas ${isDriver?'do piloto':'da peça'}</h3><div class="gbr-stat-grid">${fieldRows}</div><label class="gbr-own"><input name="owned" type="checkbox" ${item.owned?'checked':''}> <span>Possuo esta ${isDriver?'carta de piloto':'peça'}</span></label><div class="gbr-btnbar"><button type="button" class="btn outline" id="gbrEditBack">Voltar</button><button type="submit" class="btn primary">${meta.id?'Salvar alterações':'Adicionar à minha garagem'}</button></div></form>`;
  view.querySelector('#gbrQuickTitle').textContent=meta.id?`Editar ${isDriver?'piloto':'peça'}`:`Conferir ${isDriver?'piloto':'peça'} do print`;
  // Identificação imediata: evita tentar salvar uma raridade já existente.
  const hint=document.createElement('div');hint.className='gbr-existing-hint';hint.setAttribute('role','status');$('gbrQuickForm').querySelector('.gbr-form-grid').after(hint);
+ // Valores só são preenchidos quando o catálogo confirma explicitamente o nível.
+ // Preserva números manuais já informados, inclusive de screenshots e cartas antigas.
+ let lastLevel=Number(item.level)||0;
+ function fillFromPartCatalog(levelWasChanged=false){
+  if(isDriver)return;
+  const form=$('gbrQuickForm'),level=Number(form.elements.level.value);
+  const auto=window.GBRPartAutoFill?.resolve?.(form.elements.name.value,form.elements.rarity.value,level);
+  const names=['speed','corner','power','qualifying','pit'];
+  const ref=window.F1Reference?.parts?.[form.elements.name.value.trim()];
+  if(!auto){
+   if(levelWasChanged&&ref?.introduced==='2026-10-22'){
+    names.forEach(key=>form.elements[key].value='0');
+    form.elements.series.value=String(ref.series);
+    if(ref.category)form.elements.category.value=ref.category;
+    alertMsg('S12: nível sem referência verificada. Confira e informe os cinco atributos deste nível.');
+   }
+   return;
+  }
+  const empty=names.every(key=>Number(form.elements[key].value)===0);
+  if(!levelWasChanged&&!empty)return;
+  names.forEach(key=>form.elements[key].value=String(auto[key]));
+  form.elements.series.value=String(auto.series);
+  if(auto.category)form.elements.category.value=auto.category;
+ }
  function validateDuplicate(){const f=$('gbrQuickForm');const test={name:f.elements.name.value.trim(),rarity:f.elements.rarity.value,editionLabel:isDriver?f.elements.editionLabel.value:''};const match=window.F1App?.getGarage?.()?.[kind]?.find(x=>x.id!==meta.id&&sameCard(x,test,kind));if(match){hint.textContent=match.owned?'Esta carta já está na sua garagem nesta raridade. Use a ficha existente para editar ou exclua a duplicata.':'Esta carta já existe no catálogo, mas você ainda não a marcou como sua; ao salvar, ela será atualizada.';hint.classList.add('has-match')}else{hint.textContent='✓ Nenhuma carta idêntica encontrada.';hint.classList.remove('has-match')}}
+ if(isDriver){
+  const form=$('gbrQuickForm');
+  const group=form.elements.editionGroup;
+  const label=form.elements.editionLabel;
+  group.addEventListener('change',()=>{
+   const chosen=window.GBRSpecialEditions?.collections?.find(g=>g.id===group.value);
+   if(chosen){form.elements.rarity.value='Special';label.value=chosen.editionLabel;}
+   validateDuplicate();
+  });
+  label.addEventListener('input',()=>{group.value=window.GBRSpecialEditions?.groupOf?.({rarity:'Special',editionLabel:label.value})||'';validateDuplicate()});
+  form.elements.rarity.addEventListener('change',()=>{
+   if(form.elements.rarity.value!=='Special')group.value='';
+   validateDuplicate();
+  });
+ }
  ['name','rarity',...(isDriver?['editionLabel']:[])].forEach(k=>$('gbrQuickForm').elements[k]?.addEventListener('input',validateDuplicate));validateDuplicate();
+ if(!isDriver){
+  const form=$('gbrQuickForm');
+  ['name','rarity'].forEach(key=>form.elements[key].addEventListener('input',()=>fillFromPartCatalog(false)));
+  form.elements.level.addEventListener('input',()=>{
+   const level=Number(form.elements.level.value),changed=level!==lastLevel;
+   fillFromPartCatalog(changed);
+   lastLevel=level;
+  });
+  fillFromPartCatalog(false);
+ }
 
  $('gbrEditBack').onclick=()=>{closeModal();openModal();};
  $('gbrQuickForm').onsubmit=e=>{
@@ -140,6 +187,7 @@ function showEditor(kind,initial,meta={}){
   if(kind==='parts')payload.category=raw.category;else payload.editionLabel=String(raw.editionLabel||'').trim().slice(0,70);
   fields[kind].forEach(([key])=>payload[key]=cleanNumber(raw[key]));
   if(hasScreenshot)payload.importedByPrint=true;
+  if(isDriver&&payload.rarity==='Special'&&!payload.editionLabel){alertMsg('Selecione uma das três coleções especiais antes de salvar.');return;}
   if(kind==='parts'&&!['Common','Rare','Epic'].includes(payload.rarity)){alertMsg('Peças aceitam raridades Comum, Rara ou Épica.');return;}
   const list=window.F1App?.getGarage?.()?.[kind];if(!list){alert('Não foi possível abrir a garagem.');return}
   let target=meta.id?list.find(x=>x.id===meta.id):null;
@@ -192,10 +240,7 @@ function decorateGarage(){
   const dataInput=tr.querySelector('input[data-id]');const id=dataInput?.dataset.id;
   if(!id)return;
   const cell=tr.querySelector('td:nth-child(2)');if(!cell||cell.querySelector('.gbr-row-edit'))return;
-  if($('garageType').value==='drivers'){
-    const item=window.F1App?.getGarage?.()?.drivers?.find(x=>x.id===id);
-    if(item?.editionLabel){const variant=document.createElement('div');variant.className='gbr-edition-inline';variant.textContent=item.editionLabel;cell.append(variant);}
-  }
+  // A etiqueta de coleção já é apresentada por renderGarage (app.js). Não duplicá-la.
   const btn=document.createElement('button');btn.type='button';btn.className='gbr-row-edit';btn.textContent='✎ Editar nome / ficha';btn.setAttribute('aria-label','Editar nome e dados desta carta');
   btn.addEventListener('click',()=>editExisting($('garageType').value,id));cell.append(btn);
  });

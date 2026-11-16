@@ -1,0 +1,16 @@
+{
+  "project": "GBR Racing Lab",
+  "feature": "GBR Intelligence — Race Behavior",
+  "stage": 1,
+  "date": "2026-11-10",
+  "deployment": false,
+  "files": {
+    "gbr-learning-model.js": "66f7c002c4fc691a842127afc9bf295e4f5ae649452a29d567e0af7bbcad3002",
+    "gbr-learning-ui.js": "af471fabe5b3202c6bfc57610a99b7d2dddd8eb5fe4a8b96e1822b7b5b6b2c1b",
+    "index.html": "8924f1af333f8c2c27cc41279ec9f497b466563944040a74a3f4d81ba92cf95f",
+    "_worker.js": "4e05750104371b336a2854088fabedb4a0a8abf1aa1166d1ef7bf231e7cbf3dc",
+    "tests/race-behavior-context-20261110.test.js": "1bb3a85d5fb35dca989e60d8eb26c44236a6fbcbb46f88fca35cd88a3dfbc343",
+    "docs/adr/0017-gbr-intelligence-race-behavior-contexto-corrida-20261110.md": "359aa594039222a33560042eb43877d665d859b91dfb47e8b641b632363929a6",
+    "RELATORIO_GBR_RACE_BEHAVIOR_ETAPA1_20261110.md": "530f84da81ce21582789acee552d229f54303eb5cbfbf4e1f870d49428b85cca"
+  }
+}

@@ -1,0 +1,14 @@
+const fs=require('fs'),path=require('path'),assert=require('assert');
+const root=path.resolve(__dirname,'..');
+const ui=fs.readFileSync(path.join(root,'gbr-pre-gp-ui.js'),'utf8');
+const engine=fs.readFileSync(path.join(root,'gbr-pre-gp-engine.js'),'utf8');
+const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+assert(ui.includes('window.GBRBoostCatalog'));
+assert(ui.includes('catalog.rank({car:result.carFocus,driver:result.driverFocus})'));
+assert(ui.includes('catalog.get(item.id)'));
+assert(ui.includes('Sem cadastro de quantidade ou disponibilidade.'));
+assert(!ui.includes('inventário'));
+assert(engine.includes('Não exige inventário nem cadastro de quantidade.'));
+assert(html.indexOf('gbr-boost-catalog.js')<html.indexOf('gbr-pre-gp-ui.js'));
+assert(html.includes('gbr-pre-gp-ui.js?v=20261110gpboosts1'));
+console.log('GP boost recommendations: OK');

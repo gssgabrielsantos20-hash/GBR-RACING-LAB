@@ -1,0 +1,7 @@
+{
+  "events-gp.js": "3ae22d81d155e3e29519d711ac4fc5ee98ab5a8dd1a5cdbcd9fb8aad51dc5c7e",
+  "_worker.js": "e5c15436db89e2e5c90d69c3e27082cc7ba6c88153e17e81f1ef6f84a0769ed4",
+  "tests/worker-events-smoke-20261104.test.js": "f2d3f235c97a1cc4335d84f76d2efa1a0013817445c812f4dde5ce13eea36691",
+  "tests/moustache-madness-20261110.test.js": "c7608d9420971c35fb856ae157ed365c4991abb25f4f65767da7a136466414e6",
+  "RELATORIO_ATUALIZACAO_LOUCURA_DO_BIGODE_20261110.md": "fca20fba74d84c822788cd987ea6ba522be0629ef0868d9f8926d180e2c5843d"
+}

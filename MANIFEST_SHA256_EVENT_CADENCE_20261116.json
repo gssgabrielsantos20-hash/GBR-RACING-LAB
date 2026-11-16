@@ -1,0 +1,30 @@
+{
+  "version": "2026-11-16-event-cadence-wed-sun",
+  "generated_at": "2026-11-16",
+  "files": {
+    "events-gp.js": {
+      "sha256": "0811ea4a1ba19224d6b88117490eb68b6f2bb4e41106819702391ee7e396b0ed",
+      "bytes": 57093
+    },
+    "_worker.js": {
+      "sha256": "5aa15d071cdc1ecadb3bd965ee40f9ad5b08bae10bc2546f87fa487b7e1fd14b",
+      "bytes": 8505809
+    },
+    "tests/moustache-madness-20261110.test.js": {
+      "sha256": "f747ac092d74f560a968ea32e5d07c838728d50ad364eacc3f2d71fe22fda6dc",
+      "bytes": 3362
+    },
+    "tests/las-vegas-calendar-20261116.test.js": {
+      "sha256": "49160177e88b9fd4ec52280e5ad9792c810552091ec1b6d6a8f92541940f42e5",
+      "bytes": 2051
+    },
+    "tests/event-cadence-wed-sun-20261116.test.js": {
+      "sha256": "c23b2472d25a156ddc579da8095ac33450e0c338f4d08a518f9a5555e0151e62",
+      "bytes": 2000
+    },
+    "RELATORIO_CALENDARIO_PADRAO_EVENTOS_20261116.md": {
+      "sha256": "2518327e088913c3f2a8760d41d374900a7013a784bd28f7eb2646ce22785b00",
+      "bytes": 2303
+    }
+  }
+}

@@ -1,0 +1,19 @@
+PASSOU	boost-art-link-20261105.test.js	
+PASSOU	boost-library-20261105.test.js	
+PASSOU	boost-library-preview-20261105.test.js	
+PASSOU	boosts-admin-permissions-parity-20261105.test.js	
+PASSOU	boosts-catalog-20261105.test.js	
+PASSOU	boosts-real-images-20261105.test.js	
+PASSOU	colecoes-s12.test.js	
+PASSOU	contexto-unificado-20261105.test.js	
+PASSOU	duelos-rotacao-0411-1711.test.js	
+PASSOU	duelos-s9-ui-20261104.test.js	
+PASSOU	event-photos-20261029.test.js	
+PASSOU	eventos-las-vegas-catar-20261104.test.js	
+PASSOU	gp-context-stage-20261107.test.js	
+PASSOU	mega-auditoria-20261029.test.js	
+NAO_EXECUTADO	mega-worker-20261029.test.js	teste pesado excluido por memoria
+PASSOU	pit-wall-20261101.test.js	
+PASSOU	podium-global-20261104.test.js	
+PASSOU	sao-paulo-calendario-oficial-20261102.test.js	
+PASSOU	worker-events-smoke-20261104.test.js	

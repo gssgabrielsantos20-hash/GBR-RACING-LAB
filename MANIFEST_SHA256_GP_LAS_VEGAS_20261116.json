@@ -1,0 +1,18 @@
+{
+  "version": "2026-11-16-las-vegas-calendar-and-moustache-end-date",
+  "generated_at": "2026-11-16",
+  "files": {
+    "events-gp.js": {
+      "sha256": "f334a7fc16a258133f0dfea57188a1c6a1bf8d919cd842bef9aefff878e76f0d",
+      "bytes": 57182
+    },
+    "_worker.js": {
+      "sha256": "5aa15d071cdc1ecadb3bd965ee40f9ad5b08bae10bc2546f87fa487b7e1fd14b",
+      "bytes": 8505809
+    },
+    "tests/moustache-madness-20261110.test.js": {
+      "sha256": "28970e3ff87da1f767b3ce811ae584884ff2a881d59997c3bc1ba2185f4dc597",
+      "bytes": 3231
+    }
+  }
+}

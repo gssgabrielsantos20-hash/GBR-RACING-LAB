@@ -495,6 +495,7 @@ function saveRace(event){event.preventDefault();const own={},rival={};
   const r=model.create({series:$('rlSeries').value,trackId:$('rlTrack').value,result:$('rlResult').value,
    favoriteId:$('rlFavorite').value,context:$('rlContext').value,note:$('rlNote').value,
    own,rival,driverComparison,tyreStrategy,competition:context,
+   raceContext:{weather:$('rlWeather').value,safetyCar:$('rlSafetyCar').value,temperatureMin:$('rlTempMin').value,temperatureMax:$('rlTempMax').value,ownPosition:$('rlOwnPosition').value,rivalPosition:$('rlRivalPosition').value,boosts:$('rlBoosts').value,incidents:$('rlIncidents').value,traffic:$('rlTraffic').value},
    pitEvidence:{...Object.fromEntries(Object.entries(pitEvidence).filter(([side,v])=>v&&$('rl'+(side==='own'?'Own':'Rival')+'-pit').dataset.estimated==='true'))}},
    {ids:favorites().map(f=>f.id),tracks:tracks().map(t=>t.id),favoriteRecords:garage()?.favoriteSetups||[]});
   const previous=records();

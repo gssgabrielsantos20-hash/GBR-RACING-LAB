@@ -1,0 +1,199 @@
+TAP version 13
+# PASS BOOST ART: biblioteca autorizada, 11 nomes sem imagens fictícias, dependência externa bloqueada e fallback neutro
+# Subtest: tests/boost-art-link-20261105.test.js
+ok 1 - tests/boost-art-link-20261105.test.js
+  ---
+  duration_ms: 59.481703
+  type: 'test'
+  ...
+# PASS biblioteca de boosts: 11 itens, chaves do catálogo, nenhum upload anônimo, alterações SQL revisáveis
+# Subtest: tests/boost-library-20261105.test.js
+ok 2 - tests/boost-library-20261105.test.js
+  ---
+  duration_ms: 76.351253
+  type: 'test'
+  ...
+# Subtest: fonte de foto de boost aceita URL HTTPS validada apenas localmente e não afrouxa autorização compartilhada
+ok 3 - fonte de foto de boost aceita URL HTTPS validada apenas localmente e não afrouxa autorização compartilhada
+  ---
+  duration_ms: 18.397298
+  type: 'test'
+  ...
+# Subtest: UI de boost usa o mesmo caminho compartilhado de pilotos e peças
+ok 4 - UI de boost usa o mesmo caminho compartilhado de pilotos e peças
+  ---
+  duration_ms: 5.29963
+  type: 'test'
+  ...
+# Subtest: piloto, peça e boost compartilham o mesmo repositório e preservam seus tipos
+ok 5 - piloto, peça e boost compartilham o mesmo repositório e preservam seus tipos
+  ---
+  duration_ms: 7.493897
+  type: 'test'
+  ...
+# Subtest: sem perfil de administrador o cliente nega salvamento de qualquer tipo
+ok 6 - sem perfil de administrador o cliente nega salvamento de qualquer tipo
+  ---
+  duration_ms: 1.394416
+  type: 'test'
+  ...
+# Subtest: SQL proposta mantém RLS, administrador, e possui rollback conservador
+ok 7 - SQL proposta mantém RLS, administrador, e possui rollback conservador
+  ---
+  duration_ms: 0.584688
+  type: 'test'
+  ...
+# PASS GBR BOOSTS: 11 itens com evidência e conflito separado, estoque desconhecido/zero distintos, consumo por piloto, ranking contextual, isolamento entre garagens, fallback preservado e cache-busting.
+# Subtest: tests/boosts-catalog-20261105.test.js
+ok 5 - tests/boosts-catalog-20261105.test.js
+  ---
+  duration_ms: 51.588714
+  type: 'test'
+  ...
+# PASS real boost image resolver: 11 names, shared verified source, neutral missing fallback, no fabricated or hotlinked art
+# Subtest: tests/boosts-real-images-20261105.test.js
+ok 6 - tests/boosts-real-images-20261105.test.js
+  ---
+  duration_ms: 51.435236
+  type: 'test'
+  ...
+# PASS: three collections, 16 Paddock variants, 6 evidenced green cards, 23 legendary, green manual/legacy, OCR, S12 7 parts level 1 only, missing levels guarded, non-destructive migration/tombstones, Mexico GP.
+# Subtest: tests/colecoes-s12.test.js
+ok 7 - tests/colecoes-s12.test.js
+  ---
+  duration_ms: 78.381273
+  type: 'test'
+  ...
+# PASS contexto GBR: 16/11 datas, S9 expiração, Pistas=Montador=Duelos, ajuste manual, clima desconhecido sem stints, boost não presume seco
+# Subtest: tests/contexto-unificado-20261105.test.js
+ok 8 - tests/contexto-unificado-20261105.test.js
+  ---
+  duration_ms: 39.966372
+  type: 'test'
+  ...
+# PASS: 16 pistas S9–S12, ciclos independentes, clima desconhecido e GP isolado, incluindo motor real de planejamento.
+# Subtest: tests/duelos-rotacao-0411-1711.test.js
+ok 9 - tests/duelos-rotacao-0411-1711.test.js
+  ---
+  duration_ms: 67.519252
+  type: 'test'
+  ...
+# PASS UI S9: 4 pistas visíveis, seletor prioriza a rotação, troca de série limpa a seleção, calendário independente e novo cache busting.
+# Subtest: tests/duelos-s9-ui-20261104.test.js
+ok 10 - tests/duelos-s9-ui-20261104.test.js
+  ---
+  duration_ms: 57.818496
+  type: 'test'
+  ...
+# PASS: 19 imagens locais presentes e visiveis na ficha, formato WebP, prioridade do usuario e Barrichello com fallback.
+# Subtest: tests/event-photos-20261029.test.js
+ok 11 - tests/event-photos-20261029.test.js
+  ---
+  duration_ms: 65.805791
+  type: 'test'
+  ...
+# PASS: Vegas/Catar dados, 7 pistas, imagens, 8 tabelas de premiação, raridades e bônus isolado sem mutação.
+# Subtest: tests/eventos-las-vegas-catar-20261104.test.js
+ok 12 - tests/eventos-las-vegas-catar-20261104.test.js
+  ---
+  duration_ms: 38.418198
+  type: 'test'
+  ...
+# Subtest: Pit Wall: Suzuka known wet even while São Paulo qualifying is selected in GP UI
+ok 16 - Pit Wall: Suzuka known wet even while São Paulo qualifying is selected in GP UI
+  ---
+  duration_ms: 16.642789
+  type: 'test'
+  ...
+# Subtest: Event UI: explicit opening round 5 chooses wet Suzuka with exact stage/round
+ok 17 - Event UI: explicit opening round 5 chooses wet Suzuka with exact stage/round
+  ---
+  duration_ms: 1.227925
+  type: 'test'
+  ...
+# Subtest: Event UI: explicit opening round 1 chooses dry São Paulo
+ok 18 - Event UI: explicit opening round 1 chooses dry São Paulo
+  ---
+  duration_ms: 2.293119
+  type: 'test'
+  ...
+# Subtest: Pit Wall: conflicting weather across stages yields unknown, never borrowed dry
+ok 19 - Pit Wall: conflicting weather across stages yields unknown, never borrowed dry
+  ---
+  duration_ms: 2.614703
+  type: 'test'
+  ...
+# Subtest: Pit Wall: ambiguous repetitions never carry round number of another selection
+ok 20 - Pit Wall: ambiguous repetitions never carry round number of another selection
+  ---
+  duration_ms: 2.934906
+  type: 'test'
+  ...
+# PASS mega audit: 53 peças, 111 pilotos, 0 duplicatas de identidade, imagens faltantes 0/0, 6 eventos e 24 circuitos.
+# Subtest: tests/mega-auditoria-20261029.test.js
+ok 14 - tests/mega-auditoria-20261029.test.js
+  ---
+  duration_ms: 87.934696
+  type: 'test'
+  ...
+# PASS Pit Wall: identidade/edições, S12 sem dados inventados, comparador ROI, evento confirmado/bloqueado, calendário e integração HTML.
+# Subtest: tests/pit-wall-20261101.test.js
+ok 15 - tests/pit-wall-20261101.test.js
+  ---
+  duration_ms: 33.909067
+  type: 'test'
+  ...
+# PASS Modo Pódio Global: validação, padrões, isolamento por categoria/série, amostra, elegibilidade, integração com JSON da garagem e proteção na UI.
+# Subtest: tests/podium-global-20261104.test.js
+ok 16 - tests/podium-global-20261104.test.js
+  ---
+  duration_ms: 58.07109
+  type: 'test'
+  ...
+# PASS São Paulo corrigido: 4+8+8 corridas, Final=Abertura, qualificação 04–06/11, abertura 07/11 e final 08/11, patrocinador e ICS.
+# Subtest: tests/sao-paulo-calendario-oficial-20261102.test.js
+ok 17 - tests/sao-paulo-calendario-oficial-20261102.test.js
+  ---
+  duration_ms: 48.556498
+  type: 'test'
+  ...
+# Subtest: settings provide accessible dark and light choices to all screens
+ok 25 - settings provide accessible dark and light choices to all screens
+  ---
+  duration_ms: 3.107018
+  type: 'test'
+  ...
+# Subtest: theme selector persists choice, updates logo, system bar and approved icons
+ok 26 - theme selector persists choice, updates logo, system bar and approved icons
+  ---
+  duration_ms: 2.219721
+  type: 'test'
+  ...
+# Subtest: visual CSS scopes its palette and preserves real card artwork
+ok 27 - visual CSS scopes its palette and preserves real card artwork
+  ---
+  duration_ms: 1.612317
+  type: 'test'
+  ...
+# Subtest: Worker exposes updated CSS, theme JS, two HTML views and blocks private files
+ok 28 - Worker exposes updated CSS, theme JS, two HTML views and blocks private files
+  ---
+  duration_ms: 813.391514
+  type: 'test'
+  ...
+# PASS: Worker responde 6 recursos e nega 4 privados e POST.
+# Subtest: tests/worker-events-smoke-20261104.test.js
+ok 20 - tests/worker-events-smoke-20261104.test.js
+  ---
+  duration_ms: 1217.403279
+  type: 'test'
+  ...
+1..29
+# tests 29
+# suites 0
+# pass 29
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1645.408736

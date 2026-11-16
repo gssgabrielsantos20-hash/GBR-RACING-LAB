@@ -17,3 +17,14 @@ body.gbr-sheet-open{overflow:hidden}
 .gbr-edition-inline{font-size:10px;line-height:1.4;color:#00dac7;font-weight:800;margin:3px 0 5px;letter-spacing:.02em}
 
 .gbr-row-remove{color:#f1b2b2;border:1px solid #705458;background:#37252a;border-radius:8px;padding:7px 9px;min-height:32px;font-size:11px;white-space:nowrap;cursor:pointer}.gbr-row-remove:hover,.gbr-row-remove:focus-visible{background:#553039}.gbr-duplicate-summary{display:block;color:#a5d8d1;font-size:11px;margin-top:7px}.gbr-existing-hint{color:#83ddcf;font-size:12px;padding:9px 10px;background:#13312e;border-radius:8px;margin:9px 0 14px}.gbr-existing-hint.has-match{color:#f1c996;background:#3b2f24}
+
+/* Signature Collection: etiqueta de interface, não arte extraída do jogo. */
+.gbr-signature-chip{display:inline-block;margin-top:3px;padding:2px 7px;border:1px solid #278c63;border-radius:6px;background:#093c2b;color:#d2ffe7;font-size:.75rem;font-weight:700;}
+
+/* Três grupos especiais: chips de INTERFACE, não reproduções das cartas oficiais. */
+.gbr-paddock-chip,.gbr-paddock-turbo-chip{display:inline-block;margin-top:3px;padding:2px 7px;border-radius:6px;font-size:.75rem;font-weight:700;}
+.gbr-paddock-chip{background:#29204d;color:#e3d9ff;border:1px solid #7966bb}
+.gbr-paddock-turbo-chip{background:#452452;color:#ffddfa;border:1px solid #b977cb}
+.gbr-s12-note{padding:10px 13px;background:rgba(255,172,64,.08);border:1px solid rgba(255,172,64,.35);border-radius:8px;color:#fce5bc;font-size:.87rem}
+.gbr-s12-known{color:#bcebd4}.gbr-s12-pending{color:#ffd28f;font-weight:700}
+#gbrEditionFilterField[hidden],#gbrS12ReferenceNotice[hidden]{display:none!important}

@@ -157,3 +157,51 @@
  .gp-event-choice{transition:none}
  .gp-event-choice:hover{transform:none}
 }
+
+/* GBR Pré-GP: interface responsiva aditiva; sem alteração de autenticação. */
+.gp-pre-gp-input{display:grid;gap:12px}
+.gp-pre-gp-input p,.gp-pre-gp-input label{font-size:12px;line-height:1.55}
+.gp-pre-gp-input h3{margin:0}
+.gp-pre-gp-textarea{box-sizing:border-box;width:100%;min-height:135px;padding:13px 14px;resize:vertical;border:1px solid #34716f;border-radius:10px;background:#0b181c;color:#eefaf8;font:500 13px/1.55 system-ui,sans-serif}
+.gp-pre-gp-textarea:focus-visible{outline:2px solid #17ead7;outline-offset:2px}
+.gp-pre-gp-actions{display:flex;flex-wrap:wrap;gap:9px}
+.gp-pre-gp-result{margin-top:18px;overflow-wrap:anywhere}
+.gp-pre-gp-result h3,.gp-pre-gp-result h4{margin:12px 0 7px;color:#f0fffc}
+.gp-pre-gp-result ol,.gp-pre-gp-result ul{padding-left:21px;margin:9px 0;display:grid;gap:8px}
+.gp-pre-gp-result li{line-height:1.55;color:#d2e5e4}
+@media(max-width:600px){.gp-pre-gp-actions .btn{flex:1 1 100%}}
+/* GBR GP — planejador manual de pneus (não persiste dados) */
+.gp-tyre-planner{margin-top:14px;display:grid;gap:12px}
+.gp-tyre-planner>p{margin:0;font-size:13px}
+.gp-tyre-driver{border:1px solid rgba(122,171,178,.35);border-radius:12px;padding:12px;min-width:0}
+.gp-tyre-driver legend{font-weight:700;padding:0 6px}
+.gp-tyre-stints{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.gp-tyre-stints label{display:grid;gap:5px;font-size:11px;min-width:0}
+.gp-tyre-stints select,.gp-tyre-stints input{background:#14242c;color:#eaf7f8;border:1px solid #52727a;border-radius:8px;min-height:40px;min-width:0;width:100%;padding:6px;font-size:12px}
+.gp-tyre-feedback,.gp-tyre-warning{display:block;margin-top:9px;font-size:12px;line-height:1.5}
+.gp-tyre-warning{padding:9px;border-radius:8px;background:rgba(24,39,46,.65)}
+@media(max-width:520px){.gp-tyre-stints{grid-template-columns:1fr}.gp-tyre-stints label{grid-template-columns:58px minmax(0,1fr) 80px;align-items:center}}
+
+/* Calendário oficial por etapa: rolagem desnecessária no iPhone; três botões responsivos. */
+.gp-stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:8px;margin:13px 0}
+.gp-stages>button{min-height:45px;padding:9px 12px;border:1px solid #33565b;border-radius:9px;background:#111d26;color:#b8d7d5;font:700 12px/1.35 system-ui,sans-serif;text-align:center;cursor:pointer}
+.gp-stages>button.selected{border-color:#00d9c4;background:#123d39;color:#f6ffff}
+.gp-stages>button:focus-visible{outline:3px solid #8df8e4;outline-offset:2px}
+@media(max-width:620px){.gp-stages{grid-template-columns:1fr}.gp-stages>button{min-height:44px}}
+
+/* Recomendações de boosts por circuito no painel Pré-GP */
+.gp-boost-recommendations{display:grid;gap:.65rem;padding-left:1.4rem}
+.gp-boost-recommendation{display:flex;align-items:center;gap:.7rem;min-width:0}
+.gp-boost-recommendation img{width:42px;height:42px;object-fit:contain;flex:0 0 42px}
+.gp-boost-recommendation span{display:grid;gap:.18rem;min-width:0}
+.gp-boost-recommendation small{display:block;opacity:.8}
+
+/* Recomendações nominais de boosts dentro da Central de Eventos GP */
+.gp-boost-recommendations{list-style:none;margin:10px 0;padding:0;display:grid;gap:10px}
+.gp-boost-recommendation{display:flex;align-items:center;gap:12px;min-width:0;padding:10px;border:1px solid rgba(88,151,157,.28);border-radius:10px;background:rgba(10,27,33,.48)}
+.gp-boost-recommendation img,.gp-boost-placeholder{width:48px;height:62px;flex:0 0 48px;object-fit:contain}
+.gp-boost-placeholder{display:grid;place-items:center;border-radius:8px;background:#18313a;font-size:22px}
+.gp-boost-recommendation span{display:grid;gap:4px;min-width:0}
+.gp-boost-recommendation b{font-size:13px;color:#e8fbf8}
+.gp-boost-recommendation small{font-size:11px;line-height:1.45;color:#a9c9c8}
+@media(max-width:520px){.gp-boost-recommendation{padding:8px;gap:9px}.gp-boost-recommendation img,.gp-boost-placeholder{width:42px;height:56px;flex-basis:42px}}

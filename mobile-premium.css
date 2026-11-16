@@ -7,7 +7,7 @@
 [hidden]{display:none!important}
 .help-overlay{position:fixed;inset:0;z-index:150;display:grid;place-items:center;padding:16px;background:rgba(2,7,10,.72);backdrop-filter:blur(7px)}
 .help-underlay{position:absolute;inset:0}
-.help-dialog{position:relative;z-index:1;width:min(660px,100%);max-height:min(740px,calc(100dvh - 32px));display:flex;flex-direction:column;overflow:hidden;border:1px solid #26665f;border-radius:16px;background:linear-gradient(160deg,#182127,#11161c 75%);box-shadow:0 24px 80px #000d}
+.help-dialog{position:relative;z-index:1;color:#e0e9e9;width:min(660px,100%);max-height:min(740px,calc(100dvh - 32px));display:flex;flex-direction:column;overflow:hidden;border:1px solid #26665f;border-radius:16px;background:linear-gradient(160deg,#182127,#11161c 75%);box-shadow:0 24px 80px #000d}
 .help-dialog-head{padding:19px 22px 15px;border-bottom:1px solid #293a3b;display:flex;align-items:start;justify-content:space-between;gap:18px}
 .help-eyebrow{color:#17e1d2;font-weight:800;letter-spacing:1.4px;font-size:10px}
 .help-dialog h2{font:900 29px/1.12 'Barlow Condensed',Impact,sans-serif;margin:7px 0 0;color:#eefbf8}
@@ -22,7 +22,7 @@
 .help-step>span{display:grid;place-items:center;width:27px;height:27px;flex:none;border:1px solid #20887b;border-radius:8px;color:#24e5d3;font-weight:800;font-size:11px}
 .help-step p{font-size:13px;line-height:1.5;margin:2px 0 0;color:#e0e9e9}
 .help-faq-head{display:flex;align-items:center;justify-content:space-between;margin:24px 0 10px}
-.help-faq-head h3{font-size:16px;margin:0}.help-faq-head span{color:#96a7aa;font-size:11px}
+.help-faq-head h3{font-size:16px;margin:0;color:#eef9f8}.help-faq-head span{color:#96a7aa;font-size:11px}
 .help-search-label{font-size:11px;display:block;color:#a9c8c4;margin:0 0 7px}
 #helpSearch{width:100%;min-height:44px;font-size:16px;color:#fff;border:1px solid #3f585a;border-radius:9px;padding:10px 13px;background:#0d151b;outline-offset:3px}
 .help-faq{display:grid;gap:7px;margin-top:13px}
@@ -42,7 +42,7 @@ body.gbr-help-open{overflow:hidden}
  .app-shell{min-width:0}
  .topbar{position:sticky;z-index:42;top:0;height:calc(56px + env(safe-area-inset-top));padding:env(safe-area-inset-top) var(--gbr-mobile-pad) 0;background:#0e131aee;backdrop-filter:blur(16px);border-bottom:1px solid #2b393d}
  .topbar-breadcrumb{display:flex;align-items:center;gap:7px;letter-spacing:.5px;font-size:12px}
- .topbar-breadcrumb:before{content:'GBR';display:grid;place-items:center;background:#00d2be;color:#051011;border-radius:4px;font:900 13px 'Barlow Condensed',Impact,sans-serif;width:32px;height:29px;margin-right:2px}
+ /* Breadcrumb sem logotipo duplicado; marca oficial continua em .brand-lockup. */
  .topbar-breadcrumb span{margin:0 1px}.topbar-breadcrumb b{max-width:150px;overflow:hidden;text-overflow:ellipsis}
  .topbar-right{gap:9px}.account-avatar{width:30px;height:30px;font-size:11px}
  .help-trigger{width:34px;height:34px}
@@ -190,3 +190,10 @@ body.gbr-help-open{overflow:hidden}
  .chest-next{gap:6px}
 }
 @media(prefers-reduced-motion:reduce){.help-trigger,.mobile-nav button{transition:none}}
+
+/* Centro de Ajuda + código de convite (apenas no painel admin já protegido) */
+.help-manual-download{margin:12px 0 5px;padding:10px 12px;border:1px solid rgba(0,207,211,.38);border-radius:9px;background:rgba(0,207,211,.06)}
+.help-manual-download a{color:#3ce5e7;text-decoration:none;font-weight:800;font-size:12px;display:block}
+.help-manual-download a:focus-visible{outline:2px solid #00cfd3;outline-offset:4px}
+.gbr-onetime-code{display:block;width:100%;box-sizing:border-box;margin:9px 0;padding:12px 14px;font-family:monospace;font-size:14px;letter-spacing:.5px;overflow-wrap:anywhere;background:#09232a;color:#adfcf4;border:1px solid #1c9d9e;border-radius:9px}
+.gbr-onetime-code[hidden]{display:none!important}

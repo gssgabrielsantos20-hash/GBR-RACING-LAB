@@ -1,17 +1,17 @@
 
-const partCategory={"Shockwave":"Suspensão","Jumpstart":"Suspensão","Stability Unit":"Suspensão","Equilibrium":"Suspensão","Curver 3.0":"Suspensão","Motion Link V2":"Suspensão","Bounce":"Suspensão","Tempest":"Motor","Bedrock":"Motor","Velocity":"Motor","Axis 3000":"Motor","DriveOS":"Motor","Hotfix":"Motor","Overdrive":"Motor","Wobble":"Asa traseira","Tailwind":"Asa traseira","Air Channel":"Asa traseira","Vibe Lift":"Asa traseira","Impact":"Asa traseira","Downforce":"Asa traseira","Dominus":"Asa traseira","Wind Guard":"Asa dianteira","Zephyr":"Asa dianteira","Laminar":"Asa dianteira","Scythe":"Asa dianteira","Flashpoint":"Asa dianteira","Leading Edge":"Asa dianteira","Loose Fit":"Asa dianteira","Anchor":"Freios","Flow 2K":"Freios","Aegis":"Freios","Scramble":"Freios","Aura Lock":"Freios","Pressure Point":"Freios","Stabilix":"Freios","Cadence":"Câmbio","Flow Logic":"Câmbio","Stratos":"Câmbio","Shift X":"Câmbio","Lockdown":"Câmbio","Fracture":"Câmbio","Powerbox":"Câmbio","Charge Core":"Bateria","Power Grid":"Bateria","Energy Reserve":"Bateria","Spare Pack":"Bateria"};
-const partUnlockSeries={"Shockwave":1,"Jumpstart":2,"Stability Unit":4,"Equilibrium":5,"Curver 3.0":7,"Motion Link V2":9,"Bounce":11,"Tempest":1,"Bedrock":3,"Velocity":5,"Axis 3000":6,"DriveOS":8,"Hotfix":10,"Overdrive":11,"Wobble":1,"Tailwind":2,"Air Channel":3,"Vibe Lift":5,"Impact":7,"Downforce":9,"Dominus":12,"Wind Guard":1,"Zephyr":2,"Laminar":3,"Scythe":5,"Flashpoint":6,"Leading Edge":9,"Loose Fit":12,"Anchor":1,"Flow 2K":2,"Aegis":4,"Scramble":6,"Aura Lock":8,"Pressure Point":10,"Stabilix":12,"Cadence":1,"Flow Logic":2,"Stratos":3,"Shift X":6,"Lockdown":8,"Fracture":10,"Powerbox":11,"Charge Core":4,"Power Grid":7,"Energy Reserve":9,"Spare Pack":11};
+const partCategory={"Shockwave":"Suspensão","Jumpstart":"Suspensão","Stability Unit":"Suspensão","Equilibrium":"Suspensão","Curver 3.0":"Suspensão","Motion Link V2":"Suspensão","Bounce":"Suspensão","Tempest":"Motor","Bedrock":"Motor","Velocity":"Motor","Axis 3000":"Motor","DriveOS":"Motor","Hotfix":"Motor","Overdrive":"Motor","Wobble":"Asa traseira","Tailwind":"Asa traseira","Air Channel":"Asa traseira","Vibe Lift":"Asa traseira","Impact":"Asa traseira","Downforce":"Asa traseira","Dominus":"Asa traseira","Wind Guard":"Asa dianteira","Zephyr":"Asa dianteira","Laminar":"Asa dianteira","Scythe":"Asa dianteira","Flashpoint":"Asa dianteira","Leading Edge":"Asa dianteira","Loose Fit":"Asa dianteira","Anchor":"Freios","Flow 2K":"Freios","Aegis":"Freios","Scramble":"Freios","Aura Lock":"Freios","Pressure Point":"Freios","Stabilix":"Freios","Cadence":"Câmbio","Flow Logic":"Câmbio","Stratos":"Câmbio","Shift X":"Câmbio","Lockdown":"Câmbio","Fracture":"Câmbio","Powerbox":"Câmbio","Charge Core":"Bateria","Power Grid":"Bateria","Energy Reserve":"Bateria","Spare Pack":"Bateria","Adrenaline":"Bateria","Eco Cell+":"Bateria","Thunderbolt":"Bateria","The Singularity":"Motor","Flex XXL":"Asa dianteira","The Reverse":"Asa traseira","Control":"Freios"};
+const partUnlockSeries={"Shockwave":1,"Jumpstart":2,"Stability Unit":4,"Equilibrium":5,"Curver 3.0":7,"Motion Link V2":9,"Bounce":11,"Tempest":1,"Bedrock":3,"Velocity":5,"Axis 3000":6,"DriveOS":8,"Hotfix":10,"Overdrive":11,"Wobble":1,"Tailwind":2,"Air Channel":3,"Vibe Lift":5,"Impact":7,"Downforce":9,"Dominus":12,"Wind Guard":1,"Zephyr":2,"Laminar":3,"Scythe":5,"Flashpoint":6,"Leading Edge":9,"Loose Fit":12,"Anchor":1,"Flow 2K":2,"Aegis":4,"Scramble":6,"Aura Lock":8,"Pressure Point":10,"Stabilix":12,"Cadence":1,"Flow Logic":2,"Stratos":3,"Shift X":6,"Lockdown":8,"Fracture":10,"Powerbox":11,"Charge Core":4,"Power Grid":7,"Energy Reserve":9,"Spare Pack":11,"Adrenaline":12,"Eco Cell+":12,"Thunderbolt":12,"The Singularity":12,"Flex XXL":12,"The Reverse":12,"Control":12};
 const driverUnlockSeries={"Epic":{"Leclerc":12,"Bearman":11,"Pérez":10,"Piastri":12,"Antonelli":11,"Bortoleto":10,"Ocon":10,"Russell":12,"Hamilton":12,"Verstappen":12,"Norris":12,"Hadjar":11,"Albon":10,"Sainz":11,"Stroll":10,"Hülkenberg":10,"Alonso":11,"Lawson":8},"Rare":{"Hamilton":9,"Leclerc":9,"Russell":9,"Piastri":9,"Verstappen":9,"Norris":9,"Ocon":7,"Lawson":7,"Hadjar":7,"Hülkenberg":7,"Bearman":7,"Sainz":8,"Albon":8,"Pérez":8,"Antonelli":8,"Alonso":8}};
 const init=()=>({
-parts:Object.entries(window.F1Reference.parts).map(([name,ref],i)=>({id:'p'+i,category:partCategory[name],name,level:0,rarity:ref.rarity,series:ref.series,owned:false,speed:0,corner:0,power:0,qualifying:0,pit:0})),
-drivers:Object.values(window.F1Reference.drivers).map((ref,i)=>({id:'d'+i,name:ref.name,rarity:ref.rarity,level:0,series:ref.series,owned:false,overtaking:0,defending:0,qualifying:0,raceStart:0,tyreUse:0})),
-saved:[],favoriteSetups:[],raceAnalyses:[],trackPlans:{},deletedCards:{parts:[],drivers:[]},chests:{series:12,totalWins:0,gpWins:0,offset:0,history:[]},schemaVersion:5});
+parts:Object.entries(window.F1Reference.parts).map(([name,ref],i)=>({id:'p'+i,category:partCategory[name],name,level:0,rarity:ref.rarity,series:ref.series,owned:false,speed:0,corner:0,power:0,qualifying:0,pit:0,...(ref.overtakeModeLevels?{overtakeMode:0}:{})})),
+drivers:Object.values(window.F1Reference.drivers).map((ref,i)=>({id:'d'+i,name:ref.name,rarity:ref.rarity,...(ref.editionLabel?{editionLabel:ref.editionLabel}:{}),level:0,series:ref.series,owned:false,overtaking:0,defending:0,qualifying:0,raceStart:0,tyreUse:0})),
+saved:[],favoriteSetups:[],raceAnalyses:[],gpPodiumObservations:[],trackPlans:{},deletedCards:{parts:[],drivers:[]},chests:{series:12,totalWins:0,gpWins:0,offset:0,history:[]},schemaVersion:5});
 // Cada novo usuário começa com uma garagem vazia. O inventário v2 do criador NÃO é compartilhado.
 function emptyGarage(){const data=init();for(const p of data.parts){p.owned=false;p.level=0;p.speed=0;p.corner=0;p.power=0;p.qualifying=0;p.pit=0;}for(const d of data.drivers){d.owned=false;d.level=0;d.overtaking=0;d.defending=0;d.qualifying=0;d.raceStart=0;d.tyreUse=0;}data.schemaVersion=6;
 const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 for(const [key,ref] of Object.entries(window.F1Reference?.drivers||{})){
- if(data.drivers.some(d=>d.rarity===ref.rarity&&norm(d.name)===norm(ref.name)))continue;
- data.drivers.push({id:'ref_'+key.replace(/[^a-z0-9]/gi,'_'),name:ref.name,rarity:ref.rarity,series:ref.series,level:0,owned:false,overtaking:0,defending:0,qualifying:0,raceStart:0,tyreUse:0});
+ if(data.drivers.some(d=>d.rarity===ref.rarity&&norm(d.name)===norm(ref.name)&&(ref.rarity==='Special'?window.GBRSpecialEditions?.equivalentEdition?.(d.editionLabel,ref.editionLabel):norm(d.editionLabel||'')===norm(ref.editionLabel||''))))continue;
+ data.drivers.push({id:'ref_'+key.replace(/[^a-z0-9]/gi,'_'),name:ref.name,rarity:ref.rarity,...(ref.editionLabel?{editionLabel:ref.editionLabel}:{}),series:ref.series,level:0,owned:false,overtaking:0,defending:0,qualifying:0,raceStart:0,tyreUse:0});
 }
 return data}
 let db=emptyGarage();
@@ -27,6 +27,8 @@ function migrateGaragem(data){if(!data||!Array.isArray(data.parts)||!Array.isArr
  if(!Array.isArray(data.favoriteSetups))data.favoriteSetups=[];
  // Histórico individual da Inteligência GBR acompanha apenas a garagem autenticada.
  if(!Array.isArray(data.raceAnalyses))data.raceAnalyses=[];
+ // GP/pódio não participa do modelo de Duelos; fica na garagem individual e no backup.
+ if(!Array.isArray(data.gpPodiumObservations))data.gpPodiumObservations=[];
  if(!data.deletedCards||typeof data.deletedCards!=='object')data.deletedCards={parts:[],drivers:[]};
  for(const k of ['parts','drivers'])if(!Array.isArray(data.deletedCards[k]))data.deletedCards[k]=[];
  const cardIdentity=(x,k)=>[String(x.name||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(),x.rarity||'Common',k==='drivers'?String(x.editionLabel||'').trim().toLowerCase():''].join('|');
@@ -56,18 +58,30 @@ function migrateGaragem(data){if(!data||!Array.isArray(data.parts)||!Array.isArr
   const sameReference=name=>norm(name)===norm(ref.name)||(ref.rarity==='Legendary'&&legends?.equivalent?.(name,ref.name));
   const deleted=(data.deletedCards.drivers||[]).some(key=>{
    const pieces=String(key).split('|');
-   return pieces[1]===ref.rarity&&!pieces[2]&&sameReference(pieces[0]);
+   return pieces[1]===ref.rarity&&(ref.rarity==='Special'?window.GBRSpecialEditions?.equivalentEdition?.(pieces[2]||'',ref.editionLabel||''):String(pieces[2]||'')===String(ref.editionLabel||'').trim().toLowerCase())&&sameReference(pieces[0]);
   });
-  if(deleted||data.drivers.some(d=>d.rarity===ref.rarity&&!String(d.editionLabel||'').trim()&&sameReference(d.name)))continue;
-  data.drivers.push({id:'ref_'+key.replace(/[^a-z0-9]/gi,'_'),name:ref.name,rarity:ref.rarity,series:ref.series,level:0,owned:false,overtaking:0,defending:0,qualifying:0,raceStart:0,tyreUse:0});
+  if(deleted||data.drivers.some(d=>d.rarity===ref.rarity&&(ref.rarity==='Special'?window.GBRSpecialEditions?.equivalentEdition?.(d.editionLabel,ref.editionLabel):String(d.editionLabel||'').trim().toLowerCase()===String(ref.editionLabel||'').trim().toLowerCase())&&sameReference(d.name)))continue;
+  data.drivers.push({id:'ref_'+key.replace(/[^a-z0-9]/gi,'_'),name:ref.name,rarity:ref.rarity,...(ref.editionLabel?{editionLabel:ref.editionLabel}:{}),series:ref.series,level:0,owned:false,overtaking:0,defending:0,qualifying:0,raceStart:0,tyreUse:0});
  }
+ // Inclusão não destrutiva das novas cartas 22/10, preservando todas as estatísticas pessoais.
+ // Respeita exclusão explícita (tombstone), impede duplicata e não concede posse automaticamente.
+ for(const [name,ref] of Object.entries(window.F1Reference?.parts||{})){
+  if(ref?.introduced!=='2026-10-22'||!Object.hasOwn(partCategory,name))continue;
+  const identity=cardIdentity({name,rarity:ref.rarity},'parts');
+  if(data.deletedCards.parts.includes(identity))continue;
+  if(data.parts.some(p=>normalizeCardName(p.name)===normalizeCardName(name)))continue;
+  data.parts.push({id:'ref_part_'+name.toLowerCase().replace(/[^a-z0-9]+/g,'_'),
+   name,category:partCategory[name],rarity:ref.rarity,series:ref.series,
+   level:0,owned:false,speed:0,corner:0,power:0,qualifying:0,pit:0,...(ref.overtakeModeLevels?{overtakeMode:0}:{})});
+ }
+ data.schemaVersion=Math.max(data.schemaVersion,8);
  return data}
 db=migrateGaragem(db);
 let currentSetup=null;const $=id=>document.getElementById(id),save=()=>{window.F1Session?.scheduleSave?.();renderDashboard()};const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const n=x=>Number(x)||0;const types=['Suspensão','Motor','Asa traseira','Asa dianteira','Freios','Câmbio','Bateria'];
-function tab(t){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('hide',x.id!==t));document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));if(t==='garage')renderGarage();if(t==='dashboard')renderDashboard();if(t==='event')renderRaces();if(t==='notices')window.GBRNotices?.render?.();if(t==='favorites')window.GBRFavorites?.render?.();if(t==='raceLearning')window.GBRLearningUI?.refresh?.()};document.querySelectorAll('#nav button').forEach(x=>x.onclick=()=>tab(x.dataset.tab));
+function tab(t){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('hide',x.id!==t));document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));if(t==='garage')renderGarage();if(t==='dashboard')renderDashboard();if(t==='event')renderRaces();if(t==='notices')window.GBRNotices?.render?.();if(t==='favorites')window.GBRFavorites?.render?.();if(t==='raceLearning')window.GBRLearningUI?.refresh?.();window.GBRPodiumUI?.render?.()};document.querySelectorAll('#nav button').forEach(x=>x.onclick=()=>tab(x.dataset.tab));
 const profiles={speed:{speed:100,corner:0,power:0,qualifying:0},corner:{speed:0,corner:100,power:0,qualifying:0},power:{speed:0,corner:0,power:100,qualifying:0},balanced:{speed:30,corner:30,power:25,qualifying:15},qualifying:{speed:20,corner:20,power:15,qualifying:45},custom:{speed:25,corner:25,power:25,qualifying:25}};let weights={...profiles.speed};function renderWeights(){ $('weights').innerHTML=Object.entries({speed:'Velocidade',corner:'Curvas',power:'Unidade de potência',qualifying:'Classificação'}).map(([k,label])=>`<div class="field"><label>${label}: <b id="v-${k}">${weights[k]}</b></label><input type="range" min="0" max="100" step="5" value="${weights[k]}" data-weight="${k}"></div>`).join('');document.querySelectorAll('[data-weight]').forEach(e=>e.oninput=()=>{weights[e.dataset.weight]=n(e.value);$('v-'+e.dataset.weight).textContent=e.value;$('preset').value='custom'})};$('preset').onchange=e=>{weights={...profiles[e.target.value]};renderWeights()};
 function scorePart(p,w,pit){const sum=Object.values(w).reduce((a,b)=>a+b,0)||1;return ((p.speed*w.speed+p.corner*w.corner+p.power*w.power+p.qualifying*w.qualifying)/sum)-(pit==='strong'?30:pit==='soft'?10:0)*n(p.pit)}
-function optimize(w=weights,series=12,pit='none'){const required=series<=3?types.filter(category=>category!=='Bateria'):types;let chosen=required.map(category=>db.parts.filter(p=>p.owned&&p.category===category&&n(p.series)<=series).sort((a,b)=>scorePart(b,w,pit)-scorePart(a,w,pit))[0]).filter(Boolean);let totals={speed:0,corner:0,power:0,qualifying:0,pit:0};chosen.forEach(p=>Object.keys(totals).forEach(k=>totals[k]+=n(p[k])));return {chosen,totals,required}}
+function optimize(w=weights,series=12,pit='none'){const required=series<=3?types.filter(category=>category!=='Bateria'):types;let chosen=required.map(category=>db.parts.filter(p=>p.owned&&(typeof p.level==='number'||(typeof p.level==='string'&&p.level.trim()!==''))&&Number.isFinite(Number(p.level))&&Number(p.level)>0&&p.category===category&&n(p.series)<=series).sort((a,b)=>scorePart(b,w,pit)-scorePart(a,w,pit))[0]).filter(Boolean);let totals={speed:0,corner:0,power:0,qualifying:0,pit:0};chosen.forEach(p=>Object.keys(totals).forEach(k=>totals[k]+=n(p[k])));return {chosen,totals,required}}
 function setupHtml(s,title){if(s.chosen.length!==s.required.length)return '<div class="warn">Faltam peças disponíveis para uma ou mais categorias. Confira a garagem e o filtro de série.</div>';return `<div class="panel"><h2>${esc(title)}</h2><div class="stats">${Object.entries({speed:'Velocidade',corner:'Curvas',power:'Potência',qualifying:'Classificação'}).map(([k,l])=>`<div class="stat"><small>${l}</small><b>${s.totals[k].toFixed(0)}</b></div>`).join('')}</div><p class="muted mini">Soma dos tempos-base de pit stop das peças: ${s.totals.pit.toFixed(2)} s (indicador comparativo; não é tempo final garantido).</p><div class="setup">${s.chosen.map(p=>`<div><small>${esc(p.category)}</small><span class="gbr-inline-art">${window.GBRCardArt?.thumb?.(p,'parts')||''}<b>${esc(p.name)}</b></span> <span class="tag ${p.rarity}">${p.rarity==='Epic'?'Épica':p.rarity==='Rare'?'Rara':'Comum'}</span><div class="mini muted">Nv. ${p.level} • V ${p.speed} • C ${p.corner} • PU ${p.power} • Q ${p.qualifying}</div></div>`).join('')}</div></div>`}
 function build(){currentSetup=optimize(weights,n($('seriesLimit').value),$('pitMode').value);$('buildOutput').innerHTML=setupHtml(currentSetup,'Setup otimizado')};$('optimize').onclick=build;$('saveSetup').onclick=()=>{if(!currentSetup)build();const name=prompt('Nome deste setup:','Meu setup');if(!name)return;db.saved.push({name,ids:currentSetup.chosen.map(p=>p.id),date:new Date().toISOString()});save();alert('Setup salvo na sua garagem. A sincronização com a nuvem ocorre automaticamente quando você está conectado.')};
 // Biblioteca de Pistas GBR 2026 — dados estáticos e cálculos da garagem individual.
@@ -151,16 +165,23 @@ function renderTrackMap(track){
  return `<svg viewBox="0 0 220 140" role="img" aria-label="Traçado de ${esc(track.name)}"><path class="track-map-base" d="${map.path}"></path><path class="track-map-outline" d="${map.path}"></path><circle class="track-map-start" cx="${map.start[0]}" cy="${map.start[1]}" r="5"></circle><text class="track-map-label" x="110" y="128" text-anchor="middle">${esc(map.label)}</text></svg>`;
 }
 let selectedTrackId='melbourne';
+// Único resolvedor de prioridades para Pistas, Montador e Assistente de Duelos.
+// A rotação só prevalece enquanto vigente; fora dela, a tabela comunitária
+// permanece explicitamente identificada como referência, não como rotação atual.
+function resolveTrackContext(trackId,series,asOf){
+ const track=TRACKS_2026.find(t=>t.id===trackId);
+ if(!track)return null;
+ const selectedSeries=Number(series);
+ const active=window.GBRIntelligence?.priorityFor?.(selectedSeries,track.id,asOf)||null;
+ const legacy=TRACK_SERIES[selectedSeries]?.[track.id]||null;
+ const focus=active||legacy;
+ const driver=focus?.[0]||track.driver,car=focus?.[1]||track.car;
+ const source=active?'rotation':track.id==='madrid'?'official':legacy?'community':'indicative';
+ return {track,series:selectedSeries,driver,car,source};
+}
 function trackInfo(){
- const track=TRACKS_2026.find(t=>t.id===selectedTrackId)||TRACKS_2026[0];
  const series=n($('trackSeries').value)||12;
-  // Só a rotação vigente dos Duelos altera a ficha de pista; o mapa legado
-  // TRACK_SERIES segue como referência comunitária para GPs e outras pistas.
-  const duelFocus=window.GBRIntelligence?.priorityFor?.(series,track.id)||null;
-  const override=duelFocus||TRACK_SERIES[series]?.[track.id];
-  const driver=override?.[0]||track.driver,car=override?.[1]||track.car;
-  const source=duelFocus?'rotation':track.id==='madrid'?'official':override?'community':'indicative';
- return {track,series,driver,car,source};
+ return resolveTrackContext(selectedTrackId,series)||resolveTrackContext(TRACKS_2026[0].id,series);
 }
 function trackWeights(car){return {
  speed:car==='speed'?65:12,
@@ -171,12 +192,12 @@ function trackWeights(car){return {
 function trackPrefsKey(){const x=trackInfo();return x.series+':'+x.track.id}
 function storedTrackPrefs(){return db.trackPlans?.[trackPrefsKey()]||{}}
 function readTrackPrefs(){
- const pref={laps:$('trackLaps').value?Math.floor(n($('trackLaps').value)):null,weather:$('trackWeather').value};
+ const pref={laps:$('trackLaps').value?Math.floor(n($('trackLaps').value)):null,weather:['dry','wet','variable'].includes($('trackWeather').value)?$('trackWeather').value:null};
  for(const type of Object.keys(TRACK_TYRE)){const val=$('track'+type[0].toUpperCase()+type.slice(1)).value;pref[type]=val?Math.floor(n(val)):null}
  return pref
 }
 function writeTrackPrefs(){
- const p=storedTrackPrefs();$('trackLaps').value=p.laps||'';$('trackWeather').value=['dry','wet','variable'].includes(p.weather)?p.weather:'dry';
+ const p=storedTrackPrefs();$('trackLaps').value=p.laps||'';$('trackWeather').value=['dry','wet','variable'].includes(p.weather)?p.weather:'';
  for(const type of Object.keys(TRACK_TYRE))$('track'+type[0].toUpperCase()+type.slice(1)).value=p[type]||'';
 }
 function saveTrackPrefs(){
@@ -285,6 +306,7 @@ function renderTrackStrategies(){
  const laps=p.laps,tyres=Object.entries(TRACK_TYRE).filter(([key])=>p[key]&&p[key]>=1);
  let text='';
  if(!laps||laps<2||laps>100){text=`<div class="track-empty-strategy"><b>Informe as voltas da corrida</b><p>Assim que você indicar a duração real da corrida e os stints possíveis dos pneus, o laboratório irá montar alternativas de 0, 1 ou 2 paradas.</p></div>`;}
+ else if(!p.weather){text=`<div class="track-empty-strategy"><b>${laps} voltas · Clima não informado</b><p>Selecione a condição observada no jogo (seca, molhada ou variável). Enquanto ela for desconhecida, não é seguro recomendar uma sequência de pneus e paradas.</p></div>`;}
  else if(p.weather==='variable'){text=`<div class="track-empty-strategy"><b>${laps} voltas · Clima variável</b><p>Prepare os dois compostos seco e chuva. A estratégia depende de quando começa a chover; não é seguro calcular a volta de troca sem a previsão exibida no jogo.</p></div>`;}
  else if(p.weather==='wet'){
  const w=p.wet;
@@ -305,7 +327,7 @@ function renderRaces(){
  $('trackTitle').textContent=track.name;$('trackSubtitle').textContent=track.description;
  $('trackCountry').textContent=track.country;
  $('trackMapVisual').innerHTML=renderTrackMap(track);
- $('trackPriorities').innerHTML=`<div class="track-priority"><small>ATRIBUTO PRIORITÁRIO DO CARRO</small><strong>${esc(TRACK_CAR[car])}</strong><span>${source==='official'?'Confirmado pela equipe F1 Clash':source==='rotation'?'Rotação 21/10–03/11 fornecida pelo responsável':'Baseado na referência de pista/série'}</span></div><div class="track-priority"><small>ATRIBUTO PRIORITÁRIO DO PILOTO</small><strong>${esc(TRACK_DRIVER[driver])}</strong><span>Valorizado na seleção da sua dupla de pilotos</span></div>`;
+ $('trackPriorities').innerHTML=`<div class="track-priority"><small>ATRIBUTO PRIORITÁRIO DO CARRO</small><strong>${esc(TRACK_CAR[car])}</strong><span>${source==='official'?'Confirmado pela equipe F1 Clash':source==='rotation'?'Rotação vigente fornecida pelo responsável':'Baseado na referência de pista/série'}</span></div><div class="track-priority"><small>ATRIBUTO PRIORITÁRIO DO PILOTO</small><strong>${esc(TRACK_DRIVER[driver])}</strong><span>Valorizado na seleção da sua dupla de pilotos</span></div>`;
  $('trackPrioritySource').textContent=source==='indicative'?'Perfil indicativo: confirme no jogo.':source==='rotation'?'Prioridades da rotação informada para a série; confirme no jogo.':'Prioridades orientativas para esta pista e série; confirme no jogo.';
  writeTrackPrefs();renderTrackStrategies();renderTrackSetup();
 }
@@ -345,10 +367,26 @@ function openTrackFromDuel(trackId,series){
  });
  return true;
 }
-window.F1Tracks={all:TRACKS_2026,series:TRACK_SERIES,plans:tyrePlans,trackInfo,render:renderRaceOptions,openTrack:openTrackFromDuel};
+window.F1Tracks={all:TRACKS_2026,series:TRACK_SERIES,plans:tyrePlans,trackInfo,resolveContext:resolveTrackContext,render:renderRaceOptions,openTrack:openTrackFromDuel};
 
 function bestDrivers(focus,series){const w=focus==='balanced'?{overtaking:1,defending:1,qualifying:1,raceStart:1,tyreUse:1}:{[focus]:1};return db.drivers.filter(d=>d.owned&&n(d.series)<=series).sort((a,b)=>Object.entries(w).reduce((s,[k,v])=>s+n(b[k])*v-n(a[k])*v,0)).slice(0,2)}
 if($('duelTrack'))$('duelTrack').innerHTML='<option value="">Sem pista específica</option>'+TRACKS_2026.map(t=>`<option value="${esc(t.id)}">${esc(t.name)}</option>`).join('');
+// Selecionar uma pista preenche os focos da mesma fonte usada por Pistas/Montador.
+// Alterações manuais posteriores nos seletores continuam respeitadas até mudar
+// de pista ou série. Sem pista específica, não sobrepor escolhas manuais.
+function syncDuelTrackFocus(){
+ const trackId=$('duelTrack')?.value;
+ if(!trackId)return;
+ const selected=resolveTrackContext(trackId,n($('duelSeries')?.value)||12);
+ if(!selected)return;
+ if(profiles[selected.car])$('duelFocus').value=selected.car;
+ if(['raceStart','defending','overtaking','tyreUse'].includes(selected.driver))$('duelDrivers').value=selected.driver;
+}
+$('duelTrack')?.addEventListener('change',syncDuelTrackFocus);
+$('duelSeries')?.addEventListener('change',()=>queueMicrotask(()=>{
+ if($('duelTrack')?.value)syncDuelTrackFocus();
+ else{$('duelFocus').value='balanced';$('duelDrivers').value='balanced';}
+}));
 $('duelCalc').onclick=()=>{let s=n($('duelSeries').value),f=$('duelFocus').value,d=$('duelDrivers').value;
  const selected=$('duelTrack')?.value||'';
  const learned=selected?window.GBRRecommendations?.evidence?.(db,{series:s,trackId:selected,baseWeights:profiles[f]}):null;
@@ -357,35 +395,60 @@ $('duelCalc').onclick=()=>{let s=n($('duelSeries').value),f=$('duelFocus').value
  $('duelOutput').innerHTML=setupHtml(p,`Carro para duelo — Série ${s}`)+`<div class="panel"><h2>Dupla de pilotos</h2>${pilots.length?pilots.map(x=>`<div class="track" style="margin-bottom:8px"><span class="gbr-inline-art">${window.GBRCardArt?.thumb?.(x,'drivers')||''}<b>${esc(x.name)} — Nv. ${x.level} <span class="tag ${x.rarity}">${x.rarity==='Legendary'?'Lendário':x.rarity==='Special'?'Especial':x.rarity==='Epic'?'Épica':x.rarity==='Rare'?'Rara':'Comum'}</span></b></span><span class="mini muted">Ultrap. ${x.overtaking} • Defesa ${x.defending} • Classif. ${x.qualifying} • Largada ${x.raceStart} • Pneus ${x.tyreUse}</span></div>`).join(''):'<div class="warn">Sem pilotos cadastrados para esta série. Atualize a garagem.</div>'}<p class="muted mini">${selected?esc(learned?.message||'Prioridade da série sem histórico revisado.'):'Recomendação pelo atributo escolhido. Selecione uma pista para usar a Inteligência GBR.'} Confira restrições da série no jogo.</p></div>`};
 function renderGarage(){
  const kind=$('garageType').value, search=$('garageSearch').value.toLowerCase();
+ const editionFilter=$('editionFilter');
+ $('gbrEditionFilterField').hidden=kind!=='drivers';
+ $('gbrS12ReferenceNotice').hidden=kind!=='parts';
+ if(kind!=='drivers'&&editionFilter.value!=='all')editionFilter.value='all';
+ if(kind==='parts'&&!['all','Common','Rare','Epic'].includes($('rarityFilter').value))$('rarityFilter').value='all';
  const items=db[kind].filter(x=>{
   const aliases=kind==='drivers'&&x.rarity==='Legendary'?(window.GBRLegendaryDrivers?.lookup?.(x.name)?.aliases||[]):[];
-  return (x.name.toLowerCase().includes(search)||aliases.some(name=>name.toLowerCase().includes(search)))&&($('rarityFilter').value==='all'||x.rarity===$('rarityFilter').value);
+  const selectedGroup=kind==='drivers'?editionFilter.value:'all';
+  const matchesEdition=selectedGroup==='all'||window.GBRSpecialEditions?.groupOf?.(x)===selectedGroup;
+  return matchesEdition&&(x.name.toLowerCase().includes(search)||aliases.some(name=>name.toLowerCase().includes(search)))&&($('rarityFilter').value==='all'||x.rarity===$('rarityFilter').value);
  });
  const fields=kind==='parts'?['level','series','speed','corner','power','qualifying','pit']:['level','series','overtaking','defending','qualifying','raceStart','tyreUse'];
  const labels={level:'Nível',series:'Série',speed:'Vel.',corner:'Curvas',power:'Pot.',qualifying:'Classif.',pit:'Pit',overtaking:'Ultrap.',defending:'Defesa',raceStart:'Largada',tyreUse:'Pneus'};
- const rarities=kind==='drivers'?[['Common','Comum'],['Rare','Rara'],['Epic','Épica'],['Legendary','Lendário'],['Special','Escolhas do Paddock / Edição especial']]:[['Common','Comum'],['Rare','Rara'],['Epic','Épica']];
- $('garageTable').innerHTML=`<table><thead><tr><th>Possuo</th><th>Carta</th><th>Raridade</th>${fields.map(k=>`<th>${labels[k]}</th>`).join('')}<th>Ações</th></tr></thead><tbody>${items.map(x=>`<tr><td><input type="checkbox" data-id="${esc(x.id)}" data-field="owned" ${x.owned?'checked':''}></td><td><b>${esc(x.name)}</b>${kind==='parts'?`<div class="mini muted">${esc(x.category)}</div>`:x.editionLabel?`<div class="mini muted">${esc(x.editionLabel)}</div>`:''}</td><td><select aria-label="Raridade de ${esc(x.name)}" data-id="${esc(x.id)}" data-field="rarity">${rarities.map(([v,label])=>`<option value="${v}" ${x.rarity===v?'selected':''}>${label}</option>`).join('')}</select></td>${fields.map(k=>`<td><input type="number" step="${k==='pit'?'0.01':'1'}" min="0" data-id="${esc(x.id)}" data-field="${k}" value="${n(x[k])}"></td>`).join('')}<td><button type="button" class="gbr-row-remove" data-remove="${esc(x.id)}" title="Excluir carta" aria-label="Excluir ${esc(x.name)}">✕ Excluir</button></td></tr>`).join('')}</tbody></table>`;
+ const rarities=kind==='drivers'?[['Common','Comum'],['Rare','Rara'],['Epic','Épica'],['Legendary','Lendário'],['Special','Edição especial (ver coleção)']]:[['Common','Comum'],['Rare','Rara'],['Epic','Épica']];
+ $('garageTable').innerHTML=`<table><thead><tr><th>Possuo</th><th>Carta</th><th>Raridade</th>${fields.map(k=>`<th>${labels[k]}</th>`).join('')}<th>Ações</th></tr></thead><tbody>${items.map(x=>`<tr><td><input type="checkbox" data-id="${esc(x.id)}" data-field="owned" ${x.owned?'checked':''}></td><td><b>${esc(x.name)}</b>${kind==='parts'?`<div class="mini muted">${esc(x.category)}</div>${window.F1Reference?.parts?.[x.name]?.introduced==='2026-10-22'?`<div class="mini ${Number(x.level)>1&&!window.GBRPartAutoFill?.resolve?.(x.name,x.rarity,x.level)?'gbr-s12-pending':'gbr-s12-known'}">${Number(x.level)>1&&!window.GBRPartAutoFill?.resolve?.(x.name,x.rarity,x.level)?'S12 · nível '+Number(x.level)+' sem referência: conferir 5 atributos':'S12 · referência verificada somente para nível 1'}</div>`:''}${x.category==='Bateria'&&Number(x.level)===1&&Number.isFinite(x.overtakeMode)?`<div class="mini muted">Modo de Ultrapassagem: ${x.overtakeMode}</div>`:''}`:x.editionLabel?`<div class="mini ${window.GBRSpecialEditions?.groupOf?.(x)==='green'?'gbr-signature-chip':window.GBRSpecialEditions?.groupOf?.(x)==='paddock-turbo'?'gbr-paddock-turbo-chip':window.GBRSpecialEditions?.groupOf?.(x)==='paddock'?'gbr-paddock-chip':'muted'}">${esc(window.GBRSpecialEditions?.collections?.find(g=>g.id===window.GBRSpecialEditions?.groupOf?.(x))?.label||x.editionLabel)}</div>`:''}</td><td><select aria-label="Raridade de ${esc(x.name)}" data-id="${esc(x.id)}" data-field="rarity">${rarities.map(([v,label])=>`<option value="${v}" ${x.rarity===v?'selected':''}>${label}</option>`).join('')}</select></td>${fields.map(k=>`<td><input type="number" step="${k==='pit'?'0.01':'1'}" min="0" data-id="${esc(x.id)}" data-field="${k}" value="${n(x[k])}"></td>`).join('')}<td><button type="button" class="gbr-row-remove" data-remove="${esc(x.id)}" title="Excluir carta" aria-label="Excluir ${esc(x.name)}">✕ Excluir</button></td></tr>`).join('')}</tbody></table>`;
  $('garageTable').querySelectorAll('button[data-remove]').forEach(button=>button.onclick=()=>window.GBRGaragePlus?.deleteCard?.(kind,button.dataset.remove));
  $('garageTable').querySelectorAll('input[data-field],select[data-field]').forEach(el=>el.onchange=()=>{
   const x=db[kind].find(v=>v.id===el.dataset.id);if(!x)return;const field=el.dataset.field;
   if(field==='rarity'){
    const next=el.value;
    if(db[kind].some(y=>y.id!==x.id&&y.rarity===next&&y.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()===x.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()&&(kind==='parts'||(y.editionLabel||'').toLowerCase()===(x.editionLabel||'').toLowerCase()))){alert('Você já tem esta carta com a raridade e edição selecionadas. Edite a carta existente ou exclua uma duplicata.');renderGarage();return}
-   x.rarity=next;if(kind==='drivers'&&next==='Special'&&!x.editionLabel)x.editionLabel='Escolhas do Paddock';if(kind==='drivers'&&next!=='Special'&&/escolhas do paddock/i.test(x.editionLabel||''))x.editionLabel='';if(Array.isArray(db.deletedCards?.[kind])){const signature=[x.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(),x.rarity,kind==='drivers'?String(x.editionLabel||'').trim().toLowerCase():''].join('|');db.deletedCards[kind]=db.deletedCards[kind].filter(v=>v!==signature)}renderGarage();save();return;
+   x.rarity=next;// Não atribuir Paddock automaticamente a cartas especiais sem edição comprovada.
+   if(kind==='drivers'&&next==='Special'&&!x.editionLabel)x.editionLabel='';if(kind==='drivers'&&next!=='Special'&&window.GBRSpecialEditions?.groupOf?.({rarity:'Special',editionLabel:x.editionLabel}))x.editionLabel='';if(Array.isArray(db.deletedCards?.[kind])){const signature=[x.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(),x.rarity,kind==='drivers'?String(x.editionLabel||'').trim().toLowerCase():''].join('|');db.deletedCards[kind]=db.deletedCards[kind].filter(v=>v!==signature)}renderGarage();save();return;
   }
-  if(field==='level'&&n(el.value)!==n(x.level)){
-   x.level=n(el.value);
+  if(field==='level'){
+   const previousLevel=n(x.level),nextLevel=n(el.value),changed=nextLevel!==previousLevel;
+   x.level=nextLevel;
    const statNames=kind==='parts'?['speed','corner','power','qualifying','pit']:['overtaking','defending','qualifying','raceStart','tyreUse'];
-   const norm=normalizeCardName;
-   const catalog=window.F1Reference||{};
-   const reference=kind==='parts'?Object.entries(catalog.parts||{}).find(([name])=>norm(name)===norm(x.name))?.[1]:Object.values(catalog.drivers||{}).find(ref=>ref.rarity===x.rarity&&norm(ref.name)===norm(x.name));
-   const values=reference?.levels?.[String(x.level)];
-   if(values){statNames.forEach((key,i)=>x[key]=values[i]);x.series=reference.series;}
-   x.owned=x.level>0;renderGarage();
-  }else{x[field]=field==='owned'?el.checked:n(el.value)}
+   const reference=kind==='parts'?Object.entries(window.F1Reference?.parts||{}).find(([name,ref])=>normalizeCardName(name)===normalizeCardName(x.name)&&ref.rarity===x.rarity)?.[1]:Object.values(window.F1Reference?.drivers||{}).find(ref=>ref.rarity===x.rarity&&normalizeCardName(ref.name)===normalizeCardName(x.name)&&String(ref.editionLabel||'').trim().toLowerCase()===String(x.editionLabel||'').trim().toLowerCase());
+   const auto=kind==='parts'?window.GBRPartAutoFill?.resolve?.(x.name,x.rarity,nextLevel):null;
+   // Reaplica mesmo se nível já era 1, quando a ficha está sem atributos (bug da ativação).
+   const allEmpty=statNames.every(key=>n(x[key])===0);
+   if(auto&&(changed||allEmpty)){
+    Object.assign(x,auto);
+    if(!Object.hasOwn(auto,'overtakeMode'))delete x.overtakeMode;
+   }else if(kind==='drivers'&&changed){
+    const values=reference?.levels?.[String(nextLevel)];
+    if(values){statNames.forEach((key,i)=>x[key]=values[i]);x.series=reference.series;}
+   }else if(kind==='parts'&&changed&&reference?.introduced==='2026-10-22'&&!auto){
+    // Nível novo sem dados: não reutilizar estatísticas da carta nível 1.
+    statNames.forEach(key=>x[key]=0);delete x.overtakeMode;
+    if(nextLevel>0)alert('Este nível ainda não tem atributos verificados. Informe os cinco valores manualmente na garagem.');
+   }
+   x.owned=nextLevel>0;renderGarage();
+  }else if(field==='owned'){
+   x.owned=el.checked;
+   if(kind==='parts'&&x.owned&&x.level>0&&['speed','corner','power','qualifying','pit'].every(key=>n(x[key])===0)){
+    const auto=window.GBRPartAutoFill?.resolve?.(x.name,x.rarity,x.level);
+    if(auto){Object.assign(x,auto);renderGarage();}
+   }
+  }else{x[field]=n(el.value)}
   save();
  });
-};['garageType','garageSearch','rarityFilter'].forEach(id=>$(id).addEventListener(id==='garageSearch'?'input':'change',renderGarage));$('addCard').onclick=()=>{const kind=$('garageType').value;window.GBRGaragePlus?.openManual?.(kind)};$('reset').onclick=()=>{if(confirm('Zerar SUA garagem? Seus níveis e setups pessoais serão apagados também da nuvem. Esta ação não afeta outros usuários.')){const chests=db.chests;db=emptyGarage();db.chests=chests;save();renderGarage();renderDashboard()}};
+};['garageType','garageSearch','rarityFilter','editionFilter'].forEach(id=>$(id).addEventListener(id==='garageSearch'?'input':'change',()=>{if(id==='editionFilter'&&$('editionFilter').value!=='all')$('rarityFilter').value='Special';renderGarage()}));$('addCard').onclick=()=>{const kind=$('garageType').value;window.GBRGaragePlus?.openManual?.(kind)};$('reset').onclick=()=>{if(confirm('Zerar SUA garagem? Seus níveis e setups pessoais serão apagados também da nuvem. Esta ação não afeta outros usuários.')){const chests=db.chests;db=emptyGarage();db.chests=chests;save();renderGarage();renderDashboard()}};
 function renderDashboard(){if(window.GBRDashboardTelemetry?.render){window.GBRDashboardTelemetry.render();return;} $('dashStats').innerHTML=[['Peças cadastradas',db.parts.filter(x=>x.owned).length],['Pilotos cadastrados',db.drivers.filter(x=>x.owned).length],['Setups salvos',db.saved.length],['Favoritos',db.favoriteSetups?.length||0],['Equipes no lab',4]].map(([k,v])=>`<div class="stat"><small>${k}</small><b>${v}</b></div>`).join('')};for(let i=1;i<=12;i++){let o=document.createElement('option');o.value=i;o.textContent='Série '+i;$('seriesLimit').appendChild(o);$('duelSeries').appendChild(o.cloneNode(true))}$('seriesLimit').value=12;$('duelSeries').value=12;
 $('exportBtn').onclick=()=>{let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='f1clash-garagem-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};$('importBtn').onclick=()=>$('fileImport').click();$('fileImport').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let obj=JSON.parse(await f.text());if(!Array.isArray(obj.parts)||!Array.isArray(obj.drivers))throw Error('Formato inválido');if(confirm('Substituir a garagem atual pelos dados importados?')){db=migrateGaragem(obj);save();renderGarage();renderDashboard();alert('Dados importados.')}}catch(e){alert('Falha ao importar: '+e.message)}e.target.value=''};renderWeights();renderRaceOptions();renderDashboard();renderGarage();build();
 
@@ -395,7 +458,7 @@ function refreshAll(){renderGarage();renderDashboard();renderRaceOptions();build
 window.F1App={getGarage:()=>db,setGarage:(state)=>{db=migrateGaragem(state);refreshAll()},newGarage:()=>emptyGarage(),refresh:refreshAll,originalBackup:()=>localStorage.getItem('f1clash-manager-v1')};
 document.querySelectorAll('[data-go]').forEach(el=>el.addEventListener('click',()=>tab(el.dataset.go)));
 document.querySelectorAll('#mobileNav [data-tab]').forEach(el=>el.addEventListener('click',()=>tab(el.dataset.tab)));
-const previousTab=tab;tab=function(next){previousTab(next);document.querySelectorAll('#mobileNav button').forEach(el=>el.classList.toggle('active',el.dataset.tab===next));const names={dashboard:'PAINEL',builder:'MONTADOR',event:'PISTAS',duel:'DUELOS',garage:'MINHA GARAGEM',academy:'EQUIPES',chests:'BAÚS',notices:'AVISOS',favorites:'MEUS SETUPS',raceLearning:'INTELIGÊNCIA GBR'};$('pageName').textContent=names[next]||'PAINEL';if(next==='academy')window.F1Session?.refreshAcademy?.();if(next==='chests')window.F1Chests?.render?.()};
+const previousTab=tab;tab=function(next){previousTab(next);document.querySelectorAll('#mobileNav button').forEach(el=>el.classList.toggle('active',el.dataset.tab===next));const names={dashboard:'PAINEL',builder:'MONTADOR',event:'PISTAS',duel:'DUELOS',garage:'MINHA GARAGEM',academy:'EQUIPES',chests:'BAÚS',notices:'AVISOS',favorites:'MEUS SETUPS',raceLearning:'INTELIGÊNCIA GBR','gbr-pit-wall':'PIT WALL GBR'};$('pageName').textContent=names[next]||'PAINEL';if(next==='academy')window.F1Session?.refreshAcademy?.();if(next==='chests')window.F1Chests?.render?.()};
 const garageSection=document.querySelector('#garage .panel');if(garageSection){const hint=document.createElement('div');hint.className='garage-hint';hint.innerHTML='<b>Garagem individual sincronizada</b><p>Marque as cartas que possui e selecione o nível. Selecione o nível e os atributos serão preenchidos automaticamente quando houver valores validados no catálogo de atributos. Se um nível não estiver na base, os atributos ficam zerados para preenchimento manual — não fazemos estimativas. Salvar é automático após você entrar.</p>';garageSection.prepend(hint)}
 
 // Superfície somente-leitura para módulos de apresentação GBR 5.0 (sem alterar autenticação).

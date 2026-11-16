@@ -1,0 +1,24 @@
+'use strict';
+// Recomendação por circuito sem inventário, quantidade ou persistência.
+const assert=require('node:assert/strict');const vm=require('node:vm');const fs=require('node:fs');const path=require('node:path');
+const root=path.resolve(__dirname,'..'),read=n=>fs.readFileSync(path.join(root,n),'utf8');
+const ids={};const analysis={querySelector(){return {after(panel){ids[panel.id]=panel}}}};ids.trackAnalysis=analysis;ids.trackWeather={value:'dry',addEventListener(){}};
+const document={addEventListener(){},getElementById:id=>ids[id]||null,createElement(){return {id:'',className:'',innerHTML:'',addEventListener(){}}}};
+const window={F1App:{getGarage:()=>({trackPlans:{}})},GBRCore:{trackInfo:()=>({series:10,track:{id:'baku',name:'Baku'},car:'power',driver:'tyreUse',weather:'dry'})}};
+const ctx={window,document,console,URL};vm.createContext(ctx);vm.runInContext(read('gbr-boost-catalog.js'),ctx);const C=window.GBRBoostCatalog;
+assert.equal(C.items.length,11);assert.equal(new Set(C.items.map(x=>x.id)).size,11);
+assert.equal(C.get('butterfly').stats.power,25);assert.equal(C.get('pretzel').stats.tyreUse,25);assert.equal(C.get('eclipse').stats.speed,25);assert.equal(C.get('dragon').stats.overtaking,20);
+assert.equal(C.get('self-control').stats.corner,undefined);assert.equal(C.get('self-control').stats.pitStop,undefined);
+assert.equal(C.rank({car:'power',driver:'tyreUse'}).length>0,true,'boosts nominais recomendados sem informar posse');
+assert.equal(C.rank({car:'speed',driver:'overtaking'})[0].id,'eclipse','ordenação muda conforme o foco do circuito');
+assert.equal(C.rank({car:'power',driver:'tyreUse'}).some(x=>x.id==='self-control'),false,'item em conflito excluído');
+assert.equal(C.rank({car:'unknown',driver:'unknown'}).every(x=>Number.isFinite(x.score)),true,'pontuação só usa atributos numéricos conhecidos');
+assert.equal(C.get('constructor'),null);assert.equal(C.get('not-listed'),null);
+window.GBRCardArt={getSource(item,kind){return kind==='boosts'&&item.id==='butterfly'?{url:'https://academy.example.test/butterfly.webp',origin:'shared'}:{url:'',origin:'none'}}};
+vm.runInContext(read('boosts-plus.js'),ctx);const panel=ids.gbrBoostPanel;assert(panel);assert.match(panel.innerHTML,/Boosts sugeridos para esta pista/);assert.match(panel.innerHTML,/Baku/);assert.match(panel.innerHTML,/Butterfly|Pretzel/);assert.match(panel.innerHTML,/não exige cadastro/i);
+for(const forbidden of ['data-boost-id','type="number"','estoque informado','unidade(s) para um piloto','Paradas previstas','quantidade positiva'])assert.equal(panel.innerHTML.includes(forbidden),false,'UI não deve conter: '+forbidden);
+assert.match(panel.innerHTML,/academy\.example\.test\/butterfly\.webp|Sem foto/);
+assert(!JSON.stringify(window.F1App.getGarage()).includes('boost'));
+const html=read('index.html');assert(html.includes('gbr-boost-catalog.js?v=20261110boostcatalog3'));assert(html.includes('boosts-plus.js?v=20261110boosttrack1'));assert(html.includes('boosts-plus.css?v=20261110boostcatalog2'));
+assert(!read('cloud.js').includes('gbr-boost-catalog'));
+console.log('PASS BOOSTS: recomendação contextual por circuito, sem quantidade/estoque/paradas, sem persistência e com fallback visual.');

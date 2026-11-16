@@ -1,0 +1,11 @@
+'use strict';
+const assert=require('node:assert/strict');const fs=require('node:fs');const vm=require('node:vm');const path=require('node:path');
+const root=path.resolve(__dirname,'..'),read=x=>fs.readFileSync(path.join(root,x),'utf8');
+const ids={},listeners={};const window={F1App:{getGarage:()=>({trackPlans:{}})},GBRCore:{trackInfo:()=>({series:10,track:{id:'baku',name:'Baku'},car:'power',driver:'tyreUse'})},GBRCardArt:{getSource(item,kind){assert.equal(kind,'boosts');return item.id==='butterfly'?{url:'https://academy.example.test/butterfly.webp',origin:'shared'}:{url:'',origin:'none'}}}};
+const doc={getElementById:id=>ids[id]||null,createElement(){return {id:'',className:'',innerHTML:'',addEventListener(){}}},addEventListener(name,fn){listeners[name]=fn}};ids.trackAnalysis={querySelector(){return {after(p){ids[p.id]=p}}}};ids.trackWeather={value:'dry',addEventListener(){}};
+const ctx={window,document:doc,URL,console};vm.createContext(ctx);vm.runInContext(read('gbr-boost-catalog.js'),ctx);vm.runInContext(read('boosts-plus.js'),ctx);
+const out=ids.gbrBoostPanel.innerHTML;assert.match(out,/academy\.example\.test\/butterfly\.webp/);assert.match(out,/Sem foto/);assert(!out.includes('data-boost-id'));assert(!out.includes('type="number"'));assert(!out.includes('estoque'));
+assert.equal(window.GBRBoostCatalog.items.length,11);for(const b of window.GBRBoostCatalog.items)assert.equal(b.imageSrc,null);
+const art={URL,window:{F1Reference:{}},localStorage:{getItem(key){assert.equal(key,'gbr_visual_images_v53');return JSON.stringify({'boosts|butterfly||':'https://assets.example.com/foto.webp','boosts|pretzel||':'http://inseguro.example/imagem.png'});}}};vm.createContext(art);vm.runInContext(read('gbr-boost-catalog.js'),art);vm.runInContext(read('card-art.js'),art);
+assert.equal(art.window.GBRCardArt.getSource({name:'Butterfly',rarity:'',editionLabel:''},'boosts').origin,'local');assert.equal(art.window.GBRCardArt.getSource({name:'Pretzel',rarity:'',editionLabel:''},'boosts').origin,'reference');assert.equal(art.window.GBRCardArt.getSource({name:'Schooner',rarity:'',editionLabel:''},'boosts').origin,'none');
+console.log('PASS boost images: prioridade local/compartilhada, sem hotlink direto e sem UI de inventário.');

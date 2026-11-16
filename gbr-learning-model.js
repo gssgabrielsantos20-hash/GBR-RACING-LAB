@@ -167,6 +167,21 @@ function cleanPitEvidence(input,own,rival){
  if(Object.keys(input).some(k=>!['own','rival'].includes(k)))throw Error('Origem do pit stop inválida.');
  return Object.keys(result).length?result:null;
 }
+function cleanRaceContext(input){
+ if(input===undefined||input===null)return null;
+ if(!input||typeof input!=='object'||Array.isArray(input))throw Error('Contexto da corrida inválido.');
+ const weather=String(input.weather??'unknown');
+ if(!['unknown','dry','wet','variable'].includes(weather))throw Error('Condição climática inválida.');
+ const safetyCar=String(input.safetyCar??'unknown');
+ if(!['unknown','yes','no'].includes(safetyCar))throw Error('Informação de Safety Car inválida.');
+ const number=(value,label,min,max)=>{if(value===undefined||value===null||String(value).trim()==='')return null;const n=Number(value);if(!Number.isInteger(n)||n<min||n>max)throw Error(`${label} inválida (${min}–${max}).`);return n;};
+ const temperatureMin=number(input.temperatureMin,'Temperatura mínima',-20,60),temperatureMax=number(input.temperatureMax,'Temperatura máxima',-20,60);
+ if(temperatureMin!==null&&temperatureMax!==null&&temperatureMin>temperatureMax)throw Error('Temperatura mínima não pode superar a máxima.');
+ const text=(value,label,max)=>{const v=String(value??'').trim().replace(/\s+/g,' ');if(v.length>max)throw Error(`${label}: máximo ${max} caracteres.`);if(/[<>\x00-\x08\x0B\x0C\x0E-\x1F]/.test(v))throw Error(`${label} contém caracteres inválidos.`);return v;};
+ const boosts=text(input.boosts,'Boosts',120),incidents=text(input.incidents,'Incidentes',160),traffic=text(input.traffic,'Tráfego',160);
+ const ownPosition=number(input.ownPosition,'Posição final da sua equipe',1,2),rivalPosition=number(input.rivalPosition,'Posição final do rival',1,2);
+ return {weather,safetyCar,...(temperatureMin!==null?{temperatureMin}:{}),...(temperatureMax!==null?{temperatureMax}:{}),...(ownPosition!==null?{ownPosition}:{}),...(rivalPosition!==null?{rivalPosition}:{}),...(boosts?{boosts}:{}),...(incidents?{incidents}:{}),...(traffic?{traffic}:{})};
+}
 function create(input,{ids=[],tracks=[],favoriteRecords=[]}={},id=makeId,now=()=>new Date().toISOString()){
  const series=Number(input?.series),trackId=String(input?.trackId||'');
  if(!Number.isInteger(series)||series<1||series>12)throw Error('Selecione uma série válida (1–12).');
@@ -177,6 +192,7 @@ function create(input,{ids=[],tracks=[],favoriteRecords=[]}={},id=makeId,now=()=
  const pitEvidence=cleanPitEvidence(input.pitEvidence,own,rival);
  const driverComparison=cleanDriverComparison(input.driverComparison);
  const tyreStrategy=cleanTyreStrategy(input.tyreStrategy);
+ const raceContext=cleanRaceContext(input.raceContext);
  const competition=cleanCompetition(input.competition);
  // Categorias do evento possuem limites de desbloqueio diferentes no guia 2026.
  if(competition){const limits={junior:3,challenger:6,contender:9,champion:12};
@@ -194,7 +210,7 @@ function create(input,{ids=[],tracks=[],favoriteRecords=[]}={},id=makeId,now=()=
  const richCards=driverComparison&&['own','rival'].some(side=>driverComparison[side].some(p=>p.rarity||p.series));
  return {id:String(id()).slice(0,100),schemaVersion:(richCards||tyreStrategy||competition||pitEvidence)?4:driverComparison?3:snapshot?2:1,
   createdAt,series,trackId,result:input.result,favoriteId,context,own,rival,note,source:'manual-revisado',
-  ...(snapshot?{setupSnapshot:snapshot}:{}),...(driverComparison?{driverComparison}:{}),...(tyreStrategy?{tyreStrategy}:{}),...(competition?{competition}:{}),...(pitEvidence?{pitEvidence}:{})};
+  ...(snapshot?{setupSnapshot:snapshot}:{}),...(driverComparison?{driverComparison}:{}),...(tyreStrategy?{tyreStrategy}:{}),...(competition?{competition}:{}),...(pitEvidence?{pitEvidence}:{}),...(raceContext?{raceContext}:{})};
 }
 function add(garage,record){
  if(!garage||typeof garage!=='object')throw Error('Garagem indisponível.');
@@ -265,5 +281,5 @@ function summary(records=[],filters={}){
  return {sample:n,wins,losses,rate:n?wins/n:null,ci,experiments,pilotPatterns,diagnosticReady:hasComparison,missingToStart:Math.max(0,3-n),quality:n>=20&&wins>=5&&losses>=5?'observacao-moderada':hasComparison?'preliminar':'insuficiente',patterns,favorites,scope:{series:filters.series||null,trackId:filters.trackId||null},disclaimer:'Resultados são observacionais e individuais. Não há inferência causal, previsão garantida, treino remoto nem acesso a garagens de terceiros.'};
 }
 function favoriteInventory(garage){return (Array.isArray(garage?.favoriteSetups)?garage.favoriteSetups:[]).map(f=>{let t={speed:0,corner:0,power:0,qualifying:0,pit:0};for(const p of f.parts||[])for(const k of Object.keys(t))t[k]+=(Number(p?.[k])||0);t.pit=Math.round(t.pit*100)/100;return {id:f.id,name:String(f.name||''),trackId:f.trackId||'',parts:(f.parts||[]).length,drivers:(f.drivers||[]).length,stats:t};});}
-window.GBRRaceLearning=Object.freeze({FIELDS,LABELS,PILOT_FIELDS,PILOT_LABELS,PILOT_OCR_PLAUSIBLE_MAX,suspiciousPilotStat,RARITIES,COMPOUNDS,MAX,cleanStats,cleanDriverComparison,cleanCompetition,cleanTyreStrategy,tyreStints,pilotDifferences,differences,create,add,setupSnapshot,recordInsights,summary,favoriteInventory,wilson});
+window.GBRRaceLearning=Object.freeze({FIELDS,LABELS,PILOT_FIELDS,PILOT_LABELS,PILOT_OCR_PLAUSIBLE_MAX,suspiciousPilotStat,RARITIES,COMPOUNDS,MAX,cleanStats,cleanDriverComparison,cleanCompetition,cleanTyreStrategy,cleanRaceContext,tyreStints,pilotDifferences,differences,create,add,setupSnapshot,recordInsights,summary,favoriteInventory,wilson});
 })();

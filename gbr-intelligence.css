@@ -41,3 +41,16 @@
 
 /* Série destacada também no layout compacto dos Duelos. */
 .gbr-intel-series-heading{margin:13px 0 7px;font-size:1rem;color:#d8fff7}
+
+/* 18/11/2026 — cartões de rotação: leitura à esquerda e etiquetas por dado (ADR 0022). */
+.gbr-intel-track-link:has(.gbr-intel-track-stats){align-items:flex-start;text-align:left;justify-content:space-between}
+.gbr-intel-track-link:has(.gbr-intel-track-stats) .gbr-intel-track-body{align-items:flex-start;gap:8px}
+.gbr-intel-track-stats{display:flex;flex-wrap:wrap;gap:5px;opacity:1}
+.gbr-intel-chip{display:inline-block;padding:2px 7px;border-radius:999px;font-size:.66rem;font-weight:700;line-height:1.5;border:1px solid rgba(120,235,218,.22);background:rgba(22,206,184,.10);color:#bff7ef;white-space:nowrap}
+.gbr-intel-chip.is-car{background:rgba(45,188,242,.12);border-color:rgba(45,188,242,.28);color:#c9ecfb}
+.gbr-intel-chip.is-laps{background:transparent;border-color:rgba(255,255,255,.14);color:inherit;font-weight:600}
+.gbr-intel-chip.is-unknown{background:transparent;border:1px dashed rgba(255,255,255,.16);color:inherit;opacity:.62;font-weight:500}
+@media(max-width:700px){.gbr-intel-track-link:has(.gbr-intel-track-stats){min-height:0;padding:11px 10px}}
+html[data-theme="light"] .gbr-intel-chip{color:#0d4a52;background:rgba(0,143,134,.10);border-color:rgba(0,143,134,.30)}
+html[data-theme="light"] .gbr-intel-chip.is-car{color:#0b4a66;background:rgba(17,132,186,.10);border-color:rgba(17,132,186,.30)}
+html[data-theme="light"] .gbr-intel-chip.is-laps,html[data-theme="light"] .gbr-intel-chip.is-unknown{color:#173744;background:transparent;border-color:#c3d6de}

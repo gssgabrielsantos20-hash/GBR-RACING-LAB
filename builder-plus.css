@@ -8,3 +8,14 @@ body.gbr-png-open{overflow:hidden}
 @media(max-width:1120px){.gbr-build-fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:820px){.gbr-build-controls{padding:13px}.gbr-build-title h3{font-size:22px}.gbr-build-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.gbr-build-head{flex-wrap:wrap}.gbr-build-head .btn{width:100%}.gbr-pilot-pair{grid-template-columns:1fr}.gbr-part-chips{grid-template-columns:repeat(2,minmax(0,1fr))}.gbr-build-boosts{grid-template-columns:1fr 1fr}.gbr-saved-row{flex-wrap:wrap}.gbr-png-modal{align-items:end;padding:0}.gbr-png-dialog{max-height:calc(100dvh - env(safe-area-inset-top));border-radius:15px 15px 0 0}.gbr-png-dialog footer{padding-bottom:calc(12px + env(safe-area-inset-bottom))}}
 @media(max-width:400px){.gbr-build-fields{grid-template-columns:1fr}.gbr-part-chips{grid-template-columns:1fr 1fr}.gbr-build-boosts{grid-template-columns:1fr}.gbr-bld-driver strong{font-size:15px}.gbr-png-dialog footer{flex-wrap:wrap}.gbr-png-dialog footer .btn{flex:1 1 100%}}
+
+/* 18/11/2026 — Montador: ajustes avançados recolhidos (ADR 0022). */
+.builder-advanced{margin-top:14px;border:1px solid rgba(120,235,218,.16);border-radius:10px;padding:0 14px;background:rgba(255,255,255,.02)}
+.builder-advanced>summary{cursor:pointer;list-style:none;padding:13px 0;font-weight:800;font-size:.86rem;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.builder-advanced>summary::-webkit-details-marker{display:none}
+.builder-advanced>summary::after{content:'⌄';margin-left:auto;font-size:1rem;opacity:.75}
+.builder-advanced[open]>summary::after{content:'⌃'}
+.builder-advanced>summary small{font-weight:500;opacity:.7;font-size:.76rem}
+.builder-advanced[open]{padding-bottom:14px}
+.builder-advanced>summary:focus-visible{outline:2px solid #55edda;outline-offset:3px;border-radius:6px}
+html[data-theme="light"] .builder-advanced{border-color:#cadce3;background:#f7fbfc}

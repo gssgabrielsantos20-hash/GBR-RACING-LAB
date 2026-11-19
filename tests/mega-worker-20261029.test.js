@@ -9,7 +9,8 @@ const context={Blob,DecompressionStream,Response,Request,URL,atob,Uint8Array};vm
   assert.deepEqual(Buffer.from(await r.arrayBuffer()),fs.readFileSync(path.join(root,file)),file);
   count++;
  }
- assert.equal(count,199);
+ // Contagem derivada do manifesto (antes fixa em 199 e desatualizada a cada novo arquivo público).
+ assert.equal(count,Object.keys(manifest.files).length);
  for(const file of ['/_worker.js','/tests/mega-auditoria-20261029.test.js','/tests/colecoes-s12.test.js','/MANIFEST_PUBLICOS_BOOST_REFERENCES_20261109_SHA256.json','/AUDITORIA_MANIFEST_PUBLICOS_SHA256.json','/docs/adr/0005-auditoria-catalogo-novembro-2026.md','/RELATORIO_MEGA_AUDITORIA_20261029.md','/MIGRACAO_BIBLIOTECA_VISUAL_5_4.sql','/config.js.bak','/.env','/not-found']){
   assert.equal((await context.__worker.fetch(new Request('https://example.pages.dev'+file))).status,404,file+' private');
  }

@@ -1,0 +1,18 @@
+{
+  "version": "sincronizacao-worker-20261118",
+  "base_package": "GBR_RACING_LAB_ROTACOES_OFICIAIS_S10_S12_18NOV2026.zip",
+  "worker_routes": 205,
+  "worker_sha256_before": "5736aacd3d23a49e6a52eebaea57b3c6e693e36c70253c3558bcbc0d64e70ade",
+  "worker_sha256_after": "fd804176efee2e3dbc042015f20289b70ed16dafeebeb47627e6376791bfc243",
+  "routes_content_updated": {
+    "/events-gp.js": "0811ea4a1ba19224d6b88117490eb68b6f2bb4e41106819702391ee7e396b0ed",
+    "/gbr-pre-gp-ui.js": "a1b894b5e4c7f63809ad19a593b6982f2bc423c16c6f650b19b67a29274f362f",
+    "/gbr-pre-gp-engine.js": "e5a4015734604e2de6f22bce603680dd9a5bc0189761a194c99ce8ea6573be82"
+  },
+  "new_files": {
+    "tools/sincronizar-worker.mjs": "accb23f3f79ab1f5a0fec66db2a683327a2f2279e62c97be03c0c2af39594016"
+  },
+  "application_source_changed": false,
+  "supabase_schema_changed": false,
+  "deployment_published": false
+}

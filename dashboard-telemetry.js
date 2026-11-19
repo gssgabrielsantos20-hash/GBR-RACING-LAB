@@ -32,7 +32,8 @@
   $('dashGpBoost').textContent=chosen.eventBoost?'Boost: '+chosen.eventBoost:'Informações do evento';
   const img=$('dashGpImage');
   const image=String(chosen.image||'');
-  if(/^assets\/events\/[a-z0-9/-]+\.png$/.test(image))img.setAttribute('src',image);
+  // Aceita as extensões usadas em events-gp.js (Las Vegas e Catar são .webp); caminho continua restrito a assets/events/.
+  if(/^assets\/events\/[a-z0-9/-]+\.(png|webp|jpe?g)$/.test(image))img.setAttribute('src',image);
   img.alt='Arte de '+String(chosen.label||chosen.name||'evento GP');
   for(const id of ['dashGpOpen','dashGpDetails']){$(id).onclick=()=>{go('event');window.GBREvents?.select?.(chosen.id);};}
  }
@@ -50,21 +51,20 @@
    btn.setAttribute('aria-label','Abrir '+item.name);
    const head=document.createElement('div');head.className='telemetry-team-head';
    const num=document.createElement('span');num.className='telemetry-team-number';num.textContent=String(i+1).padStart(2,'0');
-   const title=document.createElement('span');title.className='telemetry-team-name';title.textContent=item.name;
-   head.append(num,title);
+   // Nome aparece uma vez só (no corpo do cartão); o cabeçalho mantém apenas o número colorido.
+   head.append(num);
    const body=document.createElement('div');body.className='telemetry-shortcut-body';
    const icon=document.createElement('span');icon.className='telemetry-shortcut-icon';icon.setAttribute('aria-hidden','true');icon.innerHTML=iconHTML(item.icon);
    const copy=document.createElement('div');copy.className='telemetry-shortcut-copy';
    const strong=document.createElement('strong');strong.textContent=item.name;
    const small=document.createElement('small');small.textContent=item.detail;
    copy.append(strong,small);body.append(icon,copy);
-   const hint=document.createElement('small');hint.className='telemetry-team-count';hint.textContent='Toque para abrir';
-   btn.append(head,body,hint);btn.onclick=()=>go(item.id);frag.appendChild(btn);
+   btn.append(head,body);btn.onclick=()=>go(item.id);frag.appendChild(btn);
   });
   node.setAttribute('aria-label','Atalhos do lab no painel');
   node.replaceChildren(frag);
   if($('dashTeamName'))$('dashTeamName').textContent='Atalhos do lab';
-  if($('dashTeamText'))$('dashTeamText').textContent='Montador, Duelos, Baús e Meus Setups com acesso direto pelo painel.';
+  if($('dashTeamText'))$('dashTeamText').textContent='Acesso direto às ferramentas.';
  }
  function activityRow(icon,title,detail){
   const row=document.createElement('div');row.className='telemetry-activity-row';

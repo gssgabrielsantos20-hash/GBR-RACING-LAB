@@ -1,0 +1,12 @@
+{
+  "name": "gbr-racing-lab",
+  "private": true,
+  "description": "GBR Racing Lab — central de setups e estratégias de F1 Clash (PWA estática).",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node tests/run-all.mjs",
+    "worker:check": "node tools/sincronizar-worker.mjs --check",
+    "worker:sync": "node tools/sincronizar-worker.mjs --write"
+  },
+  "engines": { "node": ">=20" }
+}

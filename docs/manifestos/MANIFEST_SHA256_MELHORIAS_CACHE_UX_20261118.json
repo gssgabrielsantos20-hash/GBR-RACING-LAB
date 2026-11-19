@@ -1,0 +1,31 @@
+{
+  "version": "melhorias-cache-ux-sdk-local-20261118",
+  "base_package": "GBR_RACING_LAB_WORKER_SINCRONIZADO_18NOV2026.zip",
+  "worker_routes": 206,
+  "worker_sha256_before": "fd804176efee2e3dbc042015f20289b70ed16dafeebeb47627e6376791bfc243",
+  "worker_sha256_after": "cabda97a77251619db8bd24fe88157baeda2db572635b6acb92d525d96ca34e3",
+  "modified_files": {
+    "dashboard-telemetry.js": "1031202302bc08821f57bc64b5e455dda399888bb7559d765e3c642a577f687b",
+    "index.html": "51d0494f7ac875de56ea952d9dc8ffc5bf91ffae757844f5e1239ff4048b509a",
+    "gbr-intelligence.js": "400eb4f1c859135784b8e4eb250e74bae8cc1e4b58e13b2dc2779b7d31653bb8",
+    "gbr-intelligence.css": "dbe5942f0a3a8af363fa4feac6b5ead54780dcb86cec9655edfffb680b76720a",
+    "mobile-premium.css": "8a1ba84b4735bc5c2a20c7d9fc6b596cb574733b6cff2290a03ebcc0fb271a44",
+    "builder-plus.css": "3b1ca71783213495b3ac26b1637c4ee18fcefb76daf30b0c8fb540ee8b592e3e",
+    "tests/mega-worker-20261029.test.js": "c3b99b5cdc69a5aaaf552f0e1a56dcb684a5c64b5d56a661b7809702029ec668",
+    "tests/regras-estruturais-20261118.test.js": "9b7db95b1e898610edcfc7f4dc88b58cad443b7ac1f6ca2b568ccf4ebf95aae2",
+    "supabase-sdk-loader.js": "67de0cffadd579bd19ec2ec644675a34d74e91e6dd8f0958ea79d8d9c9504433",
+    "tools/sincronizar-worker.mjs": "c7f73099b2764de3dbb0f7ebf05d2bdda18700d63e2c15a20264ed53289f053a"
+  },
+  "supabase_schema_changed": false,
+  "deployment_published": false,
+  "sdk": {
+    "file": "@supabase/supabase-js@2.57.0/dist/umd/supabase.js",
+    "size": 129604,
+    "integrity": "sha256-FJmM+nlMH6s/izxFy6pgyjchr1O4rKv6J2WPRT5Ssmc=",
+    "source": "data.jsdelivr.com",
+    "local_copy": "assets/js/vendor/supabase.js"
+  },
+  "new_files": {
+    "assets/js/vendor/supabase.js": "14998cfa794c1fab3f8b3c45cbaa60ca3721af53b8acabfa27658f453e52b267"
+  }
+}

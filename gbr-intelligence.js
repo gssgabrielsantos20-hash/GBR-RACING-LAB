@@ -62,13 +62,13 @@ const PREVIOUS_SERIES_ROTATIONS={
     ]
   }
 };
-// Gravação do jogo enviada em 04/11/2026: confirma circuito, voltas e focos.
+// Capturas do jogo enviadas em 18/11/2026: confirmam circuito, voltas e focos das Séries 10–12.
 // O vídeo NÃO exibe clima: usar null, nunca converter para seco ou misto por inferência.
 // Série 9 troca a cada ~7 dias; as Séries 10–12 mostram ~14 dias no vídeo.
 const SERIES_ROTATIONS={
  9:{
   updated:'2026-11-04',checked:'04/11/2026',label:'Duelos — Série 9',
-  notice:'Vídeo do jogo de 04/11/2026. Janela de 7 dias inferida do contador: verificar novamente em 11/11. Clima não informado no vídeo.',
+  notice:'Vídeo do jogo de 04/11/2026. Janela de 7 dias inferida do contador; clima não informado no vídeo.',
   rotation:[
    {id:'barcelona',name:'Barcelona',driver:'tyreUse',car:'speed',weather:null,laps:7},
    {id:'monza',name:'Monza',driver:'defending',car:'speed',weather:null,laps:4},
@@ -78,35 +78,36 @@ const SERIES_ROTATIONS={
  },
  10:{
   guide:'https://www.allclash.com/BEAT-SERIES-10-IN-F1-CLASH-BEST-CAR-SETUP-DRIVERS-PIT-STOP-STRATEGY-REC-BOOSTERS/',
-  updated:'2026-11-04',checked:'04/11/2026',label:'Duelos — Série 10',
-  notice:'Rotação observada no vídeo de 04/11/2026. Janela de 14 dias inferida do contador; clima não informado no vídeo.',
+  updated:'2026-11-18',checked:'18/11/2026',label:'Duelos — Série 10',
+  notice:'Rotação registrada a partir das capturas do jogo enviadas em 18/11/2026. Janela de aproximadamente 14 dias indicada pelo contador. Clima não informado; não inferir.',
   rotation:[
-   {id:'baku',name:'Baku',driver:'tyreUse',car:'power',weather:null,laps:7},
-   {id:'mexico',name:'Cidade do México',driver:'tyreUse',car:'power',weather:null,laps:9},
+   {id:'miami',name:'Miami',driver:'overtaking',car:'speed',weather:null,laps:6},
+   {id:'las-vegas',name:'Las Vegas',driver:'overtaking',car:'speed',weather:null,laps:6},
+   {id:'singapore',name:'Singapura',driver:'raceStart',car:'speed',weather:null,laps:6},
    {id:'barcelona',name:'Barcelona',driver:'tyreUse',car:'speed',weather:null,laps:10},
-   {id:'silverstone',name:'Silverstone',driver:'tyreUse',car:'speed',weather:null,laps:7}
+   {id:'lusail',name:'Lusail',driver:'raceStart',car:'speed',weather:null,laps:5}
   ]
  },
  11:{
   guide:'https://www.allclash.com/beat-series-11-in-f1-clash-best-car-setup-drivers-pit-stop-strategy-rec-boosters/',
-  updated:'2026-11-04',checked:'04/11/2026',label:'Duelos — Série 11',
-  notice:'Rotação observada no vídeo de 04/11/2026. Janela de 14 dias inferida do contador; clima não informado no vídeo.',
+  updated:'2026-11-18',checked:'18/11/2026',label:'Duelos — Série 11',
+  notice:'Rotação registrada a partir das capturas do jogo enviadas em 18/11/2026. Janela de aproximadamente 14 dias indicada pelo contador. Clima não informado; não inferir.',
   rotation:[
-   {id:'miami',name:'Miami',driver:'overtaking',car:'speed',weather:null,laps:6},
-   {id:'las-vegas',name:'Las Vegas',driver:'overtaking',car:'speed',weather:null,laps:6},
-   {id:'spa',name:'Spa-Francorchamps',driver:'overtaking',car:'power',weather:null,laps:6},
-   {id:'hungaroring',name:'Hungaroring',driver:'overtaking',car:'corner',weather:null,laps:8}
+   {id:'spielberg',name:'Spielberg',driver:'raceStart',car:'corner',weather:null,laps:7},
+   {id:'melbourne',name:'Melbourne',driver:'raceStart',car:'corner',weather:null,laps:9},
+   {id:'madrid',name:'Madrid',driver:'overtaking',car:'corner',weather:null,laps:6},
+   {id:'suzuka',name:'Suzuka',driver:'tyreUse',car:'corner',weather:null,laps:5}
   ]
  },
  12:{
   guide:'https://www.allclash.com/beat-series-12-in-f1-clash-best-car-setup-drivers-pit-stop-strategy-rec-boosters/',
-  updated:'2026-11-04',checked:'04/11/2026',label:'Duelos — Série 12',
-  notice:'Rotação observada no vídeo de 04/11/2026. Janela de 14 dias inferida do contador; clima não informado no vídeo.',
+  updated:'2026-11-18',checked:'18/11/2026',label:'Duelos — Série 12',
+  notice:'Rotação registrada a partir das capturas do jogo enviadas em 18/11/2026. Janela de aproximadamente 14 dias indicada pelo contador. Clima não informado; não inferir.',
   rotation:[
-   {id:'montreal',name:'Montreal',driver:'raceStart',car:'power',weather:null,laps:8},
-   {id:'melbourne',name:'Melbourne',driver:'raceStart',car:'corner',weather:null,laps:9},
-   {id:'spielberg',name:'Spielberg',driver:'raceStart',car:'corner',weather:null,laps:7},
-   {id:'singapore',name:'Singapura',driver:'raceStart',car:'speed',weather:null,laps:6}
+   {id:'shanghai',name:'Shanghai',driver:'defending',car:'power',weather:null,laps:7},
+   {id:'sakhir',name:'Sakhir',driver:'tyreUse',car:'power',weather:null,laps:8},
+   {id:'baku',name:'Baku',driver:'tyreUse',car:'power',weather:null,laps:7},
+   {id:'mexico',name:'Cidade do México',driver:'tyreUse',car:'power',weather:null,laps:9}
   ]
  }
 };
@@ -129,8 +130,8 @@ const LEGACY_ROTATION_START='2026-10-07';
 const LEGACY_ROTATION_END='2026-10-20';
 const PREVIOUS_ROTATION_START='2026-10-21';
 const PREVIOUS_ROTATION_END='2026-11-03';
-const ROTATION_START='2026-11-04';
-const ROTATION_END='2026-11-17';
+const ROTATION_START='2026-11-18';
+const ROTATION_END='2026-12-01';
 // Fim inferido da contagem regressiva no jogo; não reusar a janela de S10–S12 para S9.
 const SERIES_WINDOW_END=Object.freeze({9:'2026-11-10',10:ROTATION_END,11:ROTATION_END,12:ROTATION_END});
 const STAT_DRIVER=Object.freeze({defending:'Defesa',raceStart:'Largada',tyreUse:'Gerenciamento de pneus',overtaking:'Ultrapassagem'});
@@ -143,7 +144,7 @@ function localDay(now=new Date()){
 function rotationAt(today=localDay()){
  if(today>=ROTATION_START&&today<=ROTATION_END){
   const rotations=Object.fromEntries(Object.entries(SERIES_ROTATIONS).filter(([series])=>today<=SERIES_WINDOW_END[series]));
-  return {rotations,start:ROTATION_START,end:ROTATION_END,source:'Vídeo do F1 Clash gravado em 04/11/2026; pista, voltas e atributos visíveis',phase:'vigente'};
+  return {rotations,start:ROTATION_START,end:ROTATION_END,source:'Capturas do F1 Clash enviadas em 18/11/2026; pista, voltas e atributos visíveis',phase:'vigente'};
  }
  if(today>=PREVIOUS_ROTATION_START&&today<=PREVIOUS_ROTATION_END)
   return {rotations:PREVIOUS_SERIES_ROTATIONS,start:PREVIOUS_ROTATION_START,end:PREVIOUS_ROTATION_END,source:'Tabela de rotação 21/10–03/11/2026 fornecida pelo responsável',phase:'vigente'};
@@ -214,7 +215,9 @@ function syncDuelTrackOptions(series){
 function rotationRowsHTML(info,series,preview=false){
  if(!info)return '';
  return info.rotation.map((r,i)=>{
-  const details=r.laps?`<small class="gbr-intel-track-stats">${esc(STAT_DRIVER[r.driver])} · ${esc(STAT_CAR[r.car])} · ${esc(STAT_WEATHER[r.weather]||'Clima não informado')} · ${r.laps} voltas</small>`:'';
+  // Etiquetas por dado: foco do piloto, foco do carro, voltas e clima. Clima ausente continua explícito ("não informado"), só que discreto.
+  const weather=STAT_WEATHER[r.weather];
+  const details=r.laps?`<small class="gbr-intel-track-stats"><span class="gbr-intel-chip is-driver">${esc(STAT_DRIVER[r.driver])}</span><span class="gbr-intel-chip is-car">${esc(STAT_CAR[r.car])}</span><span class="gbr-intel-chip is-laps">${r.laps} voltas</span><span class="gbr-intel-chip is-weather${weather?'':' is-unknown'}">${esc(weather||'Clima não informado')}</span></small>`:'';
   const body=`<span class="gbr-intel-track-body"><b>${i+1}. ${esc(r.name)}</b>${details}</span>`;
   return preview?`<div class="gbr-intel-track-link" aria-label="Rotação não vigente: ${esc(r.name)}">${body}<small>Não vigente</small></div>`:
    `<button type="button" class="gbr-intel-track-link" data-gbr-duel-track="${esc(r.id)}" data-gbr-duel-series="${series}" aria-label="Abrir ${esc(r.name)} na Biblioteca de Pistas, Série ${series}" title="Abrir análise de ${esc(r.name)}">${body}<span class="gbr-intel-track-arrow" aria-hidden="true">↗</span></button>`;

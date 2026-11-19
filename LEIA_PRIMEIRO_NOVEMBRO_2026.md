@@ -1,6 +1,6 @@
 # GBR Racing Lab — Release candidate NOVEMBRO 2026
 
-Este ZIP é um **site estático completo para deploy manual no Cloudflare Pages** (testar primeiro em prévia/staging). Contém `_worker.js` com 177 arquivos públicos embutidos, os demais arquivos locais para conferência, testes e documentos não acessíveis pela rota HTTP.
+Este ZIP é um **site estático completo para deploy manual no Cloudflare Pages** (testar primeiro em prévia/staging). Contém `_worker.js` com 206 arquivos públicos embutidos (contagem conferida em 18/11/2026; verifique com `node tools/sincronizar-worker.mjs --check`), os demais arquivos locais para conferência, testes e documentos não acessíveis pela rota HTTP.
 
 1. Faça backup do último deploy funcional: `GBR_RACING_LAB_3_COLECOES_S12_ROTULO_LIMPO_TESTE.zip`.
 2. Importe **este ZIP completo** em um projeto/ambiente de teste do Cloudflare Pages, não envie apenas `index.html` ou subpastas.

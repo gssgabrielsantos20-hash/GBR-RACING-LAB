@@ -197,3 +197,30 @@ body.gbr-help-open{overflow:hidden}
 .help-manual-download a:focus-visible{outline:2px solid #00cfd3;outline-offset:4px}
 .gbr-onetime-code{display:block;width:100%;box-sizing:border-box;margin:9px 0;padding:12px 14px;font-family:monospace;font-size:14px;letter-spacing:.5px;overflow-wrap:anywhere;background:#09232a;color:#adfcf4;border:1px solid #1c9d9e;border-radius:9px}
 .gbr-onetime-code[hidden]{display:none!important}
+
+/* 18/11/2026 — Início no celular: o evento GP vem logo após o destaque, antes dos indicadores (ADR 0022).
+   Só reordena visualmente; DOM, ids e navegação por teclado/leitor seguem a ordem original. */
+@media(max-width:700px){
+ #dashboard:not(.hide){display:flex;flex-direction:column}
+ #dashboard:not(.hide)>.telemetry-dashboard-panels{display:contents}
+ #dashboard:not(.hide)>.telemetry-hero{order:0}
+ #dashboard:not(.hide) .telemetry-event{order:1}
+ #dashboard:not(.hide)>#dashStats{order:2}
+ #dashboard:not(.hide) .telemetry-team{order:3}
+ #dashboard:not(.hide) .telemetry-activity{order:4}
+ #dashboard:not(.hide)>.gbr-ux-guide{order:5}
+ #dashboard:not(.hide)>.telemetry-help{order:6}
+}
+
+/* 19/11/2026 — legibilidade e toque no celular (ADR 0025): texto mínimo 11 px e alvos de 44 px. */
+@media(max-width:700px){
+ .eyebrow,.kicker,.gbr-ux-eyebrow,.telemetry-overline,.telemetry-event-status,.telemetry-stat-detail,
+ .telemetry-text-button,.telemetry-shortcut-caption,.auth-indicator,#dashGpTracks,#dashGpBoost,
+ .btn.primary,.btn.outline,#dashboard small,.auth-card small,.gate small{font-size:11px!important;letter-spacing:.06em}
+ #dashTeamName,#dashTeamText,.footer,#modeSignup,#forgotPassword,#demoBtn,.auth-card label,.gate label{font-size:12px!important}
+ .help-trigger{min-width:44px!important;min-height:44px!important}
+ .telemetry-text-button,#dashGpDetails,#modeSignup,#forgotPassword,#demoBtn{min-height:44px;display:inline-flex;align-items:center}
+ .gbr-ux-guide-toggle{min-height:44px}
+ #dashStats small{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;line-height:1.25;display:block}
+ .gbr-ux-login-helper span:not(.gbr-ux-login-dot){color:rgba(225,244,246,.86)!important;font-size:12px!important}
+}

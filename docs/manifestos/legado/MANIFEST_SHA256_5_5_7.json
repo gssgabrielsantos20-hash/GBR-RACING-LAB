@@ -1,0 +1,250 @@
+{
+  "version": "5.5.7",
+  "baseline": "5.5.6",
+  "assets": {
+    "/MANIFEST_SHA256_5_5_5.json": {
+      "sha256": "a213151127ae33c416da013dcead0a406647ac74cc3d6d240b8ee38d18d16ef4",
+      "mime": "application/json"
+    },
+    "/MANIFEST_SHA256_5_5_6.json": {
+      "sha256": "575222b3770503b7dc252bb1b44f6c37c6dfe37f587c8753659fa5d4df026bcc",
+      "mime": "application/json"
+    },
+    "/NOTAS_VERSAO_5_5_5.md": {
+      "sha256": "23ba4c526db35f20a4b2a4cdfd91cd90a8386dbcf6aa8c002a5d8ee91d920bdd",
+      "mime": "text/markdown"
+    },
+    "/NOTAS_VERSAO_5_5_6.md": {
+      "sha256": "08262020d873b78d49a23d9c41d6c57b1d25e2ae5a7e954a20609879c29e2649",
+      "mime": "text/markdown"
+    },
+    "/NOTAS_VERSAO_5_5_7.md": {
+      "sha256": "e4b1b964b967e0054bfd8997a5db34c473d250b153548ec8c5cc5babed4e0b15",
+      "mime": "text/markdown"
+    },
+    "/RELATORIO_AJUSTE_EQUIPES_5_5_6.md": {
+      "sha256": "2698068ef9ff978900d2488d9459a954a54eb80fd874dcd6607eddba4318af25",
+      "mime": "text/markdown"
+    },
+    "/RELATORIO_CORRECAO_HILL_5_5_5.md": {
+      "sha256": "c43ea8bb50445bd0f430621d92a0b8ac54ded683a9306fdd450796c4619f8f19",
+      "mime": "text/markdown"
+    },
+    "/RELATORIO_FAVORITOS_5_5_7.md": {
+      "sha256": "c688a39fa35b17e73d52f1a7d9b12ce5d3fdac3297b4f2e4f757c3df8beaba6a",
+      "mime": "text/markdown"
+    },
+    "/app.js": {
+      "sha256": "06dd80985808215eeb3b5a572a411948791d4fa63bd37bfe462e8b8c269c450a",
+      "mime": "application/javascript"
+    },
+    "/assets/apple-touch-icon.png": {
+      "sha256": "e266773cdcbdbc8f8d807b0338d1738f9e2154bd67e55176f936f248388a3bfe",
+      "mime": "image/png"
+    },
+    "/assets/chests/dourado.png": {
+      "sha256": "c678d6dedf650fd76bc45edcf535a7fc99c6c516fa864bd10b97747ae8502817",
+      "mime": "image/png"
+    },
+    "/assets/chests/lendario.png": {
+      "sha256": "218a7e657f2cf27dabc911ad4b2540865ee0c7b0a790fb9b5d6091ad951fceed",
+      "mime": "image/png"
+    },
+    "/assets/chests/platina.png": {
+      "sha256": "52b775a387ef0b6f104fc6fe03f2e72f87c40a1955ddfbf544bed04ea244afd0",
+      "mime": "image/png"
+    },
+    "/assets/chests/verde.png": {
+      "sha256": "5bb03738af7e5a66abdcefb99f6d65d1e76c54e7155c7747cdfa822e2cfe15b6",
+      "mime": "image/png"
+    },
+    "/assets/events/nightmare-fuel-2026.png": {
+      "sha256": "6f5e12ed10b8ed271e34016873bb194ce0b8b5055e06af32d36014a0f49f3b8a",
+      "mime": "image/png"
+    },
+    "/assets/events/us-gp-2026.png": {
+      "sha256": "f7b44e2b7eae6aaf5f848d062e276d6f74a92e3996e7e37f50e53b8b20eab54a",
+      "mime": "image/png"
+    },
+    "/assets/icon-192.png": {
+      "sha256": "953269eef9690e06d57b85255156e3535312962ada9643c350cc1b044b2061f2",
+      "mime": "image/png"
+    },
+    "/assets/icon-512.png": {
+      "sha256": "d26423c7fc44611106273c5453e8d9c2ab4a798f302542679303d0d817e1aa3b",
+      "mime": "image/png"
+    },
+    "/assets/icon-maskable-512.png": {
+      "sha256": "1bfc6e46d52b7be37b0f61a0d877465f7400d34c5408205933dee74304c13f9e",
+      "mime": "image/png"
+    },
+    "/assets/icon.svg": {
+      "sha256": "377cd72eec1233335d47b4c03054ce2f846dd1e536ecb61178b8e814457853cb",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/baus_container.svg": {
+      "sha256": "599fb5bbef7298d38dcdbc37a7108403fabf643f21cf27665d44622c457a1bc5",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/baus_origem_recebida.svg": {
+      "sha256": "3c8c8c6f7071697d415cab14a6ca2e8160abb793f94a8b0f5e9155059de93fe0",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/duelos.svg": {
+      "sha256": "0f5013c4e6321338c3faa664df2df56515c7d312e40d950599a96a55e26e5df3",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/equipes.svg": {
+      "sha256": "a83d63e947f6bdf3c97d51225881c61e56208a43d383a4ed9fc5d3cc8f320795",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/garagem.svg": {
+      "sha256": "bb477e7b8f531de84bac926b7197aba9256a19d194f51b48ae1218634544fa30",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/montador.svg": {
+      "sha256": "ff40cf38b6c1058e7f546510bcc023ee81c81c5a77b333041db741a85151d277",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/painel.svg": {
+      "sha256": "d16d3ba7591803243fe6466691593de7f44d1bf36b3f5218d66c00efbe6aac4b",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/pistas.svg": {
+      "sha256": "3550934d8522bdd160a438c00725aa89f338fca4f53e688e0202ad02cf915792",
+      "mime": "image/svg+xml"
+    },
+    "/auditoria-imagens.html": {
+      "sha256": "1130c2f2d154d1a55283943cfea2a8e782fd617876ee224316e8ab3993bb22e5",
+      "mime": "text/html"
+    },
+    "/auditoria-imagens.js": {
+      "sha256": "a8cf4d9d222ff758ae69fc643bc53048b752ce0b22b2ec55c0b4b869f3265772",
+      "mime": "application/javascript"
+    },
+    "/boosts-plus.css": {
+      "sha256": "00c6de986271ea0e2e428596a6c63768585c91a842268acebe830c1777aed286",
+      "mime": "text/css"
+    },
+    "/boosts-plus.js": {
+      "sha256": "56edb3c218d20ad02cb840fa1b5f36c76243b1ad145545319acc6cb5bb7b97ae",
+      "mime": "application/javascript"
+    },
+    "/builder-plus.css": {
+      "sha256": "f1547bfb667cad2b58e7ba67454bf199b84fc612b42c1140c0339ca12a9f2327",
+      "mime": "text/css"
+    },
+    "/builder-plus.js": {
+      "sha256": "ec05d24dda776e5708a35b46970ca3fd1e1ebe5f40257dfd3a676c9531066487",
+      "mime": "application/javascript"
+    },
+    "/card-art.css": {
+      "sha256": "eea92b6b63b219b4b6bcec2ba033e4edf85cc18ae64462fa0d4ded4f338610a3",
+      "mime": "text/css"
+    },
+    "/card-art.js": {
+      "sha256": "e91a6464a145f3adf9389d623e91ff3613c67f2a574b58a36198c1fb2e4341ef",
+      "mime": "application/javascript"
+    },
+    "/catalog.js": {
+      "sha256": "f3602347ff0b7abcc8779544513084624a1a8c53e8858743bd4e922b048f5c49",
+      "mime": "application/javascript"
+    },
+    "/chests.js": {
+      "sha256": "a54d00818be6c7e8435276ab3f7d6a56e8744fa442dc5ed906ff581345bb5a6c",
+      "mime": "application/javascript"
+    },
+    "/cloud.js": {
+      "sha256": "5ca11de27d1a11311e467d20f3445837bfa104034f5816ce2c8f67182f9b18ff",
+      "mime": "application/javascript"
+    },
+    "/config.js": {
+      "sha256": "28407787ba20c8c2cb22fd4bf1f1e8608e0bb63f6af6bbd076c9d8ded0e61374",
+      "mime": "application/javascript"
+    },
+    "/events-gp.css": {
+      "sha256": "b9c1ae94f52f0c07d112506c5ecfd18304d06cf1e6d2acc056e3e90caaf60801",
+      "mime": "text/css"
+    },
+    "/events-gp.js": {
+      "sha256": "f6d73b26143801064aa21be869d5e3a5880a1b43bb9ee4459044636abbcac40c",
+      "mime": "application/javascript"
+    },
+    "/f1-racing.css": {
+      "sha256": "9981eebfda31a346a0a7f1e3fe73a9d64d63122ae857423aa9818d3f222687b3",
+      "mime": "text/css"
+    },
+    "/f1-racing.js": {
+      "sha256": "1a636284b4137b4c51b9d00a927890b934ab2d52ff0b4568e6213ff4316accfc",
+      "mime": "application/javascript"
+    },
+    "/favorites-model.js": {
+      "sha256": "d64110e4d199b068ab8cdb7d40a3024cb2894b4a86fbf95ee6ff4d8e01ba05d6",
+      "mime": "application/javascript"
+    },
+    "/favorites.css": {
+      "sha256": "15de63e089adb8f48469808e9a40f6148b874d9512600eaf5580d638076d4405",
+      "mime": "text/css"
+    },
+    "/favorites.js": {
+      "sha256": "f60cb69d9e5eb8702a6ad7f846e24f3ba6e42e96a5a295d7cc1dbfa2aa46b504",
+      "mime": "application/javascript"
+    },
+    "/garage-plus.css": {
+      "sha256": "d59c269c95d4062ec6e533e0bc1c5ecfba53b0e6ac87ad9bed6ed3d3fe59e83e",
+      "mime": "text/css"
+    },
+    "/garage-plus.js": {
+      "sha256": "a37082807aaf359829c06b08e521b1b1d221b5ab5db8cb16a2e981248a735be6",
+      "mime": "application/javascript"
+    },
+    "/gbr-intelligence.css": {
+      "sha256": "556e3b2fcecbc25002c21b1007d0b79f636da7a1b536b8da7ce842114b1c634b",
+      "mime": "text/css"
+    },
+    "/gbr-intelligence.js": {
+      "sha256": "3bdb052e5dbbdd243cd619b159d97fa29445e9d3853dd32ea9bae3a4b82d465e",
+      "mime": "application/javascript"
+    },
+    "/index.html": {
+      "sha256": "38edbb8acc6ab9f7d04c287729fdca74820f47aca4add3862c3b138c8a6b2915",
+      "mime": "text/html"
+    },
+    "/manifest.webmanifest": {
+      "sha256": "dcd3f67065cc5ae402f819eea0b48850529ace4a783a42e9a3e3a4511675cd9f",
+      "mime": "application/manifest+json"
+    },
+    "/mobile-premium.css": {
+      "sha256": "509b9f020422f3e1400d445637f5b88d92073850a46d857673dca82aa9d786ac",
+      "mime": "text/css"
+    },
+    "/mobile-premium.js": {
+      "sha256": "ac53e22cc8d88d20fa31863a38c4a23031e14f6d3ea4c3b44e06a8a8f42790b5",
+      "mime": "application/javascript"
+    },
+    "/navigation-icons.css": {
+      "sha256": "ee61111ba7d581f42472281554eb47907e58f20175ff4b6827fac00f367a9c6c",
+      "mime": "text/css"
+    },
+    "/navigation-icons.js": {
+      "sha256": "8e9df2b06d2c8e068e5db04a344b203727956b9514d62f9c3ae732b2584efbbd",
+      "mime": "application/javascript"
+    },
+    "/notices.css": {
+      "sha256": "c6a448a35bbfb2f97922353dba25be73047e6880bfcdfb40224ef1b32d457b16",
+      "mime": "text/css"
+    },
+    "/notices.js": {
+      "sha256": "f20efbb31b793025c647913b49b198776d330bfa766bc1c02180d13a9345bf8e",
+      "mime": "application/javascript"
+    },
+    "/race.css": {
+      "sha256": "cc1ea55689c409e1847337532541297bb12ed40c9a58cbcf77c752621998a2eb",
+      "mime": "text/css"
+    },
+    "/sw.js": {
+      "sha256": "58612f9069e602a1f02d87915def6066363c216a8240ec7b4523eee5a7755bd1",
+      "mime": "application/javascript"
+    }
+  }
+}

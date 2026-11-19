@@ -1,0 +1,81 @@
+{
+  "tests": [
+    {
+      "name": "GP Nightmare 8 provas",
+      "passed": true
+    },
+    {
+      "name": "Qualificatório 4 provas",
+      "passed": true
+    },
+    {
+      "name": "7 pistas distintas",
+      "passed": true
+    },
+    {
+      "name": "Chuva 100% Silverstone",
+      "passed": true
+    },
+    {
+      "name": "Datas e fontes identificadas",
+      "passed": true
+    },
+    {
+      "name": "Bônus 10% ativo somente no evento vigente",
+      "passed": true
+    },
+    {
+      "name": "Bônus não aplicado ao encerrar",
+      "passed": true
+    },
+    {
+      "name": "Bônus não aplicado antes do evento",
+      "passed": true
+    },
+    {
+      "name": "Bônus do GP Estados Unidos ainda inativo",
+      "passed": true
+    },
+    {
+      "name": "Lendário permitido Nightmare",
+      "passed": true
+    },
+    {
+      "name": "Lendário vedado Estados Unidos",
+      "passed": true
+    },
+    {
+      "name": "Dupla selecionada sem repetir identidade",
+      "passed": true
+    },
+    {
+      "name": "Não modifica a garagem pessoal",
+      "passed": true
+    },
+    {
+      "name": "CSS e scripts da 5.5 vinculados ao HTML",
+      "passed": true
+    },
+    {
+      "name": "24 pistas na fonte",
+      "passed": true
+    },
+    {
+      "name": "Biblioteca visual compartilhada preservada",
+      "passed": true
+    },
+    {
+      "name": "Importação por print preservada",
+      "passed": true
+    },
+    {
+      "name": "Série 12 recomendações rastreáveis",
+      "passed": true
+    }
+  ],
+  "passed": 18,
+  "total": 18,
+  "all_pass": true,
+  "browser_visual": "bloqueado pelo ambiente / não executado",
+  "safari_real": "pendente de homologação"
+}

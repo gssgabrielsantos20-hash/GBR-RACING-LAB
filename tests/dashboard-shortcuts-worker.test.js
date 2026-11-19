@@ -1,0 +1,25 @@
+/* GBR Racing Lab — valida o Painel com quatro atalhos e o Worker empacotado. */
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const zlib=require('node:zlib');
+const root=path.join(__dirname,'..');
+const read=name=>fs.readFileSync(path.join(root,name),'utf8');
+const worker=read('_worker.js');
+const tick=String.fromCharCode(96);
+const expression=new RegExp('const compressed\\s*=\\s*'+tick+'([\\s\\S]*?)'+tick+';');
+const match=worker.match(expression);
+assert.ok(match,'Worker sem bundle');
+const assets=JSON.parse(zlib.gunzipSync(Buffer.from(match[1].replace(/\s+/g,''),'base64')));
+assert.equal(Object.keys(assets).length,72);
+for(const [key,entry] of Object.entries(assets))assert.deepEqual(Buffer.from(entry.b,'base64'),fs.readFileSync(path.join(root,key.slice(1))),key);
+const html=read('index.html');
+const panel=html.slice(html.indexOf('id="dashboard"'),html.indexOf('id="builder"'));
+assert.ok(panel.includes('ATALHOS DO LAB'));
+assert.ok(!panel.includes('VER EQUIPES'));
+assert.ok(!html.includes('EQUIPES 04/04'));
+assert.ok(html.includes('data-tab="academy"'));
+for(const name of ['Montador','Duelos','Baús','Meus setups'])assert.ok(read('dashboard-telemetry.js').includes("name:'"+name+"'"),name);
+assert.equal(assets['/tests/dashboard-shortcuts-worker.test.js'],undefined);
+assert.equal(assets['/MIGRACAO_BIBLIOTECA_VISUAL_5_4.sql'],undefined);
+console.log('OK: Worker e atalhos preservados, Equipes apenas na navegação.');

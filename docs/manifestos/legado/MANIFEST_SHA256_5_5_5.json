@@ -1,0 +1,207 @@
+{
+  "version": "5.5.5",
+  "base_version": "5.5.4",
+  "purpose": "Corrigir Graham Hill / Damon Hill",
+  "assets": {
+    "/app.js": {
+      "sha256": "e4d57f0d111e32baf1ec6b608e066f2499656e9f434b40de3dc6b7c6da9267cd",
+      "mime": "application/javascript"
+    },
+    "/assets/apple-touch-icon.png": {
+      "sha256": "e266773cdcbdbc8f8d807b0338d1738f9e2154bd67e55176f936f248388a3bfe",
+      "mime": "image/png"
+    },
+    "/assets/chests/dourado.png": {
+      "sha256": "c678d6dedf650fd76bc45edcf535a7fc99c6c516fa864bd10b97747ae8502817",
+      "mime": "image/png"
+    },
+    "/assets/chests/lendario.png": {
+      "sha256": "218a7e657f2cf27dabc911ad4b2540865ee0c7b0a790fb9b5d6091ad951fceed",
+      "mime": "image/png"
+    },
+    "/assets/chests/platina.png": {
+      "sha256": "52b775a387ef0b6f104fc6fe03f2e72f87c40a1955ddfbf544bed04ea244afd0",
+      "mime": "image/png"
+    },
+    "/assets/chests/verde.png": {
+      "sha256": "5bb03738af7e5a66abdcefb99f6d65d1e76c54e7155c7747cdfa822e2cfe15b6",
+      "mime": "image/png"
+    },
+    "/assets/events/nightmare-fuel-2026.png": {
+      "sha256": "6f5e12ed10b8ed271e34016873bb194ce0b8b5055e06af32d36014a0f49f3b8a",
+      "mime": "image/png"
+    },
+    "/assets/events/us-gp-2026.png": {
+      "sha256": "f7b44e2b7eae6aaf5f848d062e276d6f74a92e3996e7e37f50e53b8b20eab54a",
+      "mime": "image/png"
+    },
+    "/assets/icon-192.png": {
+      "sha256": "953269eef9690e06d57b85255156e3535312962ada9643c350cc1b044b2061f2",
+      "mime": "image/png"
+    },
+    "/assets/icon-512.png": {
+      "sha256": "d26423c7fc44611106273c5453e8d9c2ab4a798f302542679303d0d817e1aa3b",
+      "mime": "image/png"
+    },
+    "/assets/icon-maskable-512.png": {
+      "sha256": "1bfc6e46d52b7be37b0f61a0d877465f7400d34c5408205933dee74304c13f9e",
+      "mime": "image/png"
+    },
+    "/assets/icon.svg": {
+      "sha256": "377cd72eec1233335d47b4c03054ce2f846dd1e536ecb61178b8e814457853cb",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/baus_container.svg": {
+      "sha256": "599fb5bbef7298d38dcdbc37a7108403fabf643f21cf27665d44622c457a1bc5",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/baus_origem_recebida.svg": {
+      "sha256": "3c8c8c6f7071697d415cab14a6ca2e8160abb793f94a8b0f5e9155059de93fe0",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/duelos.svg": {
+      "sha256": "0f5013c4e6321338c3faa664df2df56515c7d312e40d950599a96a55e26e5df3",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/equipes.svg": {
+      "sha256": "a83d63e947f6bdf3c97d51225881c61e56208a43d383a4ed9fc5d3cc8f320795",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/garagem.svg": {
+      "sha256": "bb477e7b8f531de84bac926b7197aba9256a19d194f51b48ae1218634544fa30",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/montador.svg": {
+      "sha256": "ff40cf38b6c1058e7f546510bcc023ee81c81c5a77b333041db741a85151d277",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/painel.svg": {
+      "sha256": "d16d3ba7591803243fe6466691593de7f44d1bf36b3f5218d66c00efbe6aac4b",
+      "mime": "image/svg+xml"
+    },
+    "/assets/navigation/pistas.svg": {
+      "sha256": "3550934d8522bdd160a438c00725aa89f338fca4f53e688e0202ad02cf915792",
+      "mime": "image/svg+xml"
+    },
+    "/auditoria-imagens.html": {
+      "sha256": "1130c2f2d154d1a55283943cfea2a8e782fd617876ee224316e8ab3993bb22e5",
+      "mime": "text/html"
+    },
+    "/auditoria-imagens.js": {
+      "sha256": "a8cf4d9d222ff758ae69fc643bc53048b752ce0b22b2ec55c0b4b869f3265772",
+      "mime": "application/javascript"
+    },
+    "/boosts-plus.css": {
+      "sha256": "00c6de986271ea0e2e428596a6c63768585c91a842268acebe830c1777aed286",
+      "mime": "text/css"
+    },
+    "/boosts-plus.js": {
+      "sha256": "56edb3c218d20ad02cb840fa1b5f36c76243b1ad145545319acc6cb5bb7b97ae",
+      "mime": "application/javascript"
+    },
+    "/builder-plus.css": {
+      "sha256": "f1547bfb667cad2b58e7ba67454bf199b84fc612b42c1140c0339ca12a9f2327",
+      "mime": "text/css"
+    },
+    "/builder-plus.js": {
+      "sha256": "ec05d24dda776e5708a35b46970ca3fd1e1ebe5f40257dfd3a676c9531066487",
+      "mime": "application/javascript"
+    },
+    "/card-art.css": {
+      "sha256": "eea92b6b63b219b4b6bcec2ba033e4edf85cc18ae64462fa0d4ded4f338610a3",
+      "mime": "text/css"
+    },
+    "/card-art.js": {
+      "sha256": "e91a6464a145f3adf9389d623e91ff3613c67f2a574b58a36198c1fb2e4341ef",
+      "mime": "application/javascript"
+    },
+    "/catalog.js": {
+      "sha256": "f3602347ff0b7abcc8779544513084624a1a8c53e8858743bd4e922b048f5c49",
+      "mime": "application/javascript"
+    },
+    "/chests.js": {
+      "sha256": "a54d00818be6c7e8435276ab3f7d6a56e8744fa442dc5ed906ff581345bb5a6c",
+      "mime": "application/javascript"
+    },
+    "/cloud.js": {
+      "sha256": "5ca11de27d1a11311e467d20f3445837bfa104034f5816ce2c8f67182f9b18ff",
+      "mime": "application/javascript"
+    },
+    "/config.js": {
+      "sha256": "28407787ba20c8c2cb22fd4bf1f1e8608e0bb63f6af6bbd076c9d8ded0e61374",
+      "mime": "application/javascript"
+    },
+    "/events-gp.css": {
+      "sha256": "b9c1ae94f52f0c07d112506c5ecfd18304d06cf1e6d2acc056e3e90caaf60801",
+      "mime": "text/css"
+    },
+    "/events-gp.js": {
+      "sha256": "f6d73b26143801064aa21be869d5e3a5880a1b43bb9ee4459044636abbcac40c",
+      "mime": "application/javascript"
+    },
+    "/f1-racing.css": {
+      "sha256": "9981eebfda31a346a0a7f1e3fe73a9d64d63122ae857423aa9818d3f222687b3",
+      "mime": "text/css"
+    },
+    "/f1-racing.js": {
+      "sha256": "1a636284b4137b4c51b9d00a927890b934ab2d52ff0b4568e6213ff4316accfc",
+      "mime": "application/javascript"
+    },
+    "/garage-plus.css": {
+      "sha256": "d59c269c95d4062ec6e533e0bc1c5ecfba53b0e6ac87ad9bed6ed3d3fe59e83e",
+      "mime": "text/css"
+    },
+    "/garage-plus.js": {
+      "sha256": "a37082807aaf359829c06b08e521b1b1d221b5ab5db8cb16a2e981248a735be6",
+      "mime": "application/javascript"
+    },
+    "/gbr-intelligence.css": {
+      "sha256": "556e3b2fcecbc25002c21b1007d0b79f636da7a1b536b8da7ce842114b1c634b",
+      "mime": "text/css"
+    },
+    "/gbr-intelligence.js": {
+      "sha256": "3bdb052e5dbbdd243cd619b159d97fa29445e9d3853dd32ea9bae3a4b82d465e",
+      "mime": "application/javascript"
+    },
+    "/index.html": {
+      "sha256": "ed80164ed3cc154032d264d7915280a11d6396a78d796bd99c4457610917090a",
+      "mime": "text/html"
+    },
+    "/manifest.webmanifest": {
+      "sha256": "dcd3f67065cc5ae402f819eea0b48850529ace4a783a42e9a3e3a4511675cd9f",
+      "mime": "application/manifest+json"
+    },
+    "/mobile-premium.css": {
+      "sha256": "509b9f020422f3e1400d445637f5b88d92073850a46d857673dca82aa9d786ac",
+      "mime": "text/css"
+    },
+    "/mobile-premium.js": {
+      "sha256": "3c4277422fac4c5f2c96114d2e25bfb9d5350bac95ad3c06194d625629be54ef",
+      "mime": "application/javascript"
+    },
+    "/navigation-icons.css": {
+      "sha256": "ee61111ba7d581f42472281554eb47907e58f20175ff4b6827fac00f367a9c6c",
+      "mime": "text/css"
+    },
+    "/navigation-icons.js": {
+      "sha256": "8e9df2b06d2c8e068e5db04a344b203727956b9514d62f9c3ae732b2584efbbd",
+      "mime": "application/javascript"
+    },
+    "/notices.css": {
+      "sha256": "c6a448a35bbfb2f97922353dba25be73047e6880bfcdfb40224ef1b32d457b16",
+      "mime": "text/css"
+    },
+    "/notices.js": {
+      "sha256": "f20efbb31b793025c647913b49b198776d330bfa766bc1c02180d13a9345bf8e",
+      "mime": "application/javascript"
+    },
+    "/race.css": {
+      "sha256": "cc1ea55689c409e1847337532541297bb12ed40c9a58cbcf77c752621998a2eb",
+      "mime": "text/css"
+    },
+    "/sw.js": {
+      "sha256": "58612f9069e602a1f02d87915def6066363c216a8240ec7b4523eee5a7755bd1",
+      "mime": "application/javascript"
+    }
+  }
+}

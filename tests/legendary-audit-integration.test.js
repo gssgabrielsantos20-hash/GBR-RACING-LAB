@@ -1,0 +1,22 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const path=require('node:path');
+const root=path.resolve(__dirname,'..');
+const source=name=>fs.readFileSync(path.join(root,name),'utf8');
+const ctx={window:{}};
+vm.createContext(ctx);
+for(const file of ['legendary-drivers.js','catalog.js'])vm.runInContext(source(file),ctx);
+const raw=source('auditoria-imagens.js');
+// Lista do auditor é preparada antes de qualquer ação de gravação ou DOM.
+const snippet=raw.slice(raw.indexOf('const pieces='),raw.indexOf('const statuses='));
+ctx.art={overrideKey:(item,kind)=>kind+'|'+String(item.name).toLowerCase()+'|'+item.rarity+'|'+(item.editionLabel||'').toLowerCase()};
+ctx.ref=ctx.window.F1Reference;
+vm.runInContext(snippet+'\nwindow.__items=items;',ctx);
+const legends=ctx.window.__items.filter(x=>x.kind==='drivers'&&x.rarity==='Legendary');
+const unique=new Set(legends.map(x=>x.name));
+const all=ctx.window.GBRLegendaryDrivers.all.map(x=>x.name);
+for(const name of all)assert(unique.has(name),'faltando no editor '+name);
+assert(unique.has('D. Hill'),'chave legada para foto compartilhada preservada');
+assert.equal(all.length,22);
+console.log(`OK: Biblioteca Visual apresenta os 22 lendários e mantém a entrada legada D. Hill (total ${unique.size}).`);
